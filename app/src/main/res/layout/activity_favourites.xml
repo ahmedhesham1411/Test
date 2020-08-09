@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="favouritesVM"
+            type="com.uriallab.haat.haat.viewModels.FavouritesViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:onClick="@{()->favouritesVM.back()}"
+                android:layout_marginStart="10dp"
+                android:id="@+id/frame_back"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:rotation="@{favouritesVM.rotate}"
+                    android:id="@+id/back_img"
+                    android:layout_gravity="center"
+                    android:background="@drawable/arrow_left"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/favourites"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_marginEnd="10dp"
+                android:id="@+id/frame_share"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_above="@id/fav_lin"
+            android:layout_below="@id/lin1"
+            android:layout_marginBottom="-15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:id="@+id/fav_lin"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bottom_sheet_background"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_favourites"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:nestedScrollingEnabled="true"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

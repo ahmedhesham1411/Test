@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.uriallab.haat.haat">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name=".Utilities.MyApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".UI.Activities.ScanCriedtCardActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize"/>
+        <activity android:name=".UI.Activities.RegisterAsDriver.ThirdStepActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize"/>
+        <activity android:name=".UI.Activities.RegisterAsDriver.SecondStepActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize"/>
+        <activity android:name=".UI.Activities.RegisterAsDriver.FirstStepActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize"/>
+        <activity android:name=".UI.Activities.RegisterAsDriver.TermsAndConditionsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize"/>
+        <activity
+            android:name=".UI.Activities.Updates.PhotoViewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.ConfirmPaymentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.Updates.HatOnlineStoreActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.Updates.StoresActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.makeOrder.OtherBranchesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.PaymentGateActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemePayment"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <data android:scheme="haat" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UI.Activities.TrackDriverActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.ChatDriverActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.DriverNewOrderActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.AddOfferActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.CreateInvoiceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.SentSuccessfullyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.utilsAndAccountInfo.MyAccountDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.AddCouponActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.utilsAndAccountInfo.ContactUsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.utilsAndAccountInfo.CommentsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.utilsAndAccountInfo.ComplaintDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.utilsAndAccountInfo.ComplaintListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.utilsAndAccountInfo.PrivacyUseActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.utilsAndAccountInfo.LanguageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.utilsAndAccountInfo.SettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.Auth.ChangePasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.utilsAndAccountInfo.EditProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.makeOrder.DeliveringTimeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.makeOrder.DelivieringLocationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.makeOrder.FavouritesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.makeOrder.MakeOrderStepTwoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.makeOrder.MakeOrderFirstStepActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize">
+            <intent-filter>
+                <action android:name="MainActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".UI.Activities.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UI.Activities.Auth.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.Auth.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.makeOrder.StoreDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
+                <data
+                    android:host="haat.com"
+                    android:pathPrefix="/"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UI.Activities.StoreUsersReviewsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.Auth.CodeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.AllOffersActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".UI.Activities.ChatActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="haat" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/api_key" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_logo" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/notification_channel_id" />
+        <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.hathat.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <service
+            android:name="com.oppwa.mobile.connect.service.ConnectService"
+            android:exported="false" />
+        <service
+            android:name=".Service.MyFirebaseMessagingService"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".LocalNotification.TrackingDelegate"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
+
+</manifest>

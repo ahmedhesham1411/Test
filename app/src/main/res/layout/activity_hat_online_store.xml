@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="hatOnlineStoreVM"
+            type="com.uriallab.haat.haat.viewModels.HatOnlineStoreViewModel" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:onClick="@{()->hatOnlineStoreVM.back()}"
+                android:layout_marginStart="10dp"
+                android:id="@+id/frame_back"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:rotation="@{hatOnlineStoreVM.rotate}"
+                    android:id="@+id/back_img"
+                    android:layout_gravity="center"
+                    android:background="@drawable/arrow_left"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/hat_online_store"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:background="@drawable/time"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/_24_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:visibility="@{hatOnlineStoreVM.isNoData? View.VISIBLE : View.GONE}"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/colorBlue"
+            android:text="@string/no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="@{hatOnlineStoreVM.isNoData? View.GONE : View.VISIBLE}"
+            android:id="@+id/recycler_hat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+</layout>

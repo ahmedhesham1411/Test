@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="ordersVM"
+            type="com.uriallab.haat.haat.viewModels.OrdersViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/orders"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@color/colorWhite"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:onClick="@{()->ordersVM.orderTabClick(1)}"
+                android:background="@{ordersVM.isFinished? @drawable/shape_white : @drawable/shape_rounded_blue_corner_4}"
+                android:id="@+id/active_orders"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/active"
+                android:textColor="@{ordersVM.isFinished? @color/colorBlack : @color/colorWhite}"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:onClick="@{()->ordersVM.orderTabClick(2)}"
+                android:background="@{ordersVM.isFinished? @drawable/shape_rounded_blue_corner_4 : @drawable/shape_white}"
+                android:id="@+id/finished_orders"
+                android:textColor="@{ordersVM.isFinished? @color/colorWhite : @color/colorBlack}"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/finished"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
+
+        <View
+            android:rotation="180"
+            android:background="@drawable/shadow"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"/>
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</layout>

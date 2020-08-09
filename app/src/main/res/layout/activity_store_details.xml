@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="storeDetailsVM"
+            type="com.uriallab.haat.haat.viewModels.StoreDetailsViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        tools:context="com.uriallab.haat.haat.UI.Activities.makeOrder.StoreDetailsActivity">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:onClick="@{()->storeDetailsVM.back()}"
+                android:layout_marginStart="10dp"
+                android:id="@+id/frame_back"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:id="@+id/back_img"
+                    android:layout_gravity="center"
+                    android:background="@drawable/arrow_left"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="اسم المتجر"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:onClick="@{()->storeDetailsVM.shareStore()}"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/frame_share"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:background="@drawable/share"
+                    android:layout_width="12dp"
+                    android:layout_height="15dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:paddingBottom="51dp"
+            android:layout_below="@id/lin1"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/store_img"
+                    app:riv_corner_radius="12dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" />
+
+                <LinearLayout
+                    android:onClick="@{()->storeDetailsVM.getReviews()}"
+                    android:id="@+id/user_rates_lin"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:background="@drawable/background_with_shadow"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="15dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textAlignment="viewStart"
+                            android:gravity="center_vertical"
+                            android:text="@string/user_rates"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.eugeneek.smilebar.SmileBar
+                                android:id="@+id/starBar"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:enabled="false"
+                                app:rating="3"
+                                app:smileHeight="18dp"
+                                app:smileWidth="18dp"
+                                app:smileDefault="@drawable/ic_star_border_grey"
+                                app:smileRate1="@drawable/ic_star_orange"
+                                app:smileRate2="@drawable/ic_star_orange"
+                                app:smileRate3="@drawable/ic_star_orange"
+                                app:smileRate4="@drawable/ic_star_orange"
+                                app:smileRate5="@drawable/ic_star_orange"
+                                />
+
+                            <TextView
+                                android:layout_marginStart="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="13sp"
+                                android:textColor="@color/colorWhite"
+                                android:text=" 12 "
+                                android:textAlignment="viewStart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="1dp"/>
+
+                    <TextView
+                        android:id="@+id/user_rates_number"
+                        android:textSize="13sp"
+                        android:textAlignment="viewStart"
+                        android:layout_marginStart="15dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:rotation="@{storeDetailsVM.rotation}"
+                        android:layout_marginStart="15dp"
+                        android:id="@+id/rate_arrow"
+                        android:layout_marginEnd="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/arrow_left"
+                        android:layout_width="12dp"
+                        android:layout_height="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:onClick="@{()->storeDetailsVM.otherBranches()}"
+                    android:id="@+id/store_branch_lin"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:background="@drawable/background_with_shadow"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:gravity="start"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="15dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/store_location"
+                            android:maxLength="35"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textStyle="bold"
+                            android:textAlignment="viewStart"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:id="@+id/distance_from_you"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="13sp"
+                            android:textColor="@color/colorText"
+                            android:textAlignment="viewStart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="1dp"/>
+
+                    <TextView
+                        android:id="@+id/change_branch"
+                        android:textSize="13sp"
+                        android:text="@string/change"
+                        android:textAlignment="viewStart"
+                        android:layout_marginStart="5dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:rotation="@{storeDetailsVM.rotation}"
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/branch_arrow"
+                        android:layout_marginEnd="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/arrow_left"
+                        android:layout_width="12dp"
+                        android:layout_height="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:onClick="@{()->storeDetailsVM.workingHours()}"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/store_time_lin"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:background="@drawable/background_with_shadow"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="15dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/open_closed"
+                            android:textStyle="bold"
+                            android:textAlignment="viewStart"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:id="@+id/open_from_to"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="13sp"
+                            android:textColor="@color/colorText"
+                            android:textAlignment="viewStart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="1dp"/>
+
+                    <TextView
+                        android:id="@+id/store_time"
+                        android:textSize="13sp"
+                        android:textAlignment="viewStart"
+                        android:layout_marginStart="15dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/show_times"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:rotation="@{storeDetailsVM.rotation}"
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/time_arrow"
+                        android:layout_marginEnd="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/arrow_left"
+                        android:layout_width="12dp"
+                        android:layout_height="16dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/menu_txt"
+                    android:textAlignment="viewStart"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/menu"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_menu"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="-5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:visibility="@{storeDetailsVM.isFromServerObservable? View.VISIBLE : View.GONE}"
+                    android:id="@+id/products"
+                    android:textAlignment="viewStart"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/products"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="@{storeDetailsVM.isFromServerObservable? View.VISIBLE : View.GONE}"
+                    android:nestedScrollingEnabled="false"
+                    android:id="@+id/products_recycler"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:onClick="@{()->storeDetailsVM.next()}"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:id="@+id/next_btn"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:text="@string/next"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+    </RelativeLayout>
+</layout>

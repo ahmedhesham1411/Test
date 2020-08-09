@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="moreVM"
+            type="com.uriallab.haat.haat.viewModels.MoreViewModel" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:id="@+id/profile_img"
+                app:civ_border_color="@color/colorWhite"
+                app:civ_border_width="1dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{moreVM.userName}"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <com.eugeneek.smilebar.SmileBar
+                        android:id="@+id/starBar"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:enabled="false"
+                        android:rotationY="@{moreVM.rotationRating}"
+                        app:rating="@{moreVM.rating}"
+                        app:smileHeight="18dp"
+                        app:smileWidth="18dp"
+                        app:smileDefault="@drawable/ic_star_border_grey"
+                        app:smileRate1="@drawable/ic_star_orange"
+                        app:smileRate2="@drawable/ic_star_orange"
+                        app:smileRate3="@drawable/ic_star_orange"
+                        app:smileRate4="@drawable/ic_star_orange"
+                        app:smileRate5="@drawable/ic_star_orange"
+                        />
+
+                    <TextView
+                        android:layout_marginStart="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="13sp"
+                        android:textColor="@color/colorWhite"
+                        android:text="@{moreVM.totalRate}"
+                        android:textAlignment="viewStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <FrameLayout
+                android:layout_marginEnd="15dp"
+                android:onClick="@{()->moreVM.logout()}"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+                <ImageView
+                    android:rotation="@{moreVM.rotation}"
+                    android:layout_gravity="center"
+                    android:background="@drawable/logout"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="@{moreVM.isDriver? View.VISIBLE : View.GONE}"
+            android:onClick="@{()->moreVM.accountDetails()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/my_profile"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{moreVM.rotation}"
+                android:id="@+id/profile_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/arrow_left"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+        <View
+            android:visibility="@{moreVM.isDriver? View.VISIBLE : View.GONE}"
+            android:background="@color/colorTextHint"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:visibility="@{moreVM.isDriver? View.GONE : View.VISIBLE}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/orders_num"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:text="@{moreVM.orderNumObservable}"
+                android:id="@+id/order_num_client"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/colorBlue"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            android:visibility="@{moreVM.isDriver? View.GONE : View.VISIBLE}"
+            android:background="@color/colorTextHint"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:onClick="@{()->moreVM.editProfile()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/edit_profile"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{moreVM.rotation}"
+                android:id="@+id/edit_profile_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/arrow_left"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/colorTextHint"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:onClick="@{()->moreVM.openComment()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/comments"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{moreVM.rotation}"
+                android:id="@+id/comments_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/arrow_left"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/colorTextHint"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:onClick="@{()->moreVM.setting()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/setting"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{moreVM.rotation}"
+                android:id="@+id/setting_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/arrow_left"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

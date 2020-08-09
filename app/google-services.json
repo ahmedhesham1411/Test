@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "204024313578",
+    "firebase_url": "https://hathat-164d3.firebaseio.com",
+    "project_id": "hathat-164d3",
+    "storage_bucket": "hathat-164d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204024313578:android:22f5485ed6b275fed10993",
+        "android_client_info": {
+          "package_name": "com.uriallab.hathat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204024313578-qcjtqm5ue0mdqkgf5u992q1l8ukmugjd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCyTq3Ir5Y8B8VUBhmN1m0N-2nc44AU58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204024313578-qcjtqm5ue0mdqkgf5u992q1l8ukmugjd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "204024313578-pf4dhah051es7ilikt117k98m929jpf1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.uriallab.hathat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

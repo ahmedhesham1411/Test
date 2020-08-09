@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="addCouponVM"
+            type="com.uriallab.haat.haat.viewModels.AddCouponViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:onClick="@{()->addCouponVM.back()}"
+                android:layout_marginStart="10dp"
+                android:id="@+id/frame_back"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:rotation="@{addCouponVM.rotation}"
+                    android:id="@+id/back_img"
+                    android:layout_gravity="center"
+                    android:background="@drawable/arrow_left"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/add_copoun"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_marginEnd="10dp"
+                android:id="@+id/frame_share"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+        <ScrollView
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginTop="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/email_txt"
+                    android:text="@string/coupon"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginStart="20dp"
+                    android:textAlignment="viewStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:text="@={addCouponVM.couponObservable}"
+                    app:error="@{addCouponVM.couponError}"
+                    android:id="@+id/email_edt"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+                <Button
+                    android:onClick="@{()->addCouponVM.coupon()}"
+                    android:textAllCaps="false"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:id="@+id/login_btn"
+                    android:layout_marginBottom="100dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="@string/add"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/shape_rounded_blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

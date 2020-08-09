@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="otherBranchesVM"
+            type="com.uriallab.haat.haat.viewModels.OtherBranchesViewModel" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:onClick="@{()->otherBranchesVM.back()}"
+                android:layout_marginStart="10dp"
+                android:id="@+id/frame_back"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:rotation="@{otherBranchesVM.rotate}"
+                    android:id="@+id/back_img"
+                    android:layout_gravity="center"
+                    android:background="@drawable/arrow_left"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/other_branches"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorWhite"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:onClick="@{()->otherBranchesVM.isListClick(true)}"
+                android:background="@{otherBranchesVM.isList? @drawable/shape_rounded_moov : @drawable/shape_rounded_blue_corner_4}"
+                android:id="@+id/active_orders"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/site"
+                android:textColor="@color/colorWhite"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:onClick="@{()->otherBranchesVM.isListClick(false)}"
+                android:background="@{otherBranchesVM.isList? @drawable/shape_rounded_blue_corner_4 : @drawable/shape_rounded_moov}"
+                android:id="@+id/finished_orders"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/map"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:visibility="@{otherBranchesVM.isNoData? View.VISIBLE : View.GONE}"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/colorBlue"
+            android:text="@string/no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <FrameLayout
+            android:visibility="@{otherBranchesVM.isNoData? View.GONE : View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="@{otherBranchesVM.isList? View.VISIBLE : View.GONE}"
+                android:id="@+id/recyler_other"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <FrameLayout
+                android:visibility="@{otherBranchesVM.isList? View.GONE : View.VISIBLE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>

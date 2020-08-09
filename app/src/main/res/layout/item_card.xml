@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/cat_lin"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            app:riv_corner_radius_top_right="8dp"
+            app:riv_corner_radius_top_left="8dp"
+            android:id="@+id/cat_img"
+            app:riv_corner_radius="8dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <TextView
+            android:background="@color/colorMoov"
+            android:gravity="center"
+            android:id="@+id/card_name"
+            android:textSize="15sp"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:background="@drawable/shape_rounded_bottom_blue"
+            android:gravity="center"
+            android:id="@+id/card_price"
+            android:textSize="15sp"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+    </LinearLayout>
+</layout>

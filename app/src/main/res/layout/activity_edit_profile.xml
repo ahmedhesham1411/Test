@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="editProfileVM"
+            type="com.uriallab.haat.haat.viewModels.EditProfileViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:onClick="@{()->editProfileVM.back()}"
+                android:layout_marginStart="10dp"
+                android:id="@+id/frame_back"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:rotation="@{editProfileVM.rotation}"
+                    android:id="@+id/back_img"
+                    android:layout_gravity="center"
+                    android:background="@drawable/arrow_left"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_profile"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_marginEnd="10dp"
+                android:id="@+id/frame_share"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_below="@id/lin1"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:paddingTop="30dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_gravity="center"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:id="@+id/profile_img"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@color/colorBlue"
+                        />
+
+                    <FrameLayout
+                        android:onClick="@{()->editProfileVM.getPhoto()}"
+                        android:background="@drawable/circle_white"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_gravity="start"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp">
+                        <FrameLayout
+                            android:layout_gravity="center"
+                            android:background="@drawable/circle_blue"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:background="@drawable/camera"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"/>
+                        </FrameLayout>
+
+                    </FrameLayout>
+
+                </FrameLayout>
+
+
+
+                <TextView
+                    android:id="@+id/name_txt"
+                    android:text="@string/name"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="20dp"
+                    android:textAlignment="viewStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <EditText
+                        app:fontFamily="@font/cairo_regular"
+                        android:text="@={editProfileVM.userNameObservable}"
+                        bind:error="@{editProfileVM.userNameError}"
+                        android:layout_gravity="center_vertical"
+                        android:textAlignment="viewStart"
+                        android:hint="@string/choose_gender"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp" />
+
+                    <ImageView
+                        android:id="@+id/arrow_name"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:rotation="270"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:text="@string/email"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textAlignment="viewStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <EditText
+                        app:fontFamily="@font/cairo_regular"
+                        android:text="@={editProfileVM.emailObservable}"
+                        bind:error="@{editProfileVM.emailError}"
+                        android:layout_gravity="center_vertical"
+                        android:textAlignment="viewStart"
+                        android:hint="@string/enter_email"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:inputType="textEmailAddress"
+                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp" />
+
+                    <ImageView
+                        android:id="@+id/arrow_email"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:rotation="270"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:text="@string/phone"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textAlignment="viewStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <EditText
+                        android:enabled="false"
+                        android:text="@={editProfileVM.phoneObservable}"
+                        bind:error="@{editProfileVM.phoneError}"
+                        android:layout_gravity="center_vertical"
+                        android:textAlignment="viewStart"
+                        android:hint="@string/choose_gender"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:inputType="number"
+                        android:digits="0123456789"
+                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp" />
+
+                    <ImageView
+                        android:id="@+id/arrow_phone"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:rotation="270"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:text="@string/birthday"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textAlignment="viewStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:onClick="@{()->editProfileVM.getBirthday()}"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:text="@={editProfileVM.birthdayObservable}"
+                        bind:error="@{editProfileVM.birthdayError}"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:textAlignment="viewStart"
+                        android:hint="@string/enter_birthday"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp" />
+
+                    <ImageView
+                        android:id="@+id/arrow_birthday"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:rotation="270"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/gender_txt"
+                    android:text="@string/gender"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:textAlignment="viewStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/spinner_lin"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    app:layout_constraintTop_toBottomOf="@id/gender_txt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <Spinner
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/gender_spinner"
+                        android:textAlignment="viewStart"
+                        android:hint="@string/choose_gender"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp" />
+
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/spinner_arrow"
+                        android:rotation="270"
+                        android:layout_marginEnd="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/arrow_left"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp" />
+                </RelativeLayout>
+
+                <Button
+                    android:onClick="@{()->editProfileVM.saveProfile()}"
+                    android:layout_marginTop="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:text="@string/save"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/shape_rounded_blue_corner_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"/>
+
+                <Button
+                    android:visibility="gone"
+                    android:onClick="@{()->editProfileVM.changePassword()}"
+                    android:layout_alignParentBottom="true"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:text="@string/edit_password"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="50dp"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/shape_rounded_blue_corner_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"/>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

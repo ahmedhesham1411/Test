@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/shape_rounded_white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/shape_rounded_blue_corner_4"
+        android:text="@string/rate_user"/>
+
+    <TextView
+        android:rotation="180"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
+        android:background="@drawable/shadow"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:id="@+id/user_img"
+            app:civ_border_color="@color/colorBlack"
+            app:civ_border_width="2dp"/>
+
+        <TextView
+            android:id="@+id/user_name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="اسم العميل"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.eugeneek.smilebar.SmileBar
+            android:id="@+id/starBar"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rating="1"
+            app:smileHeight="34dp"
+            app:smileWidth="34dp"
+            app:smileDefault="@drawable/ic_star_border_grey"
+            app:smileRate1="@drawable/ic_star_orange"
+            app:smileRate2="@drawable/ic_star_orange"
+            app:smileRate3="@drawable/ic_star_orange"
+            app:smileRate4="@drawable/ic_star_orange"
+            app:smileRate5="@drawable/ic_star_orange"
+            />
+    </LinearLayout>
+
+    <EditText
+        app:fontFamily="@font/cairo_regular"
+        android:id="@+id/comment_edt"
+        android:textAlignment="viewStart"
+        android:hint="@string/write_rate"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:minHeight="100dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_rounded_dark_grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:textAllCaps="false"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:id="@+id/rate_btn"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/rate"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/shape_rounded_blue"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+</LinearLayout>

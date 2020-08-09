@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:minHeight="40dp"
+        android:padding="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/background_with_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="15sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textStyle="normal"
+            android:lineSpacingExtra="-10dp"
+            android:id="@+id/notification_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:textAlignment="viewStart" />
+
+        <TextView
+            android:textColor="@color/colorBlue"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:paddingEnd="5dp"
+            android:id="@+id/notification_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:text="7 دقيقة" />
+
+    </LinearLayout>
+
+</layout>

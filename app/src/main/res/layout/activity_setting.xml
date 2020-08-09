@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="settingVM"
+            type="com.uriallab.haat.haat.viewModels.SettingViewModel" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:onClick="@{()->settingVM.back()}"
+                android:layout_marginStart="10dp"
+                android:id="@+id/frame_back"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:rotation="@{settingVM.rotation}"
+                    android:id="@+id/back_img"
+                    android:layout_gravity="center"
+                    android:background="@drawable/arrow_left"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/setting"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_marginEnd="10dp"
+                android:id="@+id/frame_share"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="@string/setting_"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlue"
+            android:textAlignment="viewStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:onClick="@{()->settingVM.complaintsList()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/complaint_list"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{settingVM.arrowRotation}"
+                android:id="@+id/profile_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/arrow_left"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/copouns"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:onClick="@{()->settingVM.addCoupon()}"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_rounded_stroke_blue"
+                android:gravity="center"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:layout_width="100dp"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="@string/add_copoun"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/add_coupon"
+                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="@{()->settingVM.appLanguage()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/language_setting"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{settingVM.arrowRotation}"
+                android:id="@+id/lang_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/arrow_left"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="@{()->settingVM.policyUSe()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/policy"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{settingVM.arrowRotation}"
+                android:id="@+id/policy_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/arrow_left"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="@{()->settingVM.privacyPolicy()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/privacy"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{settingVM.arrowRotation}"
+                android:id="@+id/privacy_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="@{()->settingVM.rateApp()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/rate_app"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{settingVM.arrowRotation}"
+                android:id="@+id/rate_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="@{()->settingVM.contactUs()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/contact_us"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:rotation="@{settingVM.arrowRotation}"
+                android:id="@+id/contact_arrow"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="12dp"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:visibility="@{settingVM.isDriver? View.GONE : View.VISIBLE}"
+            android:text="@string/help"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/colorBlue"
+            android:textAlignment="viewStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:visibility="@{settingVM.isDriver? View.GONE : View.VISIBLE}"
+            android:onClick="@{()->settingVM.howToWork()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/how_i_work_in_hat"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

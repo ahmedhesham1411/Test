@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="makeOrderVM"
+            type="com.uriallab.haat.haat.viewModels.MakeOrderStepTwoViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlue"
+        tools:context="com.uriallab.haat.haat.UI.Activities.makeOrder.MakeOrderStepTwoActivity">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:onClick="@{()->makeOrderVM.back()}"
+                android:layout_marginStart="10dp"
+                android:id="@+id/frame_back"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:rotation="@{makeOrderVM.rotate}"
+                    android:id="@+id/back_img"
+                    android:layout_gravity="center"
+                    android:background="@drawable/arrow_left"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/order_details"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_marginEnd="10dp"
+                android:id="@+id/frame_share"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_above="@id/next_btn"
+            android:layout_marginBottom="150dp"
+            android:layout_below="@id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.amalbit.trail.RouteOverlayView
+                android:id="@+id/mapOverlayView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_above="@id/next_btn"
+            android:background="@drawable/bottom_sheet_background"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/delivering_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:onClick="@{()->makeOrderVM.deliveringLocation(1)}"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:hint="@string/delivering_location"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:fadingEdge="horizontal"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:scrollHorizontally="true"
+                        android:textAlignment="viewStart"
+                        android:id="@+id/location_txt"
+                        android:textSize="14sp"
+                        android:text="@{makeOrderVM.addressObservable}"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:background="@drawable/shape_rounded_moov"
+                        android:onClick="@{()->makeOrderVM.deliveringLocation(1)}"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:text="@string/change_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"/>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:onClick="@{()->makeOrderVM.favourites()}"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_star_orange"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:visibility="@{makeOrderVM.isService? View.VISIBLE : View.GONE}"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/receiving_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:visibility="@{makeOrderVM.isService? View.VISIBLE : View.GONE}"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:onClick="@{()->makeOrderVM.deliveringLocation(2)}"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:hint="@string/receiving_location"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:fadingEdge="horizontal"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:scrollHorizontally="true"
+                        android:textAlignment="viewStart"
+                        android:id="@+id/distenation_txt"
+                        android:textSize="14sp"
+                        android:text="@{makeOrderVM.distenationObservable}"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:background="@drawable/shape_rounded_moov"
+                        android:onClick="@{()->makeOrderVM.deliveringLocation(2)}"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:text="@string/change_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"/>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:onClick="@{()->makeOrderVM.favourites()}"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_star_orange"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/delivering_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:onClick="@{()->makeOrderVM.deliveringTime()}"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:hint="@string/delivering_time"
+                        android:text="@{makeOrderVM.timeObservable}"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/time"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:onClick="@{()->makeOrderVM.createOrder()}"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:id="@+id/next_btn"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:text="@string/send_order"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+    </RelativeLayout>
+</layout>

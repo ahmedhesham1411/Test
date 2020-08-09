@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/advertiser_products_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_background"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="-10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:textAlignment="viewStart"
+            android:paddingStart="15dp"
+            android:text="@string/complaint_details"
+            android:textColor="@color/colorBlack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/gender_txt"
+            android:text="@string/please_select_reason"
+            android:textColor="@color/colorBlack"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/birthday_edt"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textAlignment="viewStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:id="@+id/spinner_lin"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_rounded_dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/gender_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <Spinner
+                android:layout_gravity="center_vertical"
+                android:id="@+id/complaint_spinner"
+                android:textAlignment="viewStart"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:background="@drawable/shape_rounded_dark_grey"
+                android:layout_width="match_parent"
+                android:layout_height="36dp" />
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/spinner_arrow"
+                android:rotation="270"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/arrow_left"
+                android:layout_width="10dp"
+                android:layout_height="16dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/birthday_txt"
+            android:text="@string/complaint_details"
+            android:textColor="@color/colorBlack"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/email_edt"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textAlignment="viewStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            app:fontFamily="@font/cairo_regular"
+            android:id="@+id/details_edt"
+            android:textAlignment="viewStart"
+            android:hint="@string/enter_complaint_details"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:gravity="start|top"
+            android:minHeight="100dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_rounded_dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/birthday_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/add_attachment"
+            android:textColor="@color/colorBlack"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:textAlignment="viewStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/attachment_lin"
+                android:background="@drawable/shape_rounded_white_stroke"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="80dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/add_coupon"
+                    android:background="@drawable/coupon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
+
+                <TextView
+                    android:textSize="13sp"
+                    android:text="@string/add_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_attachment"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+        <Button
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:id="@+id/send_complaint"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:text="@string/send_complaint"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

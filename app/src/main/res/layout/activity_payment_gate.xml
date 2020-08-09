@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="paymentGateVM"
+            type="com.uriallab.haat.haat.viewModels.PaymentGateViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/lin1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorBlue"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:onClick="@{()->paymentGateVM.back()}"
+                android:layout_marginStart="10dp"
+                android:id="@+id/frame_back"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:rotation="@{paymentGateVM.rotation}"
+                    android:id="@+id/back_img"
+                    android:layout_gravity="center"
+                    android:background="@drawable/arrow_left"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="20dp"
+                android:layout_height="wrap_content"
+                android:text="@string/pay_by"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/report_lin"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/first_lin"
+                android:background="@drawable/shape_white_stroke"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:onClick="@{()->paymentGateVM.choosePaymentMethod(1)}"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:onClick="@{()->paymentGateVM.choosePaymentMethod(1)}"
+                        android:layout_marginStart="15dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/stc_pay"
+                        android:layout_width="40dp"
+                        android:layout_height="25dp"/>
+
+                    <TextView
+                        android:onClick="@{()->paymentGateVM.choosePaymentMethod(1)}"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
+                        android:text="STC PAY"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:visibility="@{paymentGateVM.isSTCPAY? View.VISIBLE : View.GONE}"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/right_mark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:background="@color/colorBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <RelativeLayout
+                    android:onClick="@{()->paymentGateVM.choosePaymentMethod(2)}"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/payment_type_2"
+                        android:onClick="@{()->paymentGateVM.choosePaymentMethod(2)}"
+                        android:layout_marginStart="15dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/mada"
+                        android:layout_width="40dp"
+                        android:layout_height="25dp"/>
+
+                    <TextView
+                        android:onClick="@{()->paymentGateVM.choosePaymentMethod(2)}"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
+                        android:text="@string/credit_and_debit_card"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:visibility="@{paymentGateVM.isSTCPAY? View.GONE : View.VISIBLE}"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/right_mark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="@{paymentGateVM.isSTCPAY? View.GONE : View.VISIBLE}"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:id="@+id/second_lin"
+                android:layout_below="@id/first_lin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/accepted_cards"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorTextHint"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:onClick="@{()->paymentGateVM.chooseCardPaymentMethod(1)}"
+                    android:layout_marginStart="15dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/visa_2"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"/>
+
+                <ImageView
+                    android:onClick="@{()->paymentGateVM.chooseCardPaymentMethod(2)}"
+                    android:layout_marginStart="15dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/mastercard"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"/>
+
+                <ImageView
+                    android:onClick="@{()->paymentGateVM.chooseCardPaymentMethod(3)}"
+                    android:layout_marginStart="15dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/mada"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/lin_payment"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:layout_below="@id/second_lin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:visibility="@{paymentGateVM.isSTCPAY? View.GONE : View.VISIBLE}"
+                    android:background="@drawable/shape_white_stroke"
+                    android:layout_below="@id/second_lin"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:minHeight="40dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/card_payment_type"
+                            android:background="@drawable/mada"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_width="40dp"
+                            android:layout_height="25dp"/>
+
+                        <View
+                            android:layout_marginStart="10dp"
+                            android:layout_width="1dp"
+                            android:background="@color/colorBlack"
+                            android:layout_height="match_parent"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxBackgroundColor="@color/colorWhite"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/userNameEt"
+                                android:background="@color/colorWhite"
+                                android:textColor="@color/colorBlack"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/card_number"
+                                android:paddingEnd="5dp"
+                                android:focusable="true"
+                                android:paddingStart="5dp"
+                                android:textAlignment="viewStart"
+                                android:text="@={paymentGateVM.cardNumber}"
+                                android:inputType="phone"
+                                android:textSize="13.5sp"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <ImageView
+                            android:onClick="@{()->paymentGateVM.onScanPress()}"
+                            android:background="@drawable/scan_camera_2"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="15dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"/>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:background="@color/colorBlack"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="@color/colorBlack"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:minHeight="40dp"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:layout_width="1dp"
+                            android:background="@color/colorBlack"
+                            android:layout_height="match_parent"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxBackgroundColor="@color/colorWhite"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:background="@color/colorWhite"
+                                android:textColor="@color/colorBlack"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/expire_month"
+                                android:paddingEnd="5dp"
+                                android:id="@+id/expiry_month"
+                                android:paddingStart="5dp"
+                                android:textAlignment="viewStart"
+                                android:text="@={paymentGateVM.expiryMonth}"
+                                android:inputType="number"
+                                android:maxLength="2"
+                                android:textSize="13.5sp"
+                                android:digits="0123456789"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <View
+                            android:layout_width="1dp"
+                            android:background="@color/colorBlack"
+                            android:layout_height="match_parent"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxBackgroundColor="@color/colorWhite"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:background="@color/colorWhite"
+                                android:textColor="@color/colorBlack"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/expire_year"
+                                android:paddingEnd="5dp"
+                                android:paddingStart="5dp"
+                                android:id="@+id/expiry_year"
+                                android:textAlignment="viewStart"
+                                android:text="@={paymentGateVM.expiryYear}"
+                                android:inputType="number"
+                                android:maxLength="2"
+                                android:textSize="13.5sp"
+                                android:digits="0123456789"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:background="@color/colorBlack"
+                            android:layout_height="match_parent"/>
+
+                        <RelativeLayout
+                            android:layout_marginStart="5dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                app:boxBackgroundColor="@color/colorWhite"
+                                android:layout_width="match_parent"
+                                android:layout_marginEnd="4dp"
+                                android:layout_marginStart="-1dp"
+                                android:layout_height="wrap_content"
+                                >
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:background="@color/colorWhite"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/password_code"
+                                    android:paddingEnd="5dp"
+                                    android:textSize="13sp"
+                                    android:id="@+id/cvv"
+                                    android:paddingStart="2dp"
+                                    android:textAlignment="viewStart"
+                                    android:text="@={paymentGateVM.passwordCode}"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="3"
+                                    android:digits="0123456789"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <FrameLayout
+                                android:layout_marginTop="4dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp">
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:onClick="@{()->paymentGateVM.securityCode()}"
+                                    android:background="@drawable/info_icon"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"/>
+                            </FrameLayout>
+
+                        </RelativeLayout>
+
+
+                        <View
+                            android:layout_width="1dp"
+                            android:background="@color/colorBlack"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="@color/colorBlack"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:minHeight="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:background="@drawable/person_2"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <View
+                            android:layout_marginStart="10dp"
+                            android:layout_width="1dp"
+                            android:background="@color/colorBlack"
+                            android:layout_height="match_parent"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxBackgroundColor="@color/colorWhite"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:background="@color/colorWhite"
+                                android:textColor="@color/colorBlack"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/card_name"
+                                android:paddingEnd="5dp"
+                                android:textSize="13.5sp"
+                                android:id="@+id/holder_name"
+                                android:paddingStart="5dp"
+                                android:textAlignment="viewStart"
+                                android:text="@={paymentGateVM.cardName}"
+                                android:inputType="text"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:background="@color/colorBlack"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/phone_qr_lin"
+                    android:orientation="vertical"
+                    android:layout_below="@id/second_lin"
+                    android:visibility="@{paymentGateVM.isSTCPAY? View.VISIBLE : View.GONE}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/shape_white_stroke"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp">
+
+                        <TextView
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:onClick="@{()->paymentGateVM.orderTabClick(1)}"
+                            android:background="@{paymentGateVM.isQr? @color/colorWhite : @color/colorBlue}"
+                            android:id="@+id/active_orders"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:text="@string/phone"
+                            android:textColor="@{paymentGateVM.isQr? @color/colorBlack : @color/colorWhite}"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:onClick="@{()->paymentGateVM.orderTabClick(2)}"
+                            android:background="@{paymentGateVM.isQr? @color/colorBlue : @color/colorWhite}"
+                            android:id="@+id/finished_orders"
+                            android:textColor="@{paymentGateVM.isQr? @color/colorWhite : @color/colorBlack}"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:text="@string/qr_code"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:visibility="@{paymentGateVM.isQr? View.GONE : View.VISIBLE}"
+                        android:background="@drawable/shape_white_stroke"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            android:background="@drawable/phone"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
+
+                        <EditText
+                            android:inputType="phone"
+                            android:text="@={paymentGateVM.phoneNumber}"
+                            android:layout_margin="1dp"
+                            android:textStyle="bold"
+                            android:textAlignment="viewStart"
+                            android:hint="@string/phone"
+                            android:background="@color/colorWhite"
+                            android:paddingEnd="5dp"
+                            android:paddingStart="10dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/checkout_webview"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/second_lin"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"/>
+
+            <RelativeLayout
+                android:onClick="@{()->paymentGateVM.pay()}"
+                android:layout_alignParentBottom="true"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@color/colorBlue"
+                android:id="@+id/relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="17sp"
+                        android:textColor="@color/colorWhite"
+                        android:text="@string/pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginStart="15dp"
+                        android:textSize="17sp"
+                        android:textColor="@color/colorWhite"
+                        android:text="@{paymentGateVM.moneyObservable}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

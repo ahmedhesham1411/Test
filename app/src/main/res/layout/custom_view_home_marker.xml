@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom_marker_view"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/title_lin"
+        android:orientation="vertical"
+        android:background="@drawable/shape_rounded_moov"
+        android:layout_width="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/title_txt"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:textColor="@color/colorWhite"
+            android:text="@string/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/distance_by_km"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textSize="10sp"
+            android:text="155 km"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:id="@+id/icon_img2"
+        android:layout_gravity="center"
+        android:layout_width="32dp"
+        android:layout_height="35dp" />
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/frame_car"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_white"
+        android:layout_width="35dp"
+        android:layout_height="35dp">
+        <ImageView
+            android:id="@+id/icon_img"
+            android:background="@drawable/house"
+            android:layout_gravity="center"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+    </FrameLayout>
+
+</LinearLayout>

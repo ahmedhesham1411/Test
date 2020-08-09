@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="activeJourneyVM"
+            type="com.uriallab.haat.haat.viewModels.ActiveJourneyViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="@{activeJourneyVM.isNoData? View.GONE : View.VISIBLE}"
+            android:id="@+id/journey_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:visibility="@{activeJourneyVM.isNoData? View.VISIBLE : View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="@string/no_data"
+            android:textColor="@color/colorBlue"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+</layout>

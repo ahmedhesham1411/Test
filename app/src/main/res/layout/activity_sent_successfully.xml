@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="sentSuccessfullyVM"
+            type="com.uriallab.haat.haat.viewModels.SentSuccessfullyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:id="@+id/done_img"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
+
+
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/text_done"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/sent_successfully"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:visibility="@{sentSuccessfullyVM.sentTypeObservable==1? View.GONE : View.VISIBLE, default=gone}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:onClick="@{()->sentSuccessfullyVM.homePage()}"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/home"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorBlue"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:onClick="@{()->sentSuccessfullyVM.cancelOffer()}"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/remove_order"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorMoov"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
