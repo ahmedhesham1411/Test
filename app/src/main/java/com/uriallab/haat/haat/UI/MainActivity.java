@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         profileData();
 
+
         // TODO: 7/21/2020
         //locationChanged();
 
