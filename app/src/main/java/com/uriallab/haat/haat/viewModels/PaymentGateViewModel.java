@@ -72,7 +72,7 @@ public class PaymentGateViewModel {
         this.hatCardQuantity = hatCardQuantity;
         this.money = Utilities.round(money, 2);
 
-        moneyObservable.set(money + " " + activity.getString(R.string.currency));
+        moneyObservable.set(Utilities.roundPrice(money) + " " + activity.getString(R.string.currency));
 
         if (ConfigurationFile.getCurrentLanguage(activity).equals("ar")) {
             rotation.set(180);

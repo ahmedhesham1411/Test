@@ -52,24 +52,29 @@ public class MoreViewModel {
 
         if (LoginSession.isLoggedIn(activity)) {
             try {
-                if (LoginSession.getUserData(activity).getResult().getUserData().isIsDelivery()) {
-                    isDriver.set(true);
+                try {
+                    if (LoginSession.getUserData(activity).getResult().getUserData().isIsDelivery()) {
+                        isDriver.set(true);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
+                userName.set(LoginSession.getUserData(activity).getResult().getUserData().getUser_Full_Nm());
+                totalRate.set(String.valueOf(LoginSession.getUserData(activity).getResult().getUserData().getUser_Count_Rate()));
+
+                try {
+                    rating.set(LoginSession.getUserData(activity).getResult().getUserData().getUser_Rate());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (!LoginSession.getUserData(activity).getResult().getUserData().isIsDelivery())
+                    orderNumObservable.set(String.valueOf(LoginSession.getUserData(activity).getResult().getAllorders()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            userName.set(LoginSession.getUserData(activity).getResult().getUserData().getUser_Full_Nm());
-            totalRate.set(String.valueOf(LoginSession.getUserData(activity).getResult().getUserData().getUser_Count_Rate()));
-
-            try {
-                rating.set(LoginSession.getUserData(activity).getResult().getUserData().getUser_Rate());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (!LoginSession.getUserData(activity).getResult().getUserData().isIsDelivery())
-                orderNumObservable.set(String.valueOf(LoginSession.getUserData(activity).getResult().getAllorders()));
         }
     }
 
