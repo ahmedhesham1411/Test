@@ -52,8 +52,17 @@ public class StoreDetailsModel {
         private int utc_offset;
         private String vicinity;
         private List<PhotosBean> photos;
+        private List<BranchesBean> branches;
         private List<ReviewsBean> reviews;
         private List<String> types;
+
+        public List<BranchesBean> getBranches() {
+            return branches;
+        }
+
+        public void setBranches(List<BranchesBean> branches) {
+            this.branches = branches;
+        }
 
         public String getFormatted_address() {
             return formatted_address;
@@ -290,6 +299,55 @@ public class StoreDetailsModel {
                         this.lng = lng;
                     }
                 }
+            }
+        }
+
+        public static class BranchesBean {
+
+            private double lat;
+            private double lng;
+            private String location_name;
+            private String store_name;
+            private String icon;
+
+            public String getLocation_name() {
+                return location_name;
+            }
+
+            public void setLocation_name(String location_name) {
+                this.location_name = location_name;
+            }
+
+            public String getStore_name() {
+                return store_name;
+            }
+
+            public void setStore_name(String store_name) {
+                this.store_name = store_name;
+            }
+
+            public String getIcon() {
+                return icon;
+            }
+
+            public void setIcon(String icon) {
+                this.icon = icon;
+            }
+
+            public double getLat() {
+                return lat;
+            }
+
+            public void setLat(double lat) {
+                this.lat = lat;
+            }
+
+            public double getLng() {
+                return lng;
+            }
+
+            public void setLng(double lng) {
+                this.lng = lng;
             }
         }
 

@@ -36,6 +36,9 @@ public class LoginViewModel {
 
     private Activity activity;
 
+    public LoginViewModel() {
+    }
+
     public LoginViewModel(Activity activity) {
         this.activity = activity;
     }
@@ -157,7 +160,8 @@ public class LoginViewModel {
         return flag;
     }
 
-    public void register() {
+    public boolean register(String name, String password) {
+        return name.length() > 2 && password.length() > 5;
     }
 
     public void policy() {

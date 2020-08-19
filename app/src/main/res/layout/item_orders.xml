@@ -61,6 +61,9 @@
                         android:layout_height="24dp" />
 
                     <TextView
+                        android:textAlignment="viewStart"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:layout_gravity="center_vertical"
                         android:id="@+id/order_detils_txt"
                         android:layout_marginStart="3dp"

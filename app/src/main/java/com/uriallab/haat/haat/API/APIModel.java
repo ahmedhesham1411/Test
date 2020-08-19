@@ -33,7 +33,7 @@ public class APIModel {
 
     public final static int take = 20;
     public final static int take_2 = 10;
-//    public final static String BASE_URL = "http://medicalsys-002-site6.ftempurl.com/";
+//    public final static String BASE_URL = "http://46.151.211.28:898/";
     public final static String BASE_URL = "https://www.haatapp.com/";
     public final static String BASE_URL_GOOGLE = "https://maps.googleapis.com/maps/api/place/";
     public final static String BASE_URL_GOOGLE2 = "https://maps.googleapis.com/maps/api";

@@ -21,6 +21,8 @@
     <string name="ok">تأكيد</string>
     <string name="ok_">تم</string>
     <string name="cancel">إلغاء</string>
+    <string name="call">إتصال</string>
+    <string name="call_instructions">نرجو إستخدام الإتصال للضرورة القصوى وعند الإنتهاء يجب كتابة كل ماتم الإتفاق عليه داخل المحادثة</string>
     <string name="home">الرئيسية</string>
     <string name="house">المنزل</string>
     <string name="driver">الموصل</string>
@@ -206,6 +208,7 @@
     <string name="delivery_price">تكلفة التوصيل</string>
     <string name="enter_price">أدخل تكلفة التوصيل</string>
     <string name="deleted_successfully">تم الحذف بنجاح</string>
+    <string name="deleted">حذف</string>
     <string name="canceled">تم الرفض</string>
     <string name="error_on_location">حدث خطأ عند حفظ هذا الموقع</string>
     <string name="currency">ريال</string>
@@ -267,7 +270,7 @@
     <string name="status">الحالة</string>
     <string name="eligible">مؤهل</string>
     <string name="stopped">موقوف</string>
-    <string name="places_around_you">أشهر الأماكن حولك ...</string>
+    <string name="places_around_you">الخدمات ...</string>
     <string name="hat_card">هات كارد</string>
     <string name="hat_service">هات خدمة</string>
     <string name="site">الموقع</string>
@@ -285,6 +288,9 @@
     <string name="reading">أقر بإنني قرأت الشروط المذكورة ووافقت عليها.</string>
     <string name="full_name">الأسم رباعي</string>
     <string name="products">المنتجات</string>
+    <string name="cat_name">اسم الصنف</string>
+    <string name="quantity">الكمية</string>
+    <string name="total_price">اجمالى السعر</string>
     <string name="id_number">رقم الهوية أو الإقامة</string>
     <string name="stcpay">رقم حسابك STCPAY</string>
     <string name="nationality">الجنسية</string>
@@ -300,4 +306,9 @@
     <string name="scan_card">مسح البطاقة</string>
     <string name="confirm_payment">تأكيد عملية الدفع</string>
     <string name="well">حسنا</string>
+    <string name="expinsive_price">سعر التوصيل غالى</string>
+    <string name="driver_ask_for_cancel">الكابتن طلب الإلغاء</string>
+    <string name="no_need_for_order">لم أحتاج الطلب</string>
+    <string name="driver_not_accepting_online_payment">الكابتن لم يقبل الدفع الألكترونى</string>
+    <string name="driver_ask_for_contact_outside_the_application">الكابتن طلب التواصل خارج التطبيق</string>
 </resources>

@@ -8,14 +8,18 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.gson.Gson;
+import com.uriallab.haat.haat.DataModels.StoreProductsModel;
 import com.uriallab.haat.haat.Interfaces.DeleteImage;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.UI.Adapters.ImagesAdapter;
+import com.uriallab.haat.haat.UI.Adapters.StoreProductsAdapter;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.RealPathUtil;
 import com.uriallab.haat.haat.Utilities.camera.Camera;
@@ -36,6 +40,8 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
     private List<Bitmap> imageList = new ArrayList<>();
 
     private String storeName, shopImg;
+
+    public String selectedProducts = "";
 
     private double lat, lng;
 
@@ -59,6 +65,22 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
             shopImg = bundle.getString("shopImg");
             lat = bundle.getDouble("lat");
             lng = bundle.getDouble("lng");
+
+
+            Gson gson = new Gson();
+            StoreProductsModel storeProductsModel = gson.fromJson(bundle.getString("myjson"), StoreProductsModel.class);
+
+            if (storeProductsModel.getProductBeans().size() > 0) {
+                initRecyclerProducts(storeProductsModel.getProductBeans());
+
+                for (int i = 0; i < storeProductsModel.getProductBeans().size(); i++) {
+                    selectedProducts += (getString(R.string.cat_name) + " ::\t" + storeProductsModel.getProductBeans().get(i).getName() + "\n" +
+                            getString(R.string.quantity) + " ::\t" + storeProductsModel.getProductBeans().get(i).getQuantity() + "\n" +
+                            getString(R.string.total_price) + " ::\t" +
+                            (storeProductsModel.getProductBeans().get(i).getPrice() * storeProductsModel.getProductBeans().get(i).getQuantity()) + "\n");
+                }
+            } else
+                binding.recyclerProducts.setVisibility(View.GONE);
         }
 
 
@@ -81,6 +103,12 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
         ImagesAdapter imagesAdapter = new ImagesAdapter(this, imageList, this);
         binding.recyclerAttachment.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.recyclerAttachment.setAdapter(imagesAdapter);
+    }
+
+    private void initRecyclerProducts(List<StoreProductsModel.ProductBean> productBeanList) {
+        StoreProductsAdapter productsAdapter = new StoreProductsAdapter(this, productBeanList);
+        binding.recyclerProducts.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerProducts.setAdapter(productsAdapter);
     }
 
     @Override

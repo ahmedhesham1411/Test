@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:background="@drawable/shape_rounded_moov"
+        android:id="@+id/sound_lin"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
+        android:layout_height="35dp">
+
+       <TextView
+           android:textColor="@color/colorWhite"
+           android:id="@+id/menu_name"
+           android:gravity="center"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>

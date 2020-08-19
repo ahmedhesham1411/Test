@@ -26,8 +26,6 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
-import com.amalbit.trail.Route;
-import com.amalbit.trail.RouteOverlayView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.Projection;
@@ -63,6 +61,9 @@ import cz.msebera.android.httpclient.Header;
 
 public class AddOfferViewModel {
 
+    public AddOfferViewModel() {
+    }
+
     public ObservableField<String> offerPrice = new ObservableField<>("");
     public ObservableField<String> totalPrice = new ObservableField<>("");
 
@@ -91,6 +92,19 @@ public class AddOfferViewModel {
             rotate.set(180);
 
         drawDirection();
+    }
+
+    public boolean isAcceptedPrice(String price) {
+        double priceD;
+        try {
+            priceD = Double.valueOf(price);
+        } catch (Exception e) {
+            priceD = 0;
+            e.printStackTrace();
+        }
+
+
+        return !(priceD <= 0);
     }
 
     public void sendOffer() {

@@ -1,17 +1,11 @@
 package com.uriallab.haat.haat.viewModels;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
 
-import com.uriallab.haat.haat.DataModels.GoogleStoresModel;
+import com.uriallab.haat.haat.DataModels.OtherBranchesModel;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.OtherBranchesActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class OtherBranchesViewModel {
 
@@ -22,9 +16,9 @@ public class OtherBranchesViewModel {
 
     private OtherBranchesActivity activity;
 
-    private GoogleStoresModel storeDetailsModel;
+    private OtherBranchesModel storeDetailsModel;
 
-    public OtherBranchesViewModel(OtherBranchesActivity activity, GoogleStoresModel storeDetailsModel) {
+    public OtherBranchesViewModel(OtherBranchesActivity activity, OtherBranchesModel storeDetailsModel) {
         this.activity = activity;
         this.storeDetailsModel = storeDetailsModel;
 
@@ -36,7 +30,7 @@ public class OtherBranchesViewModel {
         isList.set(isListClick);
     }
 
-    public TextWatcher getSearchText() {
+    /*public TextWatcher getSearchText() {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -74,7 +68,7 @@ public class OtherBranchesViewModel {
                     activity.initRecycler(list);
             }
         };
-    }
+    }*/
 
     public void back() {
         activity.onBackPressed();

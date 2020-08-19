@@ -1,7 +1,6 @@
 package com.uriallab.haat.haat.viewModels;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -17,6 +16,7 @@ import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.DataModels.MakeOrderModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
+import com.uriallab.haat.haat.UI.Activities.makeOrder.MakeOrderFirstStepActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.MakeOrderStepTwoActivity;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.Utilities;
@@ -44,7 +44,7 @@ public class MakeOrderFirstStepViewModel {
 
     private double lat, lng;
 
-    private Activity activity;
+    private MakeOrderFirstStepActivity activity;
 
     private String storeName, shopImg;
 
@@ -52,7 +52,7 @@ public class MakeOrderFirstStepViewModel {
 
     private boolean isService;
 
-    public MakeOrderFirstStepViewModel(Activity activity, double lat, double lng, String storeName, String shopImg, boolean isService) {
+    public MakeOrderFirstStepViewModel(MakeOrderFirstStepActivity activity, double lat, double lng, String storeName, String shopImg, boolean isService) {
         this.activity = activity;
         this.lat = lat;
         this.lng = lng;
@@ -87,7 +87,13 @@ public class MakeOrderFirstStepViewModel {
             } else
                 GlobalVariables.makeOrderModel.setService(true);
 
-            GlobalVariables.makeOrderModel.setDetails(details.get());
+            String detailsTxt = "";
+            if (!activity.selectedProducts.equals(""))
+                detailsTxt = activity.selectedProducts + "\n" + details.get();
+            else
+                detailsTxt = details.get();
+
+            GlobalVariables.makeOrderModel.setDetails(detailsTxt);
             activity.startActivity(intent);
         }
     }

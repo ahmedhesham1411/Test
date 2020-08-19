@@ -46,6 +46,7 @@ public class GoogleStoresModel {
 
     public static class ResultsBean {
 
+        private String formatted_address;
         private GeometryBean geometry;
         private String icon;
         private String id;
@@ -60,6 +61,14 @@ public class GoogleStoresModel {
         private int user_ratings_total;
         private List<PhotosBean> photos;
         private List<String> types;
+
+        public String getFormatted_address() {
+            return formatted_address;
+        }
+
+        public void setFormatted_address(String formatted_address) {
+            this.formatted_address = formatted_address;
+        }
 
         public GeometryBean getGeometry() {
             return geometry;

@@ -255,7 +255,26 @@ public class ChatDriverViewModel extends ViewModel {
     }
 
     public void callUser() {
-        IntentClass.goTodialPhoneNumber(activity, phoneNumber);
+        Dialog dialogCall = new Dialog(activity);
+        dialogCall.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogCall.setContentView(R.layout.custom_alert_dialog_call);
+        dialogCall.setCanceledOnTouchOutside(false);
+        dialogCall.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView alert_text = dialogCall.findViewById(R.id.alert_text);
+        TextView refuseClick = dialogCall.findViewById(R.id.no_id);
+        TextView confirmClick = dialogCall.findViewById(R.id.yes_id);
+
+        refuseClick.setText(activity.getString(R.string.cancel));
+        confirmClick.setText(activity.getString(R.string.call));
+
+        alert_text.setText(activity.getString(R.string.call_instructions));
+
+        refuseClick.setOnClickListener(v -> dialogCall.dismiss());
+        confirmClick.setOnClickListener(v -> {
+            IntentClass.goTodialPhoneNumber(activity, phoneNumber);
+            dialogCall.dismiss();
+        });
+        dialogCall.show();
     }
 
     public void bill() {

@@ -35,6 +35,24 @@ public class ProductsModel {
             private String product_name;
             private String place_id;
             private int ProductUID;
+            private int product_cat;
+            private boolean isSelected;
+
+            public boolean isSelected() {
+                return isSelected;
+            }
+
+            public void setSelected(boolean selected) {
+                isSelected = selected;
+            }
+
+            public int getProduct_cat() {
+                return product_cat;
+            }
+
+            public void setProduct_cat(int product_cat) {
+                this.product_cat = product_cat;
+            }
 
             public void setStoreID(int StoreID) {
                 this.StoreID = StoreID;

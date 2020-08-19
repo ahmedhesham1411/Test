@@ -20,6 +20,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.uriallab.haat.haat.DataModels.GoogleAddressModel;
 import com.uriallab.haat.haat.DataModels.GoogleStoresModel;
+import com.uriallab.haat.haat.DataModels.OtherBranchesModel;
 import com.uriallab.haat.haat.Interfaces.BranchClick;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
@@ -40,11 +41,11 @@ import cz.msebera.android.httpclient.Header;
 public class OtherBranchesAdapter extends RecyclerView.Adapter<OtherBranchesAdapter.StoresViewHolder> {
 
     private Activity activity;
-    private List<GoogleStoresModel.ResultsBean> incomingList;
+    private List<OtherBranchesModel.BranchBean> incomingList;
 
     private BranchClick branchClick;
 
-    public OtherBranchesAdapter(Activity activity, List<GoogleStoresModel.ResultsBean> incomingList, BranchClick branchClick) {
+    public OtherBranchesAdapter(Activity activity, List<OtherBranchesModel.BranchBean> incomingList, BranchClick branchClick) {
         this.activity = activity;
         this.incomingList = incomingList;
         this.branchClick = branchClick;
@@ -60,9 +61,13 @@ public class OtherBranchesAdapter extends RecyclerView.Adapter<OtherBranchesAdap
     @Override
     public void onBindViewHolder(final StoresViewHolder holder, final int position) {
 
-        getAddressFromLatLng(activity, holder.binding.storeAddress, new LatLng(
-                incomingList.get(position).getGeometry().getLocation().getLat(),
-                incomingList.get(position).getGeometry().getLocation().getLng()));
+        holder.binding.storeName.setText(incomingList.get(position).getName());
+
+        holder.binding.storeAddress.setText(incomingList.get(position).getAddress());
+
+//        getAddressFromLatLng(activity, holder.binding.storeAddress, new LatLng(
+//                incomingList.get(position).getLat(),
+//                incomingList.get(position).getLng()));
 
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -70,20 +75,15 @@ public class OtherBranchesAdapter extends RecyclerView.Adapter<OtherBranchesAdap
 
             double distance = Utilities.getKilometers(gpsTracker.getLocation().getLatitude(),
                     gpsTracker.getLocation().getLongitude(),
-                    incomingList.get(position).getGeometry().getLocation().getLat(),
-                    incomingList.get(position).getGeometry().getLocation().getLng());
+                    incomingList.get(position).getLat(),
+                    incomingList.get(position).getLng());
 
             holder.binding.storeDistance.setText(Utilities.roundPrice(distance) + "");
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                branchClick.branchClick(holder.binding.storeAddress.getText().toString(),
-                        new LatLng(incomingList.get(position).getGeometry().getLocation().getLat(),
-                                incomingList.get(position).getGeometry().getLocation().getLng()));
-            }
-        });
+        holder.itemView.setOnClickListener(view -> branchClick.branchClick(holder.binding.storeAddress.getText().toString(),
+                new LatLng(incomingList.get(position).getLat(),
+                        incomingList.get(position).getLng())));
 
     }
 

@@ -21,6 +21,8 @@
     <string name="ok">ok</string>
     <string name="ok_">ok</string>
     <string name="cancel">cancel</string>
+    <string name="call">call</string>
+    <string name="call_instructions">Please use the call as absolutely necessary, and upon completion must write everything agreed upon within the conversation</string>
     <string name="home">Home</string>
     <string name="house">Home</string>
     <string name="driver">driver</string>
@@ -208,6 +210,7 @@
     <string name="delivery_price">delivery fee</string>
     <string name="enter_price">enter price</string>
     <string name="deleted_successfully">deleted successfully</string>
+    <string name="deleted">delete</string>
     <string name="canceled">canceled</string>
     <string name="error_on_location">error happened when saving this location</string>
     <string name="currency">SAR</string>
@@ -270,7 +273,7 @@
     <string name="status">status</string>
     <string name="eligible">eligible</string>
     <string name="stopped">stopped</string>
-    <string name="places_around_you">most famous places around you ...</string>
+    <string name="places_around_you">services ...</string>
     <string name="hat_card">Haat Card</string>
     <string name="hat_service">Haat Service</string>
     <string name="site">location</string>
@@ -288,6 +291,9 @@
     <string name="reading">I certify that I have read and agree to the above terms.</string>
     <string name="full_name">quadruple name</string>
     <string name="products">products</string>
+    <string name="cat_name">name</string>
+    <string name="quantity">quantity</string>
+    <string name="total_price">total price</string>
     <string name="id_number">ID or residence number</string>
     <string name="stcpay">your STCPAY account number</string>
     <string name="nationality">nationality</string>
@@ -303,4 +309,9 @@
     <string name="scan_card">scan card</string>
     <string name="confirm_payment">confirm payment</string>
     <string name="well">well</string>
+    <string name="expinsive_price">expensive delivery price</string>
+    <string name="driver_ask_for_cancel">the driver ask for cancel</string>
+    <string name="no_need_for_order">no need for order</string>
+    <string name="driver_not_accepting_online_payment">the driver not accepting online payment</string>
+    <string name="driver_ask_for_contact_outside_the_application">the driver ask for contact outside the application</string>
 </resources>

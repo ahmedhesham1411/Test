@@ -12,7 +12,6 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -31,7 +30,6 @@ import com.oppwa.mobile.connect.service.ConnectService;
 import com.oppwa.mobile.connect.service.IProviderBinder;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
-import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ActivityPaymentGateBinding;
 import com.uriallab.haat.haat.viewModels.PaymentGateViewModel;
@@ -384,27 +382,29 @@ public class PaymentGateActivity extends AppCompatActivity implements ITransacti
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        if (intent.getScheme().equals("haat")) {
-            String checkoutId = intent.getData().getQueryParameter("id");
+        //  viewModel.checkPayStatus();
 
-          //  binding.checkoutWebview.setVisibility(View.GONE);
-            //binding.linPayment.setVisibility(View.GONE);
-
-            viewModel.checkPayStatus();
-
-//            /* request payment status */
-        }
+//        if (intent.getScheme().equals("haat")) {
+//            String checkoutId = intent.getData().getQueryParameter("id");
+//
+//          //  binding.checkoutWebview.setVisibility(View.GONE);
+//            //binding.linPayment.setVisibility(View.GONE);
+//
+//            viewModel.checkPayStatus();
+//
+////            /* request payment status */
+//        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-       // if (requestCode == 101) {
-      //      viewModel.checkPayStatus();
-      //  } else if (requestCode == 200) {
-      //      viewModel.checkPayStatus();
-     //   }
+        if (requestCode == 101) {
+            viewModel.checkPayStatus();
+        } else if (requestCode == 200) {
+            viewModel.checkPayStatus();
+        }
 
 //        if (requestCode == 10) {
 //            String resultDisplayStr;

@@ -37,7 +37,7 @@ public class PlayAudioManager {
         try {
             mediaPlayer = null;
             mediaPlayer = MediaPlayer.create(context, Uri.parse(url));
-            Log.e("seeking", url + " ");
+            Log.e("voiceUrl", url + " ");
 
             mediaPlayer.setOnCompletionListener(mp -> {
                 mediaStatus.set(0);

@@ -74,7 +74,7 @@
 
         </LinearLayout>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:paddingBottom="51dp"
             android:layout_below="@id/lin1"
             android:fillViewport="true"
@@ -184,7 +184,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:onClick="@{()->storeDetailsVM.otherBranches()}"
                     android:id="@+id/store_branch_lin"
                     android:layout_marginTop="10dp"
@@ -358,6 +357,17 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:visibility="@{storeDetailsVM.isFromServerObservable? View.VISIBLE : View.GONE}"
                     android:nestedScrollingEnabled="false"
+                    android:id="@+id/menu_recycler"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="@{storeDetailsVM.isFromServerObservable? View.VISIBLE : View.GONE}"
+                    android:nestedScrollingEnabled="false"
                     android:id="@+id/products_recycler"
                     android:layout_marginStart="15dp"
                     android:layout_marginBottom="10dp"
@@ -366,7 +376,7 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <Button
             android:onClick="@{()->storeDetailsVM.next()}"

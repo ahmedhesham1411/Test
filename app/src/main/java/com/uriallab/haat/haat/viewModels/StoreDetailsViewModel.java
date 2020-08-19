@@ -22,8 +22,11 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.DataModels.GoogleStoresModel;
+import com.uriallab.haat.haat.DataModels.OtherBranchesModel;
+import com.uriallab.haat.haat.DataModels.ProductMenuModel;
 import com.uriallab.haat.haat.DataModels.ProductsModel;
 import com.uriallab.haat.haat.DataModels.StoreDetailsModel;
+import com.uriallab.haat.haat.DataModels.StoreProductsModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Activities.StoreUsersReviewsActivity;
@@ -32,13 +35,14 @@ import com.uriallab.haat.haat.UI.Activities.makeOrder.OtherBranchesActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.StoreDetailsActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.GPSTracker;
-import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 import com.uriallab.haat.haat.Utilities.Utilities;
 
 import java.lang.reflect.Type;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -52,11 +56,15 @@ public class StoreDetailsViewModel {
 
     public ObservableBoolean isFromServerObservable = new ObservableBoolean(false);
 
+    public List<StoreProductsModel.ProductBean> productMenuModelList = new ArrayList<>();
+
+    private StoreProductsModel storeProductsModel = new StoreProductsModel();
+
     private StoreDetailsActivity activity;
 
     private StoreDetailsModel storeDetailsModel;
 
-    private GoogleStoresModel otherBranchesList;
+    private OtherBranchesModel otherBranchesList = new OtherBranchesModel();
 
     private String placeId;
 
@@ -78,7 +86,7 @@ public class StoreDetailsViewModel {
         if (isFromServer) {
             getServerStoreDetails();
 
-            getProducts();
+            getProductMenu();
         } else {
             getStoreDetails();
         }
@@ -113,7 +121,6 @@ public class StoreDetailsViewModel {
                 }.getType();
                 storeDetailsModel = new Gson().fromJson(responseString, dataType);
 
-                activity.binding.storeBranchLin.setVisibility(View.VISIBLE);
                 getOtherBranches(storeDetailsModel.getResult().getName());
 
                 activity.binding.storeLocation.setText(storeDetailsModel.getResult().getFormatted_address());
@@ -151,6 +158,16 @@ public class StoreDetailsViewModel {
                     photoUrl = storeDetailsModel.getResult().getIcon();
                     e.printStackTrace();
                 }
+
+                List<OtherBranchesModel.BranchBean> otherList = new ArrayList<>();
+
+                otherList.add(new OtherBranchesModel.BranchBean(storeDetailsModel.getResult().getName(),
+                        storeDetailsModel.getResult().getFormatted_address(),
+                        photoUrl,
+                        storeDetailsModel.getResult().getGeometry().getLocation().getLat(),
+                        storeDetailsModel.getResult().getGeometry().getLocation().getLng()));
+
+                otherBranchesList.setProductBeans(otherList);
 
                 Picasso.get().load(photoUrl).placeholder(R.drawable.logo).into(activity.binding.storeImg);
 
@@ -243,6 +260,30 @@ public class StoreDetailsViewModel {
                 mNumberFormat.setMinimumFractionDigits(3);
                 mNumberFormat.setMaximumFractionDigits(3);
 
+                List<OtherBranchesModel.BranchBean> otherList = new ArrayList<>();
+
+                otherList.add(new OtherBranchesModel.BranchBean(storeDetailsModel.getResult().getName(),
+                        storeDetailsModel.getResult().getFormatted_address(),
+                        storeDetailsModel.getResult().getIcon(),
+                        storeDetailsModel.getResult().getGeometry().getLocation().getLat(),
+                        storeDetailsModel.getResult().getGeometry().getLocation().getLng()));
+
+                for (int i = 0; i < storeDetailsModel.getResult().getBranches().size(); i++) {
+
+                    otherList.add(new OtherBranchesModel.BranchBean(storeDetailsModel.getResult().getBranches().get(i).getStore_name(),
+                            storeDetailsModel.getResult().getBranches().get(i).getLocation_name(),
+                            storeDetailsModel.getResult().getBranches().get(i).getIcon(),
+                            storeDetailsModel.getResult().getBranches().get(i).getLat(),
+                            storeDetailsModel.getResult().getBranches().get(i).getLng()));
+                }
+
+                // TODO: 8/18/2020
+                try {
+                    otherBranchesList.setProductBeans(otherList);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     GPSTracker gpsTracker = new GPSTracker(activity);
@@ -322,7 +363,7 @@ public class StoreDetailsViewModel {
         });
     }
 
-    private void getProducts() {
+    private void getProducts(final int catId) {
         final LoadingDialog loadingDialog = new LoadingDialog();
         APIModel.getMethod(activity, "Data/GetStorProducs?place_id=" + placeId, new TextHttpResponseHandler() {
             @Override
@@ -330,12 +371,7 @@ public class StoreDetailsViewModel {
                 Log.e("response", responseString + "Error");
                 switch (statusCode) {
                     default:
-                        APIModel.handleFailure(activity, statusCode, responseString, new APIModel.RefreshTokenListener() {
-                            @Override
-                            public void onRefresh() {
-                                getProducts();
-                            }
-                        });
+                        APIModel.handleFailure(activity, statusCode, responseString, () -> getProducts(catId));
                         break;
                 }
             }
@@ -347,9 +383,9 @@ public class StoreDetailsViewModel {
                 }.getType();
                 ProductsModel data = new Gson().fromJson(responseString, dataType);
 
-                if (data.getResult().getProducts().size() > 0)
-                    activity.initProductsRecycler(data.getResult().getProducts());
-                else
+                if (data.getResult().getProducts().size() > 0) {
+                    activity.updateProductsRecycler(data.getResult().getProducts(), catId);
+                } else
                     isFromServerObservable.set(false);
             }
 
@@ -363,6 +399,47 @@ public class StoreDetailsViewModel {
             public void onFinish() {
                 super.onFinish();
                 Dialogs.dismissLoading(loadingDialog);
+            }
+        });
+    }
+
+    private void getProductMenu() {
+        //final LoadingDialog loadingDialog = new LoadingDialog();
+        APIModel.getMethod(activity, "Data/GetStorCategory?place_id=" + placeId, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e("response", responseString + "Error");
+                switch (statusCode) {
+                    default:
+                        APIModel.handleFailure(activity, statusCode, responseString, () -> getProductMenu());
+                        break;
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.e("response", responseString);
+                Type dataType = new TypeToken<ProductMenuModel>() {
+                }.getType();
+                ProductMenuModel data = new Gson().fromJson(responseString, dataType);
+
+                if (data.getResult().getCategory().size() > 0) {
+                    activity.initMenuRecycler(data.getResult().getCategory());
+                    getProducts(data.getResult().getCategory().get(0).getId());
+                } else
+                    isFromServerObservable.set(false);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                //Dialogs.showLoading(activity, loadingDialog);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                //Dialogs.dismissLoading(loadingDialog);
             }
         });
     }
@@ -406,7 +483,7 @@ public class StoreDetailsViewModel {
 
     public void otherBranches() {
         try {
-            if (otherBranchesList.getResults().size() > 0) {
+            if (otherBranchesList.getProductBeans().size() > 0) {
                 Intent intent = new Intent(activity, OtherBranchesActivity.class);
                 Gson gson = new Gson();
                 String myJson = gson.toJson(otherBranchesList);
@@ -414,18 +491,26 @@ public class StoreDetailsViewModel {
                 activity.startActivityForResult(intent, 369);
             }
         } catch (Exception e) {
-            Utilities.toastyError(activity, activity.getString(R.string.no_reviews));
             e.printStackTrace();
         }
     }
 
     public void next() {
+        Log.e("list_size", productMenuModelList.size() + "");
+
         if (isOpen) {
             Bundle bundle = new Bundle();
             bundle.putString("storeName", storeDetailsModel.getResult().getName());
             bundle.putString("shopImg", photoUrl);
             bundle.putDouble("lat", lat);
             bundle.putDouble("lng", lng);
+            Gson gson = new Gson();
+
+            storeProductsModel.setProductBeans(productMenuModelList);
+
+            String myJson = gson.toJson(storeProductsModel);
+            bundle.putString("myjson", myJson);
+            Log.e("list_size", myJson + "");
             IntentClass.goToActivity(activity, MakeOrderFirstStepActivity.class, bundle);
         } else
             Utilities.toastyError(activity, activity.getString(R.string.closed_now));
@@ -468,8 +553,29 @@ public class StoreDetailsViewModel {
                 Log.e("response", responseString);
                 Type dataType = new TypeToken<GoogleStoresModel>() {
                 }.getType();
-                otherBranchesList = new Gson().fromJson(responseString, dataType);
+                GoogleStoresModel googleStoresModel = new Gson().fromJson(responseString, dataType);
 
+                List<OtherBranchesModel.BranchBean> otherList = new ArrayList<>();
+
+                for (int i = 0; i < googleStoresModel.getResults().size(); i++) {
+
+                    try {
+                        photoUrl = "https://maps.googleapis.com/maps/api/place/photo?photoreference=" +
+                                googleStoresModel.getResults().get(i).getPhotos().get(0).getPhoto_reference()
+                                + "&maxheight=400&maxwidth=400&key=AIzaSyAmD_A7N-SI2JbkhGh4xY_OFip7GtQRZfg";
+                    } catch (Exception e) {
+                        photoUrl = googleStoresModel.getResults().get(i).getIcon();
+                        e.printStackTrace();
+                    }
+
+                    otherList.add(new OtherBranchesModel.BranchBean(googleStoresModel.getResults().get(i).getName(),
+                            googleStoresModel.getResults().get(i).getFormatted_address(),
+                            photoUrl,
+                            googleStoresModel.getResults().get(i).getGeometry().getLocation().getLat(),
+                            googleStoresModel.getResults().get(i).getGeometry().getLocation().getLng()));
+                }
+
+                otherBranchesList.setProductBeans(otherList);
             }
 
             @Override

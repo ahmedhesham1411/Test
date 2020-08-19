@@ -13,11 +13,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.uriallab.haat.haat.DataModels.ProductMenuModel;
 import com.uriallab.haat.haat.DataModels.ProductsModel;
-import com.uriallab.haat.haat.DataModels.StoreDetailsModel;
+import com.uriallab.haat.haat.Interfaces.MenuClick;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
-import com.uriallab.haat.haat.UI.Adapters.MenuImagesAdapter;
+import com.uriallab.haat.haat.UI.Adapters.ProductMenuAdapter;
 import com.uriallab.haat.haat.UI.Adapters.ProductsAdapter;
 import com.uriallab.haat.haat.Utilities.GPSTracker;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
@@ -25,9 +26,10 @@ import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ActivityStoreDetailsBinding;
 import com.uriallab.haat.haat.viewModels.StoreDetailsViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class StoreDetailsActivity extends AppCompatActivity {
+public class StoreDetailsActivity extends AppCompatActivity implements MenuClick {
 
     public ActivityStoreDetailsBinding binding;
     private String placeId = "";
@@ -35,6 +37,10 @@ public class StoreDetailsActivity extends AppCompatActivity {
     private boolean isFromServer = false;
 
     private StoreDetailsViewModel viewModel;
+
+    private ProductsAdapter productsAdapter;
+    private List<ProductsModel.ResultEntity.ProductsEntity> productsMenuList = new ArrayList<>();
+    private List<ProductsModel.ResultEntity.ProductsEntity> productsMenuList2 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +70,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
 
         try {
             isFromServer = bundle.getBoolean("isFromServer");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -81,19 +87,32 @@ public class StoreDetailsActivity extends AppCompatActivity {
             finish();
     }
 
-    public void initMenuRecycler(List<StoreDetailsModel.ResultBean.PhotosBean> imagesList) {
-        MenuImagesAdapter imagesAdapter = new MenuImagesAdapter(this, imagesList);
-        binding.recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        binding.recyclerMenu.setAdapter(imagesAdapter);
-        Utilities.runAnimation(binding.recyclerMenu, 2);
+    public void initMenuRecycler(List<ProductMenuModel.ResultBean.CategoryBean> productsEntities) {
+        ProductMenuAdapter productMenuAdapter = new ProductMenuAdapter(this, productsEntities, this);
+        binding.menuRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.menuRecycler.setAdapter(productMenuAdapter);
+        Utilities.runAnimation(binding.menuRecycler, 2);
     }
 
-    public void initProductsRecycler(List<ProductsModel.ResultEntity.ProductsEntity> imagesList) {
-        ProductsAdapter imagesAdapter = new ProductsAdapter(this, imagesList);
+    public void updateProductsRecycler(List<ProductsModel.ResultEntity.ProductsEntity> productsMenus, int catId) {
+        productsMenuList.clear();
+        productsMenuList2.clear();
+        productsMenuList2.addAll(productsMenus);
+        List<ProductsModel.ResultEntity.ProductsEntity> tempList = new ArrayList<>();
+        for (int i = 0; i < productsMenuList2.size(); i++) {
+            productsMenuList2.get(i).setSelected(false);
+            if (productsMenuList2.get(i).getProduct_cat() == catId)
+                tempList.add(productsMenuList2.get(i));
+        }
+
+        productsMenuList.addAll(tempList);
+
+        productsAdapter = new ProductsAdapter(this, productsMenuList, viewModel.productMenuModelList);
         binding.productsRecycler.setLayoutManager(new LinearLayoutManager(this));
-        binding.productsRecycler.setAdapter(imagesAdapter);
+        binding.productsRecycler.setAdapter(productsAdapter);
         Utilities.runAnimation(binding.productsRecycler, 2);
     }
+
 
     private void arrowColor() {
         binding.rateArrow.setImageResource(R.drawable.arrow_left);
@@ -137,5 +156,19 @@ public class StoreDetailsActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void menuClick(int categoryId) {
+        List<ProductsModel.ResultEntity.ProductsEntity> tempList = new ArrayList<>();
+        for (int i = 0; i < productsMenuList2.size(); i++) {
+            if (productsMenuList2.get(i).getProduct_cat() == categoryId)
+                tempList.add(productsMenuList2.get(i));
+        }
+
+        productsMenuList.clear();
+        productsMenuList.addAll(tempList);
+
+        productsAdapter.notifyDataSetChanged();
     }
 }

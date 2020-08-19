@@ -73,7 +73,6 @@ public class ChatActivity extends AppCompatActivity {
     private static final String AUDIO_RECORDER_FOLDER = "AudioRecorder";
     private int currentFormat = 0;
     private MediaRecorder recorder;
-    private int[] output_formats = {MediaRecorder.OutputFormat.AMR_NB};
     private String[] file_exts = {AUDIO_RECORDER_FILE_EXT_MP3};
     private String filePathUri;
 
@@ -91,7 +90,6 @@ public class ChatActivity extends AppCompatActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("MyData"));
-
 
         binding.recordSound.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -143,9 +141,10 @@ public class ChatActivity extends AppCompatActivity {
 
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setOutputFormat(output_formats[currentFormat]);
-            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            recorder.setAudioSamplingRate(16000);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            recorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+            recorder.setAudioEncodingBitRate(16*44100);
+            recorder.setAudioSamplingRate(44100);
             recorder.setOutputFile(getFilename());
             recorder.setOnErrorListener(errorListener);
             recorder.setOnInfoListener(infoListener);
