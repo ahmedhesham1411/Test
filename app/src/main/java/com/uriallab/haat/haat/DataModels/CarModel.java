@@ -2,7 +2,7 @@ package com.uriallab.haat.haat.DataModels;
 
 import java.util.List;
 
-public class CarTpeModel {
+public class CarModel {
 
     private ResultBean result;
 
@@ -28,7 +28,7 @@ public class CarTpeModel {
         public static class DataBean {
 
             private String id;
-            private String name;
+            private String Care_Type;
 
             public String getId() {
                 return id;
@@ -38,12 +38,12 @@ public class CarTpeModel {
                 this.id = id;
             }
 
-            public String getName() {
-                return name;
+            public String getCare_Type() {
+                return Care_Type;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public void setCare_Type(String Care_Type) {
+                this.Care_Type = Care_Type;
             }
         }
     }

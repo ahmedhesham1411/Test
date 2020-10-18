@@ -20,7 +20,6 @@ import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Adapters.ProductMenuAdapter;
 import com.uriallab.haat.haat.UI.Adapters.ProductsAdapter;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ActivityStoreDetailsBinding;
@@ -88,7 +87,7 @@ public class StoreDetailsActivity extends AppCompatActivity implements MenuClick
     }
 
     public void initMenuRecycler(List<ProductMenuModel.ResultBean.CategoryBean> productsEntities) {
-        ProductMenuAdapter productMenuAdapter = new ProductMenuAdapter(this, productsEntities, this);
+        ProductMenuAdapter productMenuAdapter = new ProductMenuAdapter(this, productsEntities, productsEntities.get(0).getId(), this);
         binding.menuRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.menuRecycler.setAdapter(productMenuAdapter);
         Utilities.runAnimation(binding.menuRecycler, 2);
@@ -107,7 +106,7 @@ public class StoreDetailsActivity extends AppCompatActivity implements MenuClick
 
         productsMenuList.addAll(tempList);
 
-        productsAdapter = new ProductsAdapter(this, productsMenuList, viewModel.productMenuModelList);
+        productsAdapter = new ProductsAdapter(this, productsMenuList, viewModel.productMenuModelList, viewModel.totalPrice);
         binding.productsRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.productsRecycler.setAdapter(productsAdapter);
         Utilities.runAnimation(binding.productsRecycler, 2);
@@ -140,11 +139,10 @@ public class StoreDetailsActivity extends AppCompatActivity implements MenuClick
 
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        GPSTracker gpsTracker = new GPSTracker(this);
 
                         double distance = Utilities.getKilometers(
-                                gpsTracker.getLocation().getLatitude(),
-                                gpsTracker.getLocation().getLongitude(),
+                                GlobalVariables.LOCATION_LAT,
+                                GlobalVariables.LOCATION_LNG,
                                 data.getExtras().getDouble("lat"),
                                 data.getExtras().getDouble("lng"));
 

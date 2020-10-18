@@ -102,27 +102,24 @@ public class SendReportBottomSheet extends BottomSheetDialogFragment implements 
         ImageView addCoupon = dialog.findViewById(R.id.add_coupon);
         LinearLayout attachmentLin = dialog.findViewById(R.id.attachment_lin);
 
-        attachmentLin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    if (ActivityCompat.checkSelfPermission(activity,
-                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                            ActivityCompat.checkSelfPermission(activity,
-                                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                            ActivityCompat.checkSelfPermission(activity,
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(activity,
-                                new String[]{Manifest.permission.CAMERA,
-                                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                                }, 3);
-                    } else {
-                        Camera.showGalleryFromActivity(activity);
-                    }
+        attachmentLin.setOnClickListener(view -> {
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (ActivityCompat.checkSelfPermission(activity,
+                        Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                        ActivityCompat.checkSelfPermission(activity,
+                                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                        ActivityCompat.checkSelfPermission(activity,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(activity,
+                            new String[]{Manifest.permission.CAMERA,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            }, 3);
                 } else {
                     Camera.showGalleryFromActivity(activity);
                 }
+            } else {
+                Camera.showGalleryFromActivity(activity);
             }
         });
 

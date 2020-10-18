@@ -24,13 +24,14 @@ import com.uriallab.haat.haat.DataModels.OverviewPointModel;
 import com.uriallab.haat.haat.DataModels.TimeModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
+import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 import com.uriallab.haat.haat.UI.Activities.SentSuccessfullyActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.DeliveringTimeActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.DelivieringLocationActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.FavouritesActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.MakeOrderStepTwoActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 import com.uriallab.haat.haat.Utilities.Utilities;
@@ -59,7 +60,7 @@ public class MakeOrderStepTwoViewModel {
 
     public double userLat, userLng, storeLat, storeLng;
 
-    private String storeName, details, shopImg, coupon;
+    private String storeName, details, shopImg, coupon, catId, catAuth;
 
     private List<String> images;
 
@@ -74,16 +75,20 @@ public class MakeOrderStepTwoViewModel {
         images = makeOrderModel.getImages();
         coupon = makeOrderModel.getCoupon();
 
+        catId = makeOrderModel.getCategory_Id();
+        catAuth = makeOrderModel.getCategory_AuthorityId();
+
+        Log.e("Global_data", catId+"\t" +catAuth+"\t"+"\n"+
+                GlobalVariables.makeOrderModel.getCategory_Id()+"\t"+GlobalVariables.makeOrderModel.getCategory_AuthorityId());
+
         storeLat = makeOrderModel.getLat();
         storeLng = makeOrderModel.getLng();
         shopImg = makeOrderModel.getShopImg();
 
         isService.set(makeOrderModel.isService());
 
-        GPSTracker gpsTracker = new GPSTracker(activity);
-
-        userLat = gpsTracker.getLatitude();
-        userLng = gpsTracker.getLongitude();
+        userLat = GlobalVariables.LOCATION_LAT;
+        userLng = GlobalVariables.LOCATION_LNG;
 
         if (ConfigurationFile.getCurrentLanguage(activity).equals("ar"))
             rotate.set(180);
@@ -95,31 +100,35 @@ public class MakeOrderStepTwoViewModel {
 
     public void createOrder() {
 
-        if (isService.get()) {
-            if (timeObservable.get().equals("") || addressObservable.get().equals("") || distenationObservable.get().equals("")) {
+        if (LoginSession.isLoggedIn(activity)){
+            if (isService.get()) {
+                if (timeObservable.get().equals("") || addressObservable.get().equals("") || distenationObservable.get().equals("")) {
 
-                if (timeObservable.get().equals(""))
-                    Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.please_delivering_time_));
+                    if (timeObservable.get().equals(""))
+                        Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.please_delivering_time_));
 
-                if (distenationObservable.get().equals(""))
-                    Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.receiving_point));
+                    if (distenationObservable.get().equals(""))
+                        Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.receiving_point));
 
-                if (addressObservable.get().equals(""))
-                    Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.delivering_point));
+                    if (addressObservable.get().equals(""))
+                        Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.delivering_point));
 
-            } else
-                createOrderRequest();
-        } else {
-            if (timeObservable.get().equals("") || addressObservable.get().equals("")) {
+                } else
+                    createOrderRequest();
+            } else {
+                if (timeObservable.get().equals("") || addressObservable.get().equals("")) {
 
-                if (timeObservable.get().equals(""))
-                    Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.please_delivering_time_));
+                    if (timeObservable.get().equals(""))
+                        Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.please_delivering_time_));
 
-                if (addressObservable.get().equals(""))
-                    Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.please_detect_delivering_location));
+                    if (addressObservable.get().equals(""))
+                        Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.please_detect_delivering_location));
 
-            } else
-                createOrderRequest();
+                } else
+                    createOrderRequest();
+            }
+        }else {
+            Dialogs.showLoginDialog(activity);
         }
     }
 
@@ -153,6 +162,15 @@ public class MakeOrderStepTwoViewModel {
                 jsonParams.put("Shop_Lng", storeLng);
                 jsonParams.put("Client_Lng", userLng);
                 jsonParams.put("Client_Lat", userLat);
+                jsonParams.put("User_RegionID", LoginSession.getUserData(activity).getResult().getUserData().getUser_RegionID());
+                jsonParams.put("User_CityID", LoginSession.getUserData(activity).getResult().getUserData().getUser_CityID());
+                if (isService.get()){
+                    jsonParams.put("Category_Id", "rAy9UhMUw6Y=");
+                    jsonParams.put("Category_AuthorityId", "Nap4gA1tyeY=");
+                }else {
+                    jsonParams.put("Category_Id", GlobalVariables.makeOrderModel.getCategory_Id());
+                    jsonParams.put("Category_AuthorityId", GlobalVariables.makeOrderModel.getCategory_AuthorityId());
+                }
                 jsonParams.put("OrdImgs", jsonArray);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -240,7 +258,10 @@ public class MakeOrderStepTwoViewModel {
     }
 
     public void favourites() {
-        IntentClass.goToStartForResult(activity, FavouritesActivity.class, 333, null);
+        if (LoginSession.isLoggedIn(activity))
+            IntentClass.goToStartForResult(activity, FavouritesActivity.class, 333, null);
+        else
+            Dialogs.showLoginDialog(activity);
     }
 
     public void back() {

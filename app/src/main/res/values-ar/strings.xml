@@ -41,7 +41,7 @@
     <string name="meter">متر</string>
     <string name="my_profile">حسابي</string>
     <string name="edit_profile">تعديل البروفايل</string>
-    <string name="comments">التعليقات</string>
+    <string name="comments">التقييمات</string>
     <string name="setting">الإعدادات</string>
     <string name="active">نشطة</string>
     <string name="finished">منتهية</string>
@@ -63,6 +63,7 @@
     <string name="policy_terms"><u> شروط الإستخدام والخصوصية </u></string>
     <string name="new_account">تسجيل حساب جديد</string>
     <string name="name">الاسم بالكامل</string>
+    <string name="client_name">زائر</string>
     <string name="enter_full_name">الرجاء إدخال الإسم بالكامل</string>
     <string name="go">إنطلق</string>
     <string name="user_rates">تقييمات المستخدمين</string>
@@ -253,9 +254,10 @@
     <string name="help">مساعدة</string>
     <string name="how_i_work_in_hat">كيف اعمل في تطبيق هات؟</string>
     <string name="subscribe_text">مرحبا بك انت غير مفعل من قبل الإدارة لاداء خدمات التوصيل يمكنك التفعيل ثم اعادة الدخول مرة اخري</string>
-    <string name="other_branches">الفروع الأخري</string>
+    <string name="other_branches">الفروع الأخرى</string>
     <string name="pay_dues">دفع المستحقات</string>
     <string name="logout">هل تريد تسجيل الخروج من التطبيق</string>
+    <string name="logout_">عزيزي أنت غير مسجل في تطبيق هات</string>
     <string name="searching_for_driver">جاري تحديد مكان الموصل</string>
     <string name="low_price">سعر اقل</string>
     <string name="qr_code">رمز ال QR</string>
@@ -270,12 +272,12 @@
     <string name="status">الحالة</string>
     <string name="eligible">مؤهل</string>
     <string name="stopped">موقوف</string>
-    <string name="places_around_you">الخدمات ...</string>
+    <string name="places_around_you">القائمة والأسعار ...</string>
     <string name="hat_card">هات كارد</string>
     <string name="hat_service">هات خدمة</string>
     <string name="site">الموقع</string>
     <string name="map">الخريطة</string>
-    <string name="hat_online_store">متجر هات الإلكترونى</string>
+    <string name="hat_online_store">متجر هات الإلكتروني</string>
     <string name="_24_hour">24 ساعة</string>
     <string name="recording">جارى التسجيل ...</string>
     <string name="typing">جارى الكتابة ...</string>
@@ -311,4 +313,15 @@
     <string name="no_need_for_order">لم أحتاج الطلب</string>
     <string name="driver_not_accepting_online_payment">الكابتن لم يقبل الدفع الألكترونى</string>
     <string name="driver_ask_for_contact_outside_the_application">الكابتن طلب التواصل خارج التطبيق</string>
+    <string name="orders_">الطلبات</string>
+    <string name="visitor">الدخول كزائر</string>
+    <string name="register">تسجيل</string>
+    <string name="visit_hat">لزيارة هذا الموقع على تطبيق هات</string>
+    <string name="city">المدينة</string>
+    <string name="region">المنطقة</string>
+    <string name="please_choose_region">الرجاء تحديد المنطقة</string>
+    <string name="please_choose_city">الرجاء تحديد المدينة</string>
+    <string name="identity_type">نوع الهوية</string>
+    <string name="please_choose_identity_type">الرجاء تحديد نوع الهوية</string>
+    <string name="car">السيارة</string>
 </resources>

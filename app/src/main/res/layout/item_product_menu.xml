@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
-        android:background="@drawable/shape_rounded_moov"
-        android:id="@+id/sound_lin"
+        android:background="@drawable/shape_rounded_blue"
+        android:id="@+id/menu_lin"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"

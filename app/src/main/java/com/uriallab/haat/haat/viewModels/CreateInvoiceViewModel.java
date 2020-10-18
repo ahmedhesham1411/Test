@@ -60,7 +60,6 @@ public class CreateInvoiceViewModel {
 
         if (validate())
             SendInvoiceRequest();
-
     }
 
     private void SendInvoiceRequest() {

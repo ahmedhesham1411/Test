@@ -100,22 +100,19 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
             holder.binding.orderStateTxt.setText(activity.getString(R.string.delivering));
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("orderStatus", incomingList.get(position).getOrd_Client_StatusID() + "");
-                Bundle bundle = new Bundle();
-                if (incomingList.get(position).getOrd_Client_StatusID() == 1 || incomingList.get(position).getOrd_Client_StatusID() == 2) {
-                    if (incomingList.get(position).getOrd_Client_StatusID() == 1)
-                        bundle.putBoolean("isNew", true);
-                    else
-                        bundle.putBoolean("isNew", false);
-                    bundle.putString("orderId", String.valueOf(incomingList.get(position).getOrderUID()));
-                    IntentClass.goToActivity(activity, AllOffersActivity.class, bundle);
-                } else {
-                    bundle.putString("orderId", String.valueOf(incomingList.get(position).getOrderUID()));
-                    IntentClass.goToActivity(activity, ChatActivity.class, bundle);
-                }
+        holder.itemView.setOnClickListener(view -> {
+            Log.e("orderStatus", incomingList.get(position).getOrd_Client_StatusID() + "");
+            Bundle bundle = new Bundle();
+            if (incomingList.get(position).getOrd_Client_StatusID() == 1 || incomingList.get(position).getOrd_Client_StatusID() == 2) {
+                if (incomingList.get(position).getOrd_Client_StatusID() == 1)
+                    bundle.putBoolean("isNew", true);
+                else
+                    bundle.putBoolean("isNew", false);
+                bundle.putString("orderId", String.valueOf(incomingList.get(position).getOrderUID()));
+                IntentClass.goToActivity(activity, AllOffersActivity.class, bundle);
+            } else {
+                bundle.putString("orderId", String.valueOf(incomingList.get(position).getOrderUID()));
+                IntentClass.goToActivity(activity, ChatActivity.class, bundle);
             }
         });
 

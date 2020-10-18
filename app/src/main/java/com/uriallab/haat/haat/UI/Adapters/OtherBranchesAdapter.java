@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -19,12 +18,10 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.uriallab.haat.haat.DataModels.GoogleAddressModel;
-import com.uriallab.haat.haat.DataModels.GoogleStoresModel;
 import com.uriallab.haat.haat.DataModels.OtherBranchesModel;
 import com.uriallab.haat.haat.Interfaces.BranchClick;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ItemOtherBranchesBinding;
@@ -71,10 +68,9 @@ public class OtherBranchesAdapter extends RecyclerView.Adapter<OtherBranchesAdap
 
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            GPSTracker gpsTracker = new GPSTracker(activity);
 
-            double distance = Utilities.getKilometers(gpsTracker.getLocation().getLatitude(),
-                    gpsTracker.getLocation().getLongitude(),
+            double distance = Utilities.getKilometers(GlobalVariables.LOCATION_LAT,
+                    GlobalVariables.LOCATION_LNG,
                     incomingList.get(position).getLat(),
                     incomingList.get(position).getLng());
 

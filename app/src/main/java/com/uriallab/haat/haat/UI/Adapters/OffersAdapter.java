@@ -21,7 +21,6 @@ import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Activities.ChatActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
@@ -90,10 +89,9 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
 
             if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                     ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                GPSTracker gpsTracker = new GPSTracker(activity);
 
-                double distance = Utilities.getKilometers(gpsTracker.getLocation().getLatitude(),
-                        gpsTracker.getLocation().getLongitude(),
+                double distance = Utilities.getKilometers(GlobalVariables.LOCATION_LAT,
+                        GlobalVariables.LOCATION_LNG,
                         Double.parseDouble(incomingList.get(position).getDriver_Lat()),
                         Double.parseDouble(incomingList.get(position).getDriver_Long()));
 
@@ -104,24 +102,14 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
             e.printStackTrace();
         }
 
-        holder.binding.acceptOffer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                acceptOrder(incomingList.get(position).getOrder_ID(),
-                        incomingList.get(position).getDriver_ID(),
-                        String.valueOf(incomingList.get(position).getOffer_Price()),
-                        position);
-            }
-        });
+        holder.binding.acceptOffer.setOnClickListener(view -> acceptOrder(incomingList.get(position).getOrder_ID(),
+                incomingList.get(position).getDriver_ID(),
+                String.valueOf(incomingList.get(position).getOffer_Price()),
+                position));
 
-        holder.binding.cancelOffer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cancelOrder(incomingList.get(position).getOrder_ID(),
-                        incomingList.get(position).getDriver_ID(),
-                        position);
-            }
-        });
+        holder.binding.cancelOffer.setOnClickListener(view -> cancelOrder(incomingList.get(position).getOrder_ID(),
+                incomingList.get(position).getDriver_ID(),
+                position));
     }
 
     @Override

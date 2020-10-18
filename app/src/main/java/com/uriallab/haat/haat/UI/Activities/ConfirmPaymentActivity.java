@@ -60,9 +60,9 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
                 @Override
                 public void onProgressChanged(WebView view, int newProgress) {
                     Log.e("WEB_URL", mainWebView.getUrl());// TODO: 7/29/2020  
-//                    if (view.getUrl().contains("haat://result")) {
-//                        onBackPressed();
-//                    }
+                    if (view.getUrl().contains("haat://result")) {
+                        onBackPressed();
+                    }
                     super.onProgressChanged(view, newProgress);
                 }
             });

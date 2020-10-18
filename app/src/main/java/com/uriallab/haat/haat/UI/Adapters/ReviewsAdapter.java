@@ -48,7 +48,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
 
         holder.binding.starBar.setRating(incomingList.get(position).getRating());
 
-        Picasso.get().load(incomingList.get(position).getProfile_photo_url()).placeholder(R.drawable.logo).into(holder.binding.userImg);
+        Picasso.get().load(incomingList.get(position).getProfile_photo_url()).into(holder.binding.userImg);
 
     }
 

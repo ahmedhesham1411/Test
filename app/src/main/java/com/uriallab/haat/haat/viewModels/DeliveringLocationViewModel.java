@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableInt;
+
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
-import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.DelivieringLocationActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
@@ -16,9 +18,6 @@ import com.uriallab.haat.haat.Utilities.Utilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableInt;
 
 public class DeliveringLocationViewModel {
 
@@ -47,7 +46,6 @@ public class DeliveringLocationViewModel {
                 jsonParams.put("Favorite_Nm", activity.binding.locationTxt.getText().toString().substring(0, 10));
             else
                 jsonParams.put("Favorite_Nm", activity.binding.additionalTxt.getText().toString());
-            jsonParams.put("User_ID", LoginSession.getUserData(activity).getResult().getUserData().getUserUID());
         } catch (JSONException e) {
             e.printStackTrace();
         }

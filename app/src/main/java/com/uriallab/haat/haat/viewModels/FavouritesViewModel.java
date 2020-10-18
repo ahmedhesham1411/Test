@@ -1,8 +1,8 @@
 package com.uriallab.haat.haat.viewModels;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
+
+import androidx.databinding.ObservableInt;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -11,18 +11,12 @@ import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.DataModels.FavModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
-import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.FavouritesActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 import com.uriallab.haat.haat.Utilities.Utilities;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
-
-import androidx.databinding.ObservableInt;
 
 public class FavouritesViewModel {
 
@@ -30,7 +24,7 @@ public class FavouritesViewModel {
 
     private FavouritesActivity activity;
 
-    public FavouritesViewModel(FavouritesActivity activity){
+    public FavouritesViewModel(FavouritesActivity activity) {
         this.activity = activity;
 
         if (ConfigurationFile.getCurrentLanguage(activity).equals("ar"))
@@ -41,15 +35,7 @@ public class FavouritesViewModel {
 
     private void getFav() {
         final LoadingDialog loadingDialog = new LoadingDialog();
-
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("User_ID", LoginSession.getUserData(activity).getResult().getUserData().getUserUID());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        APIModel.postMethod(activity, "Client/GetFavoriteLocations", jsonParams, new TextHttpResponseHandler() {
+        APIModel.getMethod(activity, "Client/GetFavoriteLocations", new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
                 Log.e("response", responseString + "Error");
@@ -92,7 +78,7 @@ public class FavouritesViewModel {
         });
     }
 
-    public void back(){
-       activity.onBackPressed();
+    public void back() {
+        activity.onBackPressed();
     }
 }

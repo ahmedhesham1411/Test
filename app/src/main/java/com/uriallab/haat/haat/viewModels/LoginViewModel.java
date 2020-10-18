@@ -1,6 +1,7 @@
 package com.uriallab.haat.haat.viewModels;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 import com.uriallab.haat.haat.UI.Activities.Auth.CodeActivity;
 import com.uriallab.haat.haat.UI.Activities.utilsAndAccountInfo.PrivacyUseActivity;
+import com.uriallab.haat.haat.UI.MainActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
@@ -41,6 +43,13 @@ public class LoginViewModel {
 
     public LoginViewModel(Activity activity) {
         this.activity = activity;
+    }
+
+    public void visitor(){
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("isHome", true);
+        activity.startActivity(intent);
     }
 
     public void login() {
@@ -164,7 +173,13 @@ public class LoginViewModel {
         return name.length() > 2 && password.length() > 5;
     }
 
-    public void policy() {
+    public void privacyPolicy() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isPolicyUse", false);
+        IntentClass.goToActivity(activity, PrivacyUseActivity.class, bundle);
+    }
+
+    public void policyUSe() {
         Bundle bundle = new Bundle();
         bundle.putBoolean("isPolicyUse", true);
         IntentClass.goToActivity(activity, PrivacyUseActivity.class, bundle);

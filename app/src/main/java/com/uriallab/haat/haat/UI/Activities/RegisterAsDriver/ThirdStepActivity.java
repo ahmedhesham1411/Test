@@ -3,6 +3,7 @@ package com.uriallab.haat.haat.UI.Activities.RegisterAsDriver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class ThirdStepActivity extends AppCompatActivity {
     private DriverRegisterThirdStepViewModel viewModel;
     private ActivityThirdStepBinding binding;
 
+    public ArrayAdapter<String> carAdapter;
     public ArrayAdapter<String> carTypeAdapter;
     public ArrayAdapter<String> carYearAdapter;
 
@@ -40,6 +42,13 @@ public class ThirdStepActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_third_step);
 
+        binding.typeArrow.setImageResource(R.drawable.arrow_left);
+        binding.carArrow.setImageResource(R.drawable.arrow_left);
+        binding.yearArrow.setImageResource(R.drawable.arrow_left);
+        binding.carArrow.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+        binding.yearArrow.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+        binding.typeArrow.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+
         Gson gson = new Gson();
         DriverRegisterModel driverRegisterModel = gson.fromJson(getIntent().getStringExtra("myjson"), DriverRegisterModel.class);
 
@@ -47,13 +56,35 @@ public class ThirdStepActivity extends AppCompatActivity {
 
         binding.setThirdStepVM(viewModel);
 
-        carTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, viewModel.typeList);
+        carAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, viewModel.carList);
+        carAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.carSpinner.setAdapter(carAdapter);
+        binding.carSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    viewModel.car = viewModel.carIdList.get(position);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        carTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, viewModel.carTypeList);
         carTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.carTypeSpinner.setAdapter(carTypeAdapter);
         binding.carTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                viewModel.type = viewModel.typeIdList.get(position);
+                try {
+                    viewModel.carType = viewModel.carTypeIdList.get(position);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             @Override

@@ -13,6 +13,7 @@ import com.uriallab.haat.haat.DataModels.CategoryModel;
 import com.uriallab.haat.haat.Interfaces.CategoryClick;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.databinding.ItemCategoryBinding;
 
 import java.util.List;
@@ -50,20 +51,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         else
             holder.binding.catName.setText(incomingList.get(position).getCategory_Title_EN());
 
-        Picasso.get().load(incomingList.get(position).getCategory_Icon_Url()).
-                placeholder(R.drawable.logo).into(holder.binding.catImg);
+        Picasso.get().load(incomingList.get(position).getCategory_Icon_Urls()).into(holder.binding.catImg);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String category;
-                if (ConfigurationFile.getCurrentLanguage(activity).equals("ar"))
-                    category = incomingList.get(position).getCategory_Title_AR();
-                else
-                    category = incomingList.get(position).getCategory_Title_EN();
+        holder.itemView.setOnClickListener(v -> {
+            String category;
+            if (ConfigurationFile.getCurrentLanguage(activity).equals("ar"))
+                category = incomingList.get(position).getCategory_Title_AR();
+            else
+                category = incomingList.get(position).getCategory_Title_EN();
 
-                categoryClick.categoryClick(incomingList.get(position).getCategory_Type(), category);
-            }
+            GlobalVariables.makeOrderModel.setCategory_Id(incomingList.get(position).getCategory_Id());
+            GlobalVariables.makeOrderModel.setCategory_AuthorityId(incomingList.get(position).getCategory_AuthorityId());
+
+            categoryClick.categoryClick(incomingList.get(position).getCategory_Type(), category);
         });
     }
 

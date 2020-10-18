@@ -45,14 +45,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         holder.binding.cardName.setText(incomingList.get(position).getName());
         holder.binding.cardPrice.setText(Utilities.roundPrice(incomingList.get(position).getPrice())+" "+ activity.getString(R.string.currency));
 
-        Picasso.get().load(incomingList.get(position).getUrl()).placeholder(R.drawable.logo).into(holder.binding.catImg);
+        Picasso.get().load(incomingList.get(position).getUrl()).into(holder.binding.catImg);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HatCardBottomSheet hatCardBottomSheet = new HatCardBottomSheet(activity, incomingList.get(position));
-                hatCardBottomSheet.show(activity.getSupportFragmentManager(), "tag");
-            }
+        holder.itemView.setOnClickListener(v -> {
+            HatCardBottomSheet hatCardBottomSheet = new HatCardBottomSheet(activity, incomingList.get(position));
+            hatCardBottomSheet.show(activity.getSupportFragmentManager(), "tag");
         });
 
     }

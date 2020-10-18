@@ -12,6 +12,11 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,17 +28,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.databinding.ActivityDelivieringLocationBinding;
 import com.uriallab.haat.haat.viewModels.DeliveringLocationViewModel;
 
 import java.util.List;
 import java.util.Locale;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
 
 public class DelivieringLocationActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -64,7 +64,7 @@ public class DelivieringLocationActivity extends AppCompatActivity implements On
 
     @Override
     public void onBackPressed() {
-       // super.onBackPressed();
+        // super.onBackPressed();
         Intent returnIntent = new Intent();
         returnIntent.putExtra("address", "none");
         setResult(Activity.RESULT_OK, returnIntent);
@@ -108,12 +108,6 @@ public class DelivieringLocationActivity extends AppCompatActivity implements On
         }
     }
 
-    private void getFusedLocation() {
-        GPSTracker gpsTracker = new GPSTracker(this);
-        Log.e("Location", gpsTracker.getLatitude() + ", " + gpsTracker.getLongitude());
-        latLngTo = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
-    }
-
     private void setUpMapIfNeeded() {
         if (mMap == null) {
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -132,8 +126,7 @@ public class DelivieringLocationActivity extends AppCompatActivity implements On
 
         setUpMap();
 
-        GPSTracker gpsTracker = new GPSTracker(this);
-        latLngTo = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+        latLngTo = new LatLng(GlobalVariables.LOCATION_LAT, GlobalVariables.LOCATION_LNG);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLngTo).zoom(14).build();
         mMap.animateCamera(CameraUpdateFactory
@@ -157,10 +150,10 @@ public class DelivieringLocationActivity extends AppCompatActivity implements On
         MapStyleOptions style = new MapStyleOptions(myMapStyle);
         mMap.setMapStyle(style);
         mMap.getUiSettings().setZoomControlsEnabled(false);
-        getFusedLocation();
+        latLngTo = new LatLng(GlobalVariables.LOCATION_LAT, GlobalVariables.LOCATION_LNG);
     }
 
-    public void confirmLocation(){
+    public void confirmLocation() {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("address", binding.locationTxt.getText().toString());
         if (binding.additionalTxt.getText().toString().isEmpty())

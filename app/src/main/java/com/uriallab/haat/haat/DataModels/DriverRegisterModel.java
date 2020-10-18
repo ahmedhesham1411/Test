@@ -9,7 +9,10 @@ public class DriverRegisterModel {
     private String User_Phone;
     private int User_CarModelID;
     private int User_CarID;
-    private int User_CityID;
+    private String User_CityID;
+    private String User_RegionID;
+    private String User_NationalID_Type;
+    private String User_CarTypeID;
     private String User_License_Number;
     private String User_NationalID;
     private String User_CarYearID;
@@ -17,7 +20,31 @@ public class DriverRegisterModel {
     private String User_Mail;
     private String User_BirthDate;
     private String User_NationalID_ImgUrl;
-    private int User_CountryID;
+    private String User_CountryID;
+
+    public String getUser_RegionID() {
+        return User_RegionID;
+    }
+
+    public void setUser_RegionID(String user_RegionID) {
+        User_RegionID = user_RegionID;
+    }
+
+    public String getUser_NationalID_Type() {
+        return User_NationalID_Type;
+    }
+
+    public void setUser_NationalID_Type(String user_NationalID_Type) {
+        User_NationalID_Type = user_NationalID_Type;
+    }
+
+    public String getUser_CarTypeID() {
+        return User_CarTypeID;
+    }
+
+    public void setUser_CarTypeID(String user_CarTypeID) {
+        User_CarTypeID = user_CarTypeID;
+    }
 
     public void setUser_Full_Nm(String User_Full_Nm) {
         this.User_Full_Nm = User_Full_Nm;
@@ -47,7 +74,7 @@ public class DriverRegisterModel {
         this.User_CarID = User_CarID;
     }
 
-    public void setUser_CityID(int User_CityID) {
+    public void setUser_CityID(String User_CityID) {
         this.User_CityID = User_CityID;
     }
 
@@ -79,7 +106,7 @@ public class DriverRegisterModel {
         this.User_NationalID_ImgUrl = User_NationalID_ImgUrl;
     }
 
-    public void setUser_CountryID(int User_CountryID) {
+    public void setUser_CountryID(String User_CountryID) {
         this.User_CountryID = User_CountryID;
     }
 
@@ -111,7 +138,7 @@ public class DriverRegisterModel {
         return User_CarID;
     }
 
-    public int getUser_CityID() {
+    public String getUser_CityID() {
         return User_CityID;
     }
 
@@ -143,7 +170,7 @@ public class DriverRegisterModel {
         return User_NationalID_ImgUrl;
     }
 
-    public int getUser_CountryID() {
+    public String getUser_CountryID() {
         return User_CountryID;
     }
 }

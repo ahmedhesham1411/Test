@@ -47,6 +47,8 @@ public class MoreFragment extends Fragment {
         if (LoginSession.isLoggedIn(getActivity())) {
             Picasso.get().load(APIModel.BASE_URL + LoginSession.getUserData(getActivity()).getResult().getUserData().getUser_ImgUrl()).
                     placeholder(R.drawable.user_img).into(binding.profileImg);
+        }else {
+            binding.profileImg.setBackgroundResource(R.drawable.user_img);
         }
     }
 

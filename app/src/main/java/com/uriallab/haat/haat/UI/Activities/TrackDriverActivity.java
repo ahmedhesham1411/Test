@@ -41,7 +41,6 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.uriallab.haat.haat.R;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
 import com.uriallab.haat.haat.databinding.ActivityTrackDriverBinding;
 import com.uriallab.haat.haat.viewModels.TrackDriverViewModel;
 

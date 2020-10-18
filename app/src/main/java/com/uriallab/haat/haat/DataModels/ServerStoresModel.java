@@ -19,6 +19,24 @@ public class ServerStoresModel {
         private String name;
         private String icon;
         private String place_id;
+        private String Category_Id;
+        private String Category_AuthorityId;
+
+        public String getCategory_Id() {
+            return Category_Id;
+        }
+
+        public void setCategory_Id(String category_Id) {
+            Category_Id = category_Id;
+        }
+
+        public String getCategory_AuthorityId() {
+            return Category_AuthorityId;
+        }
+
+        public void setCategory_AuthorityId(String category_AuthorityId) {
+            Category_AuthorityId = category_AuthorityId;
+        }
 
         public void setName(String name) {
             this.name = name;

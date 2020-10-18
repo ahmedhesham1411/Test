@@ -18,7 +18,6 @@ import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Activities.RegisterAsDriver.SecondStepActivity;
 import com.uriallab.haat.haat.UI.Activities.RegisterAsDriver.ThirdStepActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
-import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 import com.uriallab.haat.haat.Utilities.Utilities;
 
@@ -37,12 +36,20 @@ public class DriverRegisterSecondStepViewModel {
     public ObservableField<String> stcPhoneError = new ObservableField<>();
 
     public List<String> nationalityList = new ArrayList<>();
-    public List<Integer> nationalityIdList = new ArrayList<>();
-    public List<String> areaList = new ArrayList<>();
-    public List<Integer> areaIdList = new ArrayList<>();
+    public List<String> nationalityIdList = new ArrayList<>();
+    public List<String> regionList = new ArrayList<>();
+    public List<String> regionIdList = new ArrayList<>();
 
-    public int nationality = 0;
-    public int area = 0;
+    public List<String> cityList = new ArrayList<>();
+    public List<String> cityIdList = new ArrayList<>();
+
+    public List<String> identityList = new ArrayList<>();
+    public List<String> identityIdList = new ArrayList<>();
+
+    public String nationality = "0";
+    public String region = "0";
+    public String city = "0";
+    public String identity = "0";
 
     private SecondStepActivity activity;
 
@@ -56,13 +63,15 @@ public class DriverRegisterSecondStepViewModel {
             rotation.set(180);
 
         nationalityList.add(activity.getResources().getString(R.string.nationality));
-        nationalityIdList.add(0);
-        areaList.add(activity.getResources().getString(R.string.area));
-        areaIdList.add(0);
+        nationalityIdList.add("0");
+        regionList.add(activity.getResources().getString(R.string.area));
+        regionIdList.add("0");
+
+        getIdentity();
 
         getNationality();
 
-        getArea();
+        getRegion();
 
     }
 
@@ -72,7 +81,9 @@ public class DriverRegisterSecondStepViewModel {
             Gson gson = new Gson();
 
             driverRegisterModel.setUser_CountryID(nationality);
-            driverRegisterModel.setUser_CityID(area);
+            driverRegisterModel.setUser_CityID(city);
+            driverRegisterModel.setUser_RegionID(region);
+            driverRegisterModel.setUser_NationalID_Type(identity);
             driverRegisterModel.setUser_STCPay_Acc(stcPhoneObservable.get());
             driverRegisterModel.setUser_NationalID(idNumberObservable.get());
 
@@ -86,7 +97,7 @@ public class DriverRegisterSecondStepViewModel {
         Utilities.hideKeyboard(activity);
 
         if (idNumberObservable.get().isEmpty() || stcPhoneObservable.get().isEmpty() ||
-                nationality == 0 || area == 0) {
+                nationality.equals("0") || region.equals("0") || city.equals("0") || identity.equals("0")) {
 
             if (idNumberObservable.get().isEmpty())
                 idNumberError.set(activity.getResources().getString(R.string.required));
@@ -94,11 +105,17 @@ public class DriverRegisterSecondStepViewModel {
             if (stcPhoneObservable.get().isEmpty())
                 stcPhoneError.set(activity.getResources().getString(R.string.required));
 
-            if (nationality == 0)
+            if (nationality.equals("0"))
                 Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.nationality));
 
-            if (area == 0)
-                Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.area));
+            if (region.equals("0"))
+                Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.please_choose_region));
+
+            if (city.equals("0"))
+                Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.please_choose_city));
+
+            if (identity.equals("0"))
+                Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.please_choose_identity_type));
 
             return false;
         }
@@ -114,12 +131,7 @@ public class DriverRegisterSecondStepViewModel {
                 Log.e("response", responseString + "Error");
                 switch (statusCode) {
                     default:
-                        APIModel.handleFailure(activity, statusCode, responseString, new APIModel.RefreshTokenListener() {
-                            @Override
-                            public void onRefresh() {
-                                getNationality();
-                            }
-                        });
+                        APIModel.handleFailure(activity, statusCode, responseString, () -> getNationality());
                         break;
                 }
             }
@@ -132,9 +144,9 @@ public class DriverRegisterSecondStepViewModel {
                 }.getType();
                 NationalityModel data = new Gson().fromJson(responseString, dataType);
 
-                for (int i = 0; i < data.getResult().getCountry().size(); i++) {
-                    nationalityList.add(data.getResult().getCountry().get(i).getCountry_Ar_Nm());
-                    nationalityIdList.add(data.getResult().getCountry().get(i).getCountryUID());
+                for (int i = 0; i < data.getResult().getData().size(); i++) {
+                    nationalityList.add(data.getResult().getData().get(i).getName());
+                    nationalityIdList.add(data.getResult().getData().get(i).getId());
                 }
 
                 activity.nationalityAdapter.notifyDataSetChanged();
@@ -154,20 +166,15 @@ public class DriverRegisterSecondStepViewModel {
         });
     }
 
-    private void getArea() {
+    private void getRegion() {
         final LoadingDialog loadingDialog = new LoadingDialog();
-        APIModel.getMethod(activity, "Setting/GetCities", new TextHttpResponseHandler() {
+        APIModel.getMethod(activity, "Setting/GetRegions", new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
                 Log.e("response", responseString + "Error");
                 switch (statusCode) {
                     default:
-                        APIModel.handleFailure(activity, statusCode, responseString, new APIModel.RefreshTokenListener() {
-                            @Override
-                            public void onRefresh() {
-                                getArea();
-                            }
-                        });
+                        APIModel.handleFailure(activity, statusCode, responseString, () -> getRegion());
                         break;
                 }
             }
@@ -180,19 +187,119 @@ public class DriverRegisterSecondStepViewModel {
                 }.getType();
                 CitiesModel data = new Gson().fromJson(responseString, dataType);
 
-                areaList.clear();
-                areaIdList.clear();
-                areaList.add(activity.getResources().getString(R.string.area));
-                areaIdList.add(0);
+                regionList.clear();
+                regionIdList.clear();
+                regionList.add(activity.getResources().getString(R.string.area));
+                regionIdList.add("0");
 
-                if (data.getResult().getCities().size() > 0) {
-                    for (int i = 0; i < data.getResult().getCities().size(); i++) {
-                        areaList.add(data.getResult().getCities().get(i).getCity_Ar_Nm());
-                        areaIdList.add(data.getResult().getCities().get(i).getCityUID());
+                if (data.getResult().getData().size() > 0) {
+                    for (int i = 0; i < data.getResult().getData().size(); i++) {
+                        regionList.add(data.getResult().getData().get(i).getName());
+                        regionIdList.add(data.getResult().getData().get(i).getId());
                     }
                 }
 
                 activity.areaAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                Dialogs.showLoading(activity, loadingDialog);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Dialogs.dismissLoading(loadingDialog);
+            }
+        });
+    }
+
+    public void getCity() {
+        final LoadingDialog loadingDialog = new LoadingDialog();
+
+        APIModel.getMethod(activity, "Setting/GetCities?regionId=" + region, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+                Log.e("response", responseString + "Error");
+                switch (statusCode) {
+                    default:
+                        APIModel.handleFailure(activity, statusCode, responseString, () -> getCity());
+                        break;
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
+                Log.e("response", responseString);
+
+                Type dataType = new TypeToken<NationalityModel>() {
+                }.getType();
+                NationalityModel data = new Gson().fromJson(responseString, dataType);
+
+                cityList.clear();
+                cityIdList.clear();
+                cityList.add(activity.getResources().getString(R.string.please_choose_city));
+                cityIdList.add("0");
+
+                if (data.getResult().getData().size() > 0) {
+                    for (int i = 0; i < data.getResult().getData().size(); i++) {
+                        cityList.add(data.getResult().getData().get(i).getName());
+                        cityIdList.add(data.getResult().getData().get(i).getId());
+                    }
+                }
+                activity.cityAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                Dialogs.showLoading(activity, loadingDialog);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Dialogs.dismissLoading(loadingDialog);
+            }
+        });
+    }
+
+    public void getIdentity() {
+        final LoadingDialog loadingDialog = new LoadingDialog();
+
+        APIModel.getMethod(activity, "Setting/GetIdentityTypes", new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+                Log.e("response", responseString + "Error");
+                switch (statusCode) {
+                    default:
+                        APIModel.handleFailure(activity, statusCode, responseString, () -> getIdentity());
+                        break;
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
+                Log.e("response", responseString);
+
+                Type dataType = new TypeToken<NationalityModel>() {
+                }.getType();
+                NationalityModel data = new Gson().fromJson(responseString, dataType);
+
+                identityList.clear();
+                identityIdList.clear();
+                identityList.add(activity.getResources().getString(R.string.please_choose_identity_type));
+                identityIdList.add("0");
+
+                if (data.getResult().getData().size() > 0) {
+                    for (int i = 0; i < data.getResult().getData().size(); i++) {
+                        identityList.add(data.getResult().getData().get(i).getName());
+                        identityIdList.add(data.getResult().getData().get(i).getId());
+                    }
+                }
+                activity.identityAdapter.notifyDataSetChanged();
             }
 
             @Override

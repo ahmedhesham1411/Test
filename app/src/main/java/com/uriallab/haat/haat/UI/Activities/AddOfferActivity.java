@@ -40,7 +40,6 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import com.uriallab.haat.haat.DataModels.GoogleAddressModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ActivityAddOfferBinding;
@@ -82,20 +81,23 @@ public class AddOfferActivity extends AppCompatActivity implements OnMapReadyCal
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            GPSTracker gpsTracker = new GPSTracker(this);
 
-            double distanceFrom = Utilities.getKilometers(gpsTracker.getLocation().getLatitude(),
-                    gpsTracker.getLocation().getLongitude(),
-                    storeLatLng.latitude,
-                    storeLatLng.longitude);
+            try {
+                double distanceFrom = Utilities.getKilometers(GlobalVariables.LOCATION_LAT,
+                        GlobalVariables.LOCATION_LNG,
+                        storeLatLng.latitude,
+                        storeLatLng.longitude);
 
-            double distanceTo = Utilities.getKilometers(gpsTracker.getLocation().getLatitude(),
-                    gpsTracker.getLocation().getLongitude(),
-                    bundle.getDouble("latClient"),
-                    bundle.getDouble("lngClient"));
+                double distanceTo = Utilities.getKilometers(GlobalVariables.LOCATION_LAT,
+                        GlobalVariables.LOCATION_LNG,
+                        bundle.getDouble("latClient"),
+                        bundle.getDouble("lngClient"));
 
-            binding.distanceFrom.setText(Utilities.roundPrice(distanceFrom) + " " + getString(R.string.km));
-            binding.distanceTo.setText(Utilities.roundPrice(distanceTo) + " " + getString(R.string.km));
+                binding.distanceFrom.setText(Utilities.roundPrice(distanceFrom) + " " + getString(R.string.km));
+                binding.distanceTo.setText(Utilities.roundPrice(distanceTo) + " " + getString(R.string.km));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         getAddressFromLatLng(this, binding.locationFrom, new LatLng(storeLatLng.latitude, storeLatLng.longitude));

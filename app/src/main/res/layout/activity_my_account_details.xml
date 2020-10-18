@@ -228,6 +228,7 @@
                     android:layout_height="1dp"/>
 
                 <TextView
+                    android:textColor="@color/colorRed2"
                     android:text="@{accountDetailsVM.amountToPay}"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="20dp"

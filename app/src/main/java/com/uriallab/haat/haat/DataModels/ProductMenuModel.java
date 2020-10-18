@@ -29,9 +29,18 @@ public class ProductMenuModel {
 
             private int Id;
             private String Title;
+            private boolean selected;
 
             public int getId() {
                 return Id;
+            }
+
+            public boolean isSelected() {
+                return selected;
+            }
+
+            public void setSelected(boolean selected) {
+                this.selected = selected;
             }
 
             public void setId(int Id) {

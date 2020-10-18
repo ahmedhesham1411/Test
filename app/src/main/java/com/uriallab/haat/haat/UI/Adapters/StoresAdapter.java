@@ -22,7 +22,7 @@ import com.uriallab.haat.haat.DataModels.GoogleStoresModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.StoreDetailsActivity;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ItemStoreBinding;
@@ -60,10 +60,9 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
 
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            GPSTracker gpsTracker = new GPSTracker(activity);
 
-            double distance = Utilities.getKilometers(gpsTracker.getLocation().getLatitude(),
-                    gpsTracker.getLocation().getLongitude(),
+            double distance = Utilities.getKilometers(GlobalVariables.LOCATION_LAT,
+                    GlobalVariables.LOCATION_LNG,
                     incomingList.get(position).getGeometry().getLocation().getLat(),
                     incomingList.get(position).getGeometry().getLocation().getLng());
 
@@ -85,14 +84,11 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
 
         Picasso.get().load(photoUrl).into(holder.binding.storeImg);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("placeId", incomingList.get(position).getPlace_id());
-                bundle.putBoolean("isFromServer", false);
-                IntentClass.goToActivity(activity, StoreDetailsActivity.class, bundle);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("placeId", incomingList.get(position).getPlace_id());
+            bundle.putBoolean("isFromServer", false);
+            IntentClass.goToActivity(activity, StoreDetailsActivity.class, bundle);
         });
 
     }

@@ -46,12 +46,9 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesView
 
         holder.binding.delete.setVisibility(View.VISIBLE);
 
-        holder.binding.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                removeItem(position);
-                deleteImage.deleteImage(position);
-            }
+        holder.binding.delete.setOnClickListener(view -> {
+            removeItem(position);
+            deleteImage.deleteImage(position);
         });
     }
 

@@ -74,51 +74,29 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         holder.binding.recieveLocImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
         holder.binding.meLocImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-//                bundle.putDouble("shopLat", Double.parseDouble(incomingList.get(position).getShop_Lat()));
-//                bundle.putDouble("shopLng", Double.parseDouble(incomingList.get(position).getShop_Lng()));
-//                bundle.putDouble("clientLat", Double.parseDouble(incomingList.get(position).getClient_Lat()));
-//                bundle.putDouble("clientLng", Double.parseDouble(incomingList.get(position).getClient_Lng()));
-//                bundle.putString("orderId", String.valueOf(incomingList.get(position).getOrder_ID()));
-//                bundle.putString("clientId", String.valueOf(incomingList.get(position).getClient_ID()));
-//                bundle.putString("deliveryId", String.valueOf(incomingList.get(position).getDriver_ID()));
-//
-//                bundle.putString("userName", String.valueOf(incomingList.get(position).getClient_Full_Name()));
-//                bundle.putString("userImg", String.valueOf(incomingList.get(position).getClient_Full_Name()));
-//                bundle.putString("userRate", String.valueOf(incomingList.get(position).getClient_Rate()));
-//                bundle.putString("userTRate", String.valueOf(incomingList.get(position).getClient_Count_Rate()));
+        holder.itemView.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("orderId", String.valueOf(incomingList.get(position).getOrder_ID()));
+            IntentClass.goToActivity(activity, DriverNewOrderActivity.class, bundle);
+        });
 
-                bundle.putString("orderId", String.valueOf(incomingList.get(position).getOrder_ID()));
-                IntentClass.goToActivity(activity, DriverNewOrderActivity.class, bundle);
+        holder.binding.orderLocLin.setOnClickListener(view -> {
+            try {
+                IntentClass.goToLocationOnMap(activity,
+                        Double.parseDouble(incomingList.get(position).getShop_Lat()),
+                        Double.parseDouble(incomingList.get(position).getShop_Lng()));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
-        holder.binding.orderLocLin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    IntentClass.goToLocationOnMap(activity,
-                            Double.parseDouble(incomingList.get(position).getShop_Lat()),
-                            Double.parseDouble(incomingList.get(position).getShop_Lng()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        holder.binding.deliverLocLin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    IntentClass.goToLocationOnMap(activity,
-                            Double.parseDouble(incomingList.get(position).getClient_Lat()),
-                            Double.parseDouble(incomingList.get(position).getClient_Lng()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        holder.binding.deliverLocLin.setOnClickListener(view -> {
+            try {
+                IntentClass.goToLocationOnMap(activity,
+                        Double.parseDouble(incomingList.get(position).getClient_Lat()),
+                        Double.parseDouble(incomingList.get(position).getClient_Lng()));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

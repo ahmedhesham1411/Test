@@ -76,6 +76,7 @@ public class MakeOrderStepTwoActivity extends AppCompatActivity implements OnMap
             storeLatLng = new LatLng(makeOrderModel.getLat(), makeOrderModel.getLng());
 
         binding.locationTxt.setSelected(true);
+        binding.distenationTxt.setSelected(true);
 
         setUpMapIfNeeded();
 

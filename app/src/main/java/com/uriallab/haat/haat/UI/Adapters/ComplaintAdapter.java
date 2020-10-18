@@ -57,15 +57,12 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Stor
             holder.binding.complaintStatus.setTextColor(activity.getResources().getColor(R.color.colorBlue));
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, ComplaintDetailsActivity.class);
-                Gson gson = new Gson();
-                String myJson = gson.toJson(incomingList.get(position));
-                intent.putExtra("myjson", myJson);
-                activity.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(activity, ComplaintDetailsActivity.class);
+            Gson gson = new Gson();
+            String myJson = gson.toJson(incomingList.get(position));
+            intent.putExtra("myjson", myJson);
+            activity.startActivity(intent);
         });
     }
 

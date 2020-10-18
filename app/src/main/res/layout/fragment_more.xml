@@ -91,6 +91,7 @@
                 android:layout_height="wrap_content"/>
 
             <FrameLayout
+                android:visibility="@{moreVM.isLogin? View.VISIBLE : View.GONE}"
                 android:layout_marginEnd="15dp"
                 android:onClick="@{()->moreVM.logout()}"
                 android:layout_width="35dp"
@@ -142,7 +143,7 @@
             android:layout_height="1dp"/>
 
         <LinearLayout
-            android:visibility="@{moreVM.isDriver? View.GONE : View.VISIBLE}"
+            android:visibility="@{moreVM.isLoginUser? View.VISIBLE : View.GONE}"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:orientation="horizontal"
@@ -170,7 +171,7 @@
         </LinearLayout>
 
         <View
-            android:visibility="@{moreVM.isDriver? View.GONE : View.VISIBLE}"
+            android:visibility="@{moreVM.isLoginUser? View.VISIBLE : View.GONE}"
             android:background="@color/colorTextHint"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>

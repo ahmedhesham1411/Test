@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.databinding.ObservableField;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -35,20 +37,26 @@ public class ProductBottomSheet extends BottomSheetDialogFragment {
 
     private FrameLayout deleteQuantity;
     private TextView quantityTxt;
+    private TextView priceTxt;
 
     private List<StoreProductsModel.ProductBean> productMenuModelList;
+
+    private ObservableField<String> totalPrice;
 
     public ProductBottomSheet() {
     }
 
     @SuppressLint("ValidFragment")
     public ProductBottomSheet(Activity activity, ProductsModel.ResultEntity.ProductsEntity product, FrameLayout deleteQuantity, TextView quantityTxt,
-                              List<StoreProductsModel.ProductBean> productMenuModelList) {
+                              TextView priceTxt, List<StoreProductsModel.ProductBean> productMenuModelList,
+                              ObservableField<String> totalPrice) {
         this.activity = activity;
         this.product = product;
         this.deleteQuantity = deleteQuantity;
         this.quantityTxt = quantityTxt;
+        this.priceTxt = priceTxt;
         this.productMenuModelList = productMenuModelList;
+        this.totalPrice = totalPrice;
     }
 
     @SuppressLint("RestrictedApi")
@@ -73,7 +81,7 @@ public class ProductBottomSheet extends BottomSheetDialogFragment {
         final TextView price = dialog.findViewById(R.id.price);
         RoundedImageView productImg = dialog.findViewById(R.id.product_img);
 
-        Picasso.get().load(product.getProduct_icon()).placeholder(R.drawable.logo).into(productImg);
+        Picasso.get().load(product.getProduct_icon()).into(productImg);
 
         productName.setText(product.getProduct_name());
 
@@ -97,6 +105,7 @@ public class ProductBottomSheet extends BottomSheetDialogFragment {
             tPrice = (Integer.parseInt(quantity.getText().toString()) * product.getProduct_price());
 
             price.setText(tPrice + " " + activity.getString(R.string.currency));
+            priceTxt.setText(tPrice + "" );
         });
 
         minus.setOnClickListener(v -> {
@@ -111,6 +120,7 @@ public class ProductBottomSheet extends BottomSheetDialogFragment {
             tPrice = (Integer.parseInt(quantity.getText().toString()) * product.getProduct_price());
 
             price.setText(tPrice + " " + activity.getString(R.string.currency));
+            priceTxt.setText(tPrice + "" );
         });
 
         addProduct.setOnClickListener(v -> {
@@ -128,6 +138,15 @@ public class ProductBottomSheet extends BottomSheetDialogFragment {
             deleteQuantity.setVisibility(View.VISIBLE);
             quantityTxt.setVisibility(View.VISIBLE);
             quantityTxt.setText(productQuantity + "");
+
+
+            double tPrice = 0;
+            for (int i = 0; i < productMenuModelList.size(); i++) {
+                double itemPrice = productMenuModelList.get(i).getPrice() * productMenuModelList.get(i).getQuantity();
+                tPrice += itemPrice;
+            }
+            totalPrice.set(tPrice +" "+ activity.getString(R.string.currency));
+
             dismiss();
         });
     }

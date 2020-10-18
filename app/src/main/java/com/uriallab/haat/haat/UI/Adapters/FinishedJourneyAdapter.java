@@ -62,39 +62,30 @@ public class FinishedJourneyAdapter extends RecyclerView.Adapter<FinishedJourney
         holder.binding.recieveLocImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
         holder.binding.meLocImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.itemView.setOnClickListener(view -> {
 
-                Bundle bundle = new Bundle();
-                bundle.putString("orderId", String.valueOf(incomingList.get(position).getOrderUID()));
-                IntentClass.goToActivity(activity, ChatDriverActivity.class, bundle);
+            Bundle bundle = new Bundle();
+            bundle.putString("orderId", String.valueOf(incomingList.get(position).getOrderUID()));
+            IntentClass.goToActivity(activity, ChatDriverActivity.class, bundle);
+        });
+
+        holder.binding.orderLocLin.setOnClickListener(view -> {
+            try {
+                IntentClass.goToLocationOnMap(activity,
+                        Double.parseDouble(incomingList.get(position).getShop_Lat()),
+                        Double.parseDouble(incomingList.get(position).getShop_Lng()));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
-        holder.binding.orderLocLin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    IntentClass.goToLocationOnMap(activity,
-                            Double.parseDouble(incomingList.get(position).getShop_Lat()),
-                            Double.parseDouble(incomingList.get(position).getShop_Lng()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        holder.binding.deliverLocLin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    IntentClass.goToLocationOnMap(activity,
-                            Double.parseDouble(incomingList.get(position).getClient_Lat()),
-                            Double.parseDouble(incomingList.get(position).getClient_Lng()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        holder.binding.deliverLocLin.setOnClickListener(view -> {
+            try {
+                IntentClass.goToLocationOnMap(activity,
+                        Double.parseDouble(incomingList.get(position).getClient_Lat()),
+                        Double.parseDouble(incomingList.get(position).getClient_Lng()));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

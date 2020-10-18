@@ -2,18 +2,18 @@ package com.uriallab.haat.haat.Utilities;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.view.ContextThemeWrapper;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.uriallab.haat.haat.R;
-import com.uriallab.haat.haat.UI.Activities.SplashActivity;
-
-import androidx.appcompat.app.AppCompatActivity;
+import com.uriallab.haat.haat.UI.Activities.Auth.LoginActivity;
 
 /**
  * Created by MAHMOUD on 12/12/2018.
@@ -27,25 +27,24 @@ public abstract class Dialogs {
 
     public static void showLoginDialog(final Activity activity) {
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.MyAlertDialogTheme));
-        builder
-                .setMessage(activity.getResources().getString(R.string.must_login))
-                .setPositiveButton(activity.getResources().getString(R.string.ok),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                IntentClass.goToActivity(activity, SplashActivity.class, null);
-                                dialog.dismiss();
-                            }
-                        }
-                )
-                .setNegativeButton(activity.getResources().getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                dialog.dismiss();
-                            }
-                        }
-                )
-                .create().show();
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_alert_must_login);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView alertText = dialog.findViewById(R.id.alert_text);
+        TextView yes = dialog.findViewById(R.id.yes_id);
+        TextView no = dialog.findViewById(R.id.no_id);
+
+        alertText.setText(activity.getString(R.string.logout_));
+
+        yes.setOnClickListener(v -> {
+            IntentClass.goToActivityAndClear(activity, LoginActivity.class, null);
+            dialog.dismiss();
+        });
+
+        no.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
     }
 
 

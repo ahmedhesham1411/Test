@@ -5,16 +5,12 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.TextHttpResponseHandler;
-import com.uriallab.haat.haat.API.APIModel;
-import com.uriallab.haat.haat.DataModels.RegisterUrlModel;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableInt;
+
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.SharedPreferences.LoginSession;
@@ -26,12 +22,6 @@ import com.uriallab.haat.haat.UI.Activities.utilsAndAccountInfo.LanguageActivity
 import com.uriallab.haat.haat.UI.Activities.utilsAndAccountInfo.PrivacyUseActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.IntentClass;
-import com.uriallab.haat.haat.Utilities.LoadingDialog;
-
-import java.lang.reflect.Type;
-
-import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableInt;
 
 public class SettingViewModel {
 
@@ -50,7 +40,8 @@ public class SettingViewModel {
             arrowRotation.set(0);
         }
 
-        isDriver.set(LoginSession.getUserData(activity).getResult().getUserData().isIsDelivery());
+        if (LoginSession.isLoggedIn(activity))
+            isDriver.set(LoginSession.getUserData(activity).getResult().getUserData().isIsDelivery());
     }
 
     public void appLanguage() {
@@ -58,11 +49,17 @@ public class SettingViewModel {
     }
 
     public void addCoupon() {
-        IntentClass.goToActivity(activity, AddCouponActivity.class, null);
+        if (LoginSession.isLoggedIn(activity))
+            IntentClass.goToActivity(activity, AddCouponActivity.class, null);
+        else
+            Dialogs.showLoginDialog(activity);
     }
 
     public void complaintsList() {
-        IntentClass.goToActivity(activity, ComplaintListActivity.class, null);
+        if (LoginSession.isLoggedIn(activity))
+            IntentClass.goToActivity(activity, ComplaintListActivity.class, null);
+        else
+            Dialogs.showLoginDialog(activity);
     }
 
     public void contactUs() {
@@ -86,79 +83,31 @@ public class SettingViewModel {
     }
 
     public void howToWork() {
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.custom_alert_subscribe);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        TextView alertText = dialog.findViewById(R.id.alert_text);
-        TextView yes = dialog.findViewById(R.id.yes_id);
-        TextView no = dialog.findViewById(R.id.no_id);
+        if (LoginSession.isLoggedIn(activity)) {
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.custom_alert_subscribe);
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            TextView alertText = dialog.findViewById(R.id.alert_text);
+            TextView yes = dialog.findViewById(R.id.yes_id);
+            TextView no = dialog.findViewById(R.id.no_id);
 
-        alertText.setText(activity.getString(R.string.subscribe_text));
+            alertText.setText(activity.getString(R.string.subscribe_text));
 
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            yes.setOnClickListener(v -> {
                 IntentClass.goToActivity(activity, TermsAndConditionsActivity.class, null);
                 //getRegisterUrl();
                 dialog.dismiss();
-            }
-        });
+            });
 
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+            no.setOnClickListener(v -> dialog.dismiss());
+            dialog.show();
+        } else
+            Dialogs.showLoginDialog(activity);
     }
 
     public void back() {
         activity.finish();
-    }
-
-    private void getRegisterUrl() {
-        final LoadingDialog loadingDialog = new LoadingDialog();
-        APIModel.getMethod(activity, "Driver/GetRegisterUrl", new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
-                Log.e("response", responseString + "Error");
-                switch (statusCode) {
-                    default:
-                        APIModel.handleFailure(activity, statusCode, responseString, new APIModel.RefreshTokenListener() {
-                            @Override
-                            public void onRefresh() {
-                                getRegisterUrl();
-                            }
-                        });
-                        break;
-                }
-            }
-
-            @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
-                Log.e("response", responseString);
-
-                Type dataType = new TypeToken<RegisterUrlModel>() {
-                }.getType();
-                RegisterUrlModel data = new Gson().fromJson(responseString, dataType);
-
-                IntentClass.goToLink(activity, data.getResult().getRegisterurl());
-            }
-
-            @Override
-            public void onStart() {
-                super.onStart();
-                Dialogs.showLoading(activity, loadingDialog);
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                Dialogs.dismissLoading(loadingDialog);
-            }
-        });
     }
 }

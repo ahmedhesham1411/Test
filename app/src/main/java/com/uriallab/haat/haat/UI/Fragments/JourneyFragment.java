@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.uriallab.haat.haat.LocalNotification.TrackingDelegate;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.LoginSession;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.databinding.FragmentJourneyBinding;
 import com.uriallab.haat.haat.viewModels.JourniesViewModel;
 
@@ -91,15 +91,13 @@ public class JourneyFragment extends Fragment {
 
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    GPSTracker gpsTracker = new GPSTracker(getContext());
 
                     JSONObject jsonObject = new JSONObject();
                     try {
                         jsonObject.put("RoomId", LoginSession.getUserData(getActivity()).getResult().getUserData().getUserUID());
 
-                        jsonObject.put("Lat", gpsTracker.getLocation().getLatitude());
-                        jsonObject.put("Long", gpsTracker.getLocation().getLongitude());
-                        Log.e("WebSocketLocationSent", gpsTracker.getLocation().getLatitude() + "\t" + gpsTracker.getLocation().getLongitude());
+                        jsonObject.put("Lat", GlobalVariables.LOCATION_LAT);
+                        jsonObject.put("Long", GlobalVariables.LOCATION_LNG);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -161,15 +159,14 @@ public class JourneyFragment extends Fragment {
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            GPSTracker gpsTracker = new GPSTracker(getContext());
 
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("RoomId", LoginSession.getUserData(getActivity()).getResult().getUserData().getUserUID());
 
-                jsonObject.put("Lat", gpsTracker.getLocation().getLatitude());
-                jsonObject.put("Long", gpsTracker.getLocation().getLongitude());
-                Log.e("WebSocket", gpsTracker.getLocation().getLatitude() + "\t" + gpsTracker.getLocation().getLongitude());
+                jsonObject.put("Lat", GlobalVariables.LOCATION_LAT);
+                jsonObject.put("Long", GlobalVariables.LOCATION_LNG);
+                Log.e("WebSocket", GlobalVariables.LOCATION_LAT + "\t" + GlobalVariables.LOCATION_LNG);
 
             } catch (JSONException e) {
                 Log.e("WebSocket", "JSONException\t" + e.getMessage());

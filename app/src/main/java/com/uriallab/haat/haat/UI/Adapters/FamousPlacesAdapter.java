@@ -2,6 +2,7 @@ package com.uriallab.haat.haat.UI.Adapters;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.uriallab.haat.haat.DataModels.GoogleStoresModel;
 import com.uriallab.haat.haat.DataModels.ServerStoresModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.StoreDetailsActivity;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.databinding.ItemFamousPlacesBinding;
 
@@ -43,16 +45,21 @@ public class FamousPlacesAdapter extends RecyclerView.Adapter<FamousPlacesAdapte
     @Override
     public void onBindViewHolder(final StoresViewHolder holder, final int position) {
 
-        Picasso.get().load(incomingList.get(position).getIcon()).placeholder(R.drawable.logo).into(holder.binding.famousImage);
+        Picasso.get().load(incomingList.get(position).getIcon()).into(holder.binding.famousImage);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("placeId", incomingList.get(position).getPlace_id());
-                bundle.putBoolean("isFromServer", true);
-                IntentClass.goToActivity(activity, StoreDetailsActivity.class, bundle);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("placeId", incomingList.get(position).getPlace_id());
+            bundle.putBoolean("isFromServer", true);
+
+
+            GlobalVariables.makeOrderModel.setCategory_Id(incomingList.get(position).getCategory_Id());
+            GlobalVariables.makeOrderModel.setCategory_AuthorityId(incomingList.get(position).getCategory_AuthorityId());
+
+            Log.e("Global_data", incomingList.get(position).getCategory_Id()+"\t" +incomingList.get(position).getCategory_AuthorityId()+"\t"+"\n"+
+                    GlobalVariables.makeOrderModel.getCategory_Id()+"\t"+GlobalVariables.makeOrderModel.getCategory_AuthorityId());
+
+            IntentClass.goToActivity(activity, StoreDetailsActivity.class, bundle);
         });
 
     }

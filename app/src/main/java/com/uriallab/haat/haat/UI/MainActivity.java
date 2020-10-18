@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
-import android.location.Location;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -30,6 +29,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -50,7 +51,6 @@ import com.uriallab.haat.haat.UI.Fragments.MoreFragment;
 import com.uriallab.haat.haat.UI.Fragments.NotificationFragment;
 import com.uriallab.haat.haat.UI.Fragments.OrdersFragment;
 import com.uriallab.haat.haat.Utilities.Dialogs;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Animation rotateAnimation;
 
+    private FusedLocationProviderClient fusedLocationClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,26 +92,46 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        buildAlertMessageNoGps();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    }, 123);
+        }
 
-        profileData();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, location -> {
+                    // Got last known location. In some rare situations this can be null.
+                    if (location != null) {
+                        GlobalVariables.LOCATION_LAT = location.getLatitude();
+                        GlobalVariables.LOCATION_LNG = location.getLongitude();
+                        Log.e("fusedLocation", GlobalVariables.LOCATION_LAT + " " + GlobalVariables.LOCATION_LNG);
+                        Log.e("fusedLocation", location.getLatitude() + " " + location.getLongitude());
+                    }
+                });
 
-        // TODO: 7/21/2020
-        //locationChanged();
+        if (LoginSession.isLoggedIn(this)) {
+            profileData();
 
-        updateFcmToken();
+            updateFcmToken();
+        }
 
         fragmentManager = getSupportFragmentManager();
         rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate360);
 
-        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
-                selectedFragmentTag = fragmentManager.getFragments().get(fragmentManager.getFragments().size() - 1).getTag();
-                Log.e("backstack fragmentTag", selectedFragmentTag);
-                editLayout(selectedFragmentTag);
-            }
+        fragmentManager.addOnBackStackChangedListener(() -> {
+            selectedFragmentTag = fragmentManager.getFragments().get(fragmentManager.getFragments().size() - 1).getTag();
+            Log.e("backstack fragmentTag", selectedFragmentTag);
+            editLayout(selectedFragmentTag);
         });
 
         LocalBroadcastManager.getInstance(this).registerReceiver(playSoundReceiver,
@@ -201,51 +223,33 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                    }, 123);
-        }
+        binding.homeLin.setOnClickListener(view -> pushFragment(GlobalVariables.MAIN_FRAGMENT_ID, null));
 
-        binding.homeLin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pushFragment(GlobalVariables.MAIN_FRAGMENT_ID, null);
-            }
-        });
-
-        binding.myOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.myOrders.setOnClickListener(view -> {
+            if (LoginSession.isLoggedIn(this)) {
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("type", 1);
                 pushFragment(GlobalVariables.ORDERS_FRAGMENT_ID, bundle1);
-            }
+            } else
+                Dialogs.showLoginDialog(this);
         });
 
-        binding.notifications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.notifications.setOnClickListener(view -> {
+            if (LoginSession.isLoggedIn(this))
                 pushFragment(GlobalVariables.NOTIFICATIONS_FRAGMENT_ID, null);
-            }
+            else
+                Dialogs.showLoginDialog(this);
         });
 
-        binding.myJourney.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.myJourney.setOnClickListener(view -> {
+            if (LoginSession.isLoggedIn(this))
                 pushFragment(GlobalVariables.JOURNEY_FRAGMENT_ID, null);
-            }
+            else
+                Dialogs.showLoginDialog(this);
         });
 
-        binding.myProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pushFragment(GlobalVariables.MORE_FRAGMENT_ID, null);
-            }
+        binding.myProfile.setOnClickListener(view -> {
+            pushFragment(GlobalVariables.MORE_FRAGMENT_ID, null);
         });
 
     }
@@ -254,13 +258,38 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == 123) {
-            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                GPSTracker gpsTracker = new GPSTracker(getApplicationContext());
-                GlobalVariables.LOCATION_LAT = gpsTracker.getLocation().getLatitude();
-                GlobalVariables.LOCATION_LNG = gpsTracker.getLocation().getLongitude();
+        try {
+            if (requestCode == 123) {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                    if (LoginSession.getUserData(MainActivity.this).getResult().getUserData().isIsDelivery()) {
+                        startService();
+                    }
+
+                    fusedLocationClient.getLastLocation()
+                            .addOnSuccessListener(this, location -> {
+                                // Got last known location. In some rare situations this can be null.
+                                if (location != null) {
+                                    GlobalVariables.LOCATION_LAT = location.getLatitude();
+                                    GlobalVariables.LOCATION_LNG = location.getLongitude();
+
+                                    Log.e("fusedLocation", GlobalVariables.LOCATION_LAT + " " + GlobalVariables.LOCATION_LNG);
+                                    Log.e("fusedLocation", location.getLatitude() + " " + location.getLongitude());
+                                }
+                            });
+
+                    finish();
+                    startActivity(getIntent());
+
+
+//                    GPSTracker gpsTracker = new GPSTracker(getApplicationContext());
+//                    GlobalVariables.LOCATION_LAT = gpsTracker.getLocation().getLatitude();
+//                    GlobalVariables.LOCATION_LNG = gpsTracker.getLocation().getLongitude();
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -408,42 +437,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             cntr_aCounter.start();
-
-
-//            final Dialog dialog = new Dialog(MainActivity.this);
-//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            dialog.setContentView(R.layout.custom_alert_dialog);
-//            dialog.setCanceledOnTouchOutside(false);
-//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//            TextView message = dialog.findViewById(R.id.message);
-//            TextView ok = dialog.findViewById(R.id.ok);
-//
-//            message.setText(getString(R.string.new_order));
-//
-//            ok.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    mMediaPlayer.stop();
-//                    mMediaPlayer.release();
-//                    dialog.dismiss();
-//                }
-//            });
-//
-//            ColorDrawable back = new ColorDrawable(Color.TRANSPARENT);
-//            InsetDrawable inset = new InsetDrawable(back, 0, 0, 0, 50);
-//            dialog.getWindow().setBackgroundDrawable(inset);
-//
-//            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-//            lp.copyFrom(dialog.getWindow().getAttributes());
-//            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-//            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-//            lp.gravity = Gravity.TOP;
-//            lp.windowAnimations = R.style.DialogAnimation;
-//            lp.y = 150;
-//            dialog.getWindow().setAttributes(lp);
-//
-//            dialog.show();
-
         }
     };
 
@@ -600,41 +593,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startService() {
+        Log.e("Tracking_service", "startService" );
         Intent myService = new Intent(this, TrackingDelegate.class);
         startService(myService);
-    }
-
-    private void locationChanged() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-// Define a listener that responds to location updates
-        android.location.LocationListener locationListener = new android.location.LocationListener() {
-
-            public void onLocationChanged(Location location) {
-                //Toast.makeText(getBaseContext(), "location is:" + location, Toast.LENGTH_LONG).show();
-            }
-
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
-
-            public void onProviderEnabled(String provider) {
-            }
-
-            public void onProviderDisabled(String provider) {
-            }
-        };
-
-// Register the listener with the Location Manager to receive location updates
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
     }
 }

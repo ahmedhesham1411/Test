@@ -18,6 +18,9 @@ import androidx.databinding.DataBindingUtil;
 
 public class RegisterActivity extends BaseActivity {
 
+    public ArrayAdapter<String> adapterRegion;
+    public ArrayAdapter<String> adapterCity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,11 @@ public class RegisterActivity extends BaseActivity {
         binding.setRegisterVM(viewModel);
 
         binding.spinnerArrow.setImageResource(R.drawable.arrow_left);
+        binding.spinnerArrowCity.setImageResource(R.drawable.arrow_left);
+        binding.spinnerArrowRegion.setImageResource(R.drawable.arrow_left);
         binding.spinnerArrow.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+        binding.spinnerArrowCity.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+        binding.spinnerArrowRegion.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
 
         List<String> personTypeList = new ArrayList<>();
         personTypeList.add(getResources().getString(R.string.choose_gender));
@@ -47,6 +54,42 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 viewModel.gender = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
+        adapterCity = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, viewModel.cityList);
+        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        binding.citySpinner.setAdapter(adapterCity);
+
+        binding.citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                viewModel.city = viewModel.cityIdList.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+        adapterRegion = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, viewModel.regionList);
+        adapterRegion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        binding.regionSpinner.setAdapter(adapterRegion);
+
+        binding.regionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                viewModel.region = viewModel.regionIdList.get(position);
+                viewModel.getCity();
             }
 
             @Override

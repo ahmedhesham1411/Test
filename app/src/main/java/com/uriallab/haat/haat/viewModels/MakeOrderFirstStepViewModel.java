@@ -72,7 +72,7 @@ public class MakeOrderFirstStepViewModel {
                 detailsError.set(activity.getString(R.string.please_enter_order_details));
         } else {
             Intent intent = new Intent(activity, MakeOrderStepTwoActivity.class);
-            GlobalVariables.makeOrderModel = new MakeOrderModel();
+            //GlobalVariables.makeOrderModel = new MakeOrderModel();
             GlobalVariables.makeOrderModel.setImages(listImg);
             if (isValidCoupon.get())
                 GlobalVariables.makeOrderModel.setCoupon(coupon.get());
@@ -88,8 +88,8 @@ public class MakeOrderFirstStepViewModel {
                 GlobalVariables.makeOrderModel.setService(true);
 
             String detailsTxt = "";
-            if (!activity.selectedProducts.equals(""))
-                detailsTxt = activity.selectedProducts + "\n" + details.get();
+            if (!activity.selectedProducts.get().equals(""))
+                detailsTxt = activity.selectedProducts.get() + "\n" + details.get();
             else
                 detailsTxt = details.get();
 

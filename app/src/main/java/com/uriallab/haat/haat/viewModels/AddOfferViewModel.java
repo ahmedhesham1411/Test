@@ -45,7 +45,7 @@ import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 import com.uriallab.haat.haat.UI.Activities.AddOfferActivity;
 import com.uriallab.haat.haat.UI.Activities.SentSuccessfullyActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 import com.uriallab.haat.haat.Utilities.Utilities;
@@ -122,12 +122,11 @@ public class AddOfferViewModel {
             try {
                 if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    GPSTracker gpsTracker = new GPSTracker(activity);
 
                     jsonParams.put("Offer_Price", offerPrice.get());
                     jsonParams.put("Order_ID", orderId);
-                    jsonParams.put("Driver_Long", gpsTracker.getLocation().getLongitude());
-                    jsonParams.put("Driver_Lat", gpsTracker.getLocation().getLatitude());
+                    jsonParams.put("Driver_Long", GlobalVariables.LOCATION_LNG);
+                    jsonParams.put("Driver_Lat", GlobalVariables.LOCATION_LAT);
                     jsonParams.put("Client_ID", clientId);
                     jsonParams.put("Driver_ID", LoginSession.getUserData(activity).getResult().getUserData().getUserUID());
                 }
@@ -244,10 +243,8 @@ public class AddOfferViewModel {
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             final LoadingDialog loadingDialog = new LoadingDialog();
 
-            GPSTracker gpsTracker = new GPSTracker(activity);
-
-            double lat = gpsTracker.getLatitude();
-            double lng = gpsTracker.getLongitude();
+            double lat = GlobalVariables.LOCATION_LAT;
+            double lng = GlobalVariables.LOCATION_LNG;
 
             String url = "/directions/json?origin=" +
                     lat + "," + lng +

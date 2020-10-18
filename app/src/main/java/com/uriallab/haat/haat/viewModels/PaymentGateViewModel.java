@@ -1,5 +1,6 @@
 package com.uriallab.haat.haat.viewModels;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -244,9 +245,14 @@ public class PaymentGateViewModel {
         }
 
         String url = "Payment/OrderStatus";
-        if (type == 2)
+        if (type == 2) {
+            try {
+                jsonParams.put("amount", Utilities.roundPrice(money));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             url = "Payment/CreditStatus";
-        else if (type == 3) {
+        } else if (type == 3) {
             url = "Payment/HatCardStatus";
             try {
                 jsonParams.put("card_id", hatCardId);
@@ -308,8 +314,13 @@ public class PaymentGateViewModel {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra("key", "13");
                         activity.startActivity(intent);
-                    } else
+                    } else {
+                        Utilities.hideKeyboard(activity);
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("isPayed", true);
+                        activity.setResult(Activity.RESULT_OK, returnIntent);
                         activity.finish();
+                    }
 
                 } catch (
                         JSONException e) {
@@ -375,12 +386,7 @@ public class PaymentGateViewModel {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         TextView ok = dialog.findViewById(R.id.ok);
 
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        ok.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

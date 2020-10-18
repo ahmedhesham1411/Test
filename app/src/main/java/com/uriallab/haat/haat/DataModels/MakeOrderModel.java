@@ -6,7 +6,23 @@ public class MakeOrderModel {
 
     private double lat, lng;
 
-    private String storeName, details, coupon, shopImg;
+    private String storeName, details, coupon, shopImg, Category_Id, Category_AuthorityId;
+
+    public String getCategory_Id() {
+        return Category_Id;
+    }
+
+    public void setCategory_Id(String category_Id) {
+        Category_Id = category_Id;
+    }
+
+    public String getCategory_AuthorityId() {
+        return Category_AuthorityId;
+    }
+
+    public void setCategory_AuthorityId(String category_AuthorityId) {
+        Category_AuthorityId = category_AuthorityId;
+    }
 
     private boolean isService;
 

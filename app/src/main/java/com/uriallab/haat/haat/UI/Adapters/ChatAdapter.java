@@ -93,13 +93,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
                 Picasso.get().load(APIModel.BASE_URL + incomingListNew.get(position)).into(holder.mineBinding.imgChat);
 
-                holder.mineBinding.imgChat.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("img", APIModel.BASE_URL + incomingListNew.get(position));
-                        IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
-                    }
+                holder.mineBinding.imgChat.setOnClickListener(v -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("img", APIModel.BASE_URL + incomingListNew.get(position));
+                    IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
                 });
             }
 
@@ -131,46 +128,40 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
                             Picasso.get().load(APIModel.BASE_URL + incomingList.get(position).getMessage()).into(holder.mineBinding.imgChat);
 
-                            holder.mineBinding.imgChat.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("img", APIModel.BASE_URL + incomingList.get(position).getMessage());
-                                    IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
-                                }
+                            holder.mineBinding.imgChat.setOnClickListener(v -> {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("img", APIModel.BASE_URL + incomingList.get(position).getMessage());
+                                IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
                             });
                         } else {
                             holder.mineBinding.frameImg.setVisibility(View.GONE);
                             holder.mineBinding.messageTxt.setVisibility(View.GONE);
                             holder.mineBinding.soundLin.setVisibility(View.VISIBLE);
 
-                            holder.mineBinding.voiceImg.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    try {
+                            holder.mineBinding.voiceImg.setOnClickListener(v -> {
+                                try {
 
-                                        itemId = incomingList.get(position).getChatMssgeUID();
+                                    itemId = incomingList.get(position).getChatMssgeUID();
 
-                                        Log.e("voice_click", incomingList.get(position).getMessage()+" "+mediaStatus.get()+" "+incomingList.get(position).isPlaying());
+                                    Log.e("voice_click", incomingList.get(position).getMessage()+" "+mediaStatus.get()+" "+incomingList.get(position).isPlaying());
 
-                                        if (incomingList.get(position).isPlaying()) {
-                                            if (mediaStatus.get() == 0) {
-                                                playAudioManager.killMediaPlayer();
-                                                playAudioManager.playAudio(activity, APIModel.BASE_URL + incomingList.get(position).getMessage(), holder.mineBinding.seekbarVoiceLib, holder.mineBinding.voiceImg, mediaStatus);
-                                            } else if (mediaStatus.get() == 1) {
-                                                playAudioManager.pauseMediaPlayer();
-                                            } else {
-                                                playAudioManager.resumeMediaPlayer(activity, holder.mineBinding.seekbarVoiceLib.getProgress());
-                                            }
-                                        } else {
-                                            mediaStatus.set(0);
+                                    if (incomingList.get(position).isPlaying()) {
+                                        if (mediaStatus.get() == 0) {
                                             playAudioManager.killMediaPlayer();
                                             playAudioManager.playAudio(activity, APIModel.BASE_URL + incomingList.get(position).getMessage(), holder.mineBinding.seekbarVoiceLib, holder.mineBinding.voiceImg, mediaStatus);
+                                        } else if (mediaStatus.get() == 1) {
+                                            playAudioManager.pauseMediaPlayer();
+                                        } else {
+                                            playAudioManager.resumeMediaPlayer(activity, holder.mineBinding.seekbarVoiceLib.getProgress());
                                         }
-                                        notifyDataSetChanged();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
+                                    } else {
+                                        mediaStatus.set(0);
+                                        playAudioManager.killMediaPlayer();
+                                        playAudioManager.playAudio(activity, APIModel.BASE_URL + incomingList.get(position).getMessage(), holder.mineBinding.seekbarVoiceLib, holder.mineBinding.voiceImg, mediaStatus);
                                     }
+                                    notifyDataSetChanged();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
                             });
 
@@ -220,13 +211,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
                             Picasso.get().load(APIModel.BASE_URL + incomingList.get(position).getMessage()).into(holder.himBinding.imgChat);
 
-                            holder.himBinding.imgChat.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("img", APIModel.BASE_URL + incomingList.get(position).getMessage());
-                                    IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
-                                }
+                            holder.himBinding.imgChat.setOnClickListener(v -> {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("img", APIModel.BASE_URL + incomingList.get(position).getMessage());
+                                IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
                             });
                         } else {
                             holder.himBinding.messageTxt.setVisibility(View.GONE);

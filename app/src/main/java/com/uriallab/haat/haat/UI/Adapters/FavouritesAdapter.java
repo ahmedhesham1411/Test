@@ -67,26 +67,18 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
         holder.binding.deleteFav.setImageResource(R.drawable.rubish);
         holder.binding.deleteFav.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
 
-        holder.binding.clickLin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    favClick.favClick(incomingList.get(position).getLocation_Nm(),
-                            new LatLng(Double.parseDouble(incomingList.get(position).getLocation_Lat()),
-                                    Double.parseDouble(incomingList.get(position).getLocation_Lng())));
-                } catch (Exception e) {
-                    Utilities.toastyError(activity, activity.getString(R.string.error_on_location));
-                    e.printStackTrace();
-                }
+        holder.binding.clickLin.setOnClickListener(view -> {
+            try {
+                favClick.favClick(incomingList.get(position).getLocation_Nm(),
+                        new LatLng(Double.parseDouble(incomingList.get(position).getLocation_Lat()),
+                                Double.parseDouble(incomingList.get(position).getLocation_Lng())));
+            } catch (Exception e) {
+                Utilities.toastyError(activity, activity.getString(R.string.error_on_location));
+                e.printStackTrace();
             }
         });
 
-        holder.binding.deleteFav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogDeleteFav(position);
-            }
-        });
+        holder.binding.deleteFav.setOnClickListener(view -> dialogDeleteFav(position));
     }
 
     @Override

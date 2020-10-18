@@ -4,47 +4,46 @@ import java.util.List;
 
 public class CitiesModel {
 
-    private ResultEntity result;
+    private NationalityModel.ResultBean result;
 
-    public void setResult(ResultEntity result) {
-        this.result = result;
-    }
-
-    public ResultEntity getResult() {
+    public NationalityModel.ResultBean getResult() {
         return result;
     }
 
-    public class ResultEntity {
+    public void setResult(NationalityModel.ResultBean result) {
+        this.result = result;
+    }
 
-        private List<CitiesEntity> cities;
+    public static class ResultBean {
+        private List<NationalityModel.ResultBean.DataBean> data;
 
-        public void setCities(List<CitiesEntity> cities) {
-            this.cities = cities;
+        public List<NationalityModel.ResultBean.DataBean> getData() {
+            return data;
         }
 
-        public List<CitiesEntity> getCities() {
-            return cities;
+        public void setData(List<NationalityModel.ResultBean.DataBean> data) {
+            this.data = data;
         }
 
-        public class CitiesEntity {
+        public static class DataBean {
 
-            private String City_Name;
-            private int CityUID;
+            private String id;
+            private String name;
 
-            public void setCity_Ar_Nm(String City_Ar_Nm) {
-                this.City_Name = City_Ar_Nm;
+            public String getId() {
+                return id;
             }
 
-            public void setCityUID(int CityUID) {
-                this.CityUID = CityUID;
+            public void setId(String id) {
+                this.id = id;
             }
 
-            public String getCity_Ar_Nm() {
-                return City_Name;
+            public String getName() {
+                return name;
             }
 
-            public int getCityUID() {
-                return CityUID;
+            public void setName(String name) {
+                this.name = name;
             }
         }
     }

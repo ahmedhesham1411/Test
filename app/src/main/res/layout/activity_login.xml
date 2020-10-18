@@ -42,49 +42,63 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                app:riv_corner_radius="5dp"
+            <LinearLayout
+                android:id="@+id/lin_phone"
+                android:layout_marginTop="5dp"
                 app:layout_constraintTop_toBottomOf="@id/email_txt"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/flag_img"
-                android:background="@drawable/sa"
-                android:layout_width="40dp"
-                android:layout_height="25dp"/>
-
-            <TextView
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:text="966+"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="15dp"
-                app:layout_constraintTop_toBottomOf="@id/email_txt"
-                app:layout_constraintEnd_toStartOf="@id/flag_img"
-                android:id="@+id/code_num"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"/>
-
-            <EditText
-                android:text="@={loginVM.phoneObservable}"
-                app:error="@{loginVM.phoneObservableError}"
-                android:id="@+id/email_edt"
-                android:inputType="numberDecimal"
-                android:digits="0123456789"
-                android:textAlignment="viewEnd"
-                android:maxLength="9"
-                android:hint="@string/enter_phone_number"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape_rounded_dark_grey"
-                app:layout_constraintTop_toBottomOf="@id/email_txt"
-                app:layout_constraintEnd_toStartOf="@id/code_num"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_width="0dp"
-                android:layout_height="40dp" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layoutDirection="ltr"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_marginEnd="20dp"
+                    app:riv_corner_radius="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/email_txt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/flag_img"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/sa"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="966+"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintTop_toBottomOf="@id/email_txt"
+                    app:layout_constraintEnd_toStartOf="@id/flag_img"
+                    android:id="@+id/code_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:text="@={loginVM.phoneObservable}"
+                    app:error="@{loginVM.phoneObservableError}"
+                    android:id="@+id/email_edt"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789"
+                    android:textAlignment="viewStart"
+                    android:maxLength="9"
+                    android:hint="@string/enter_phone_number"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    app:layout_constraintTop_toBottomOf="@id/email_txt"
+                    app:layout_constraintEnd_toStartOf="@id/code_num"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp" />
+
+            </LinearLayout>
 
             <Button
                 android:onClick="@{()->loginVM.login()}"
@@ -99,51 +113,100 @@
                 android:text="@string/confirm"
                 android:textColor="@color/colorWhite"
                 android:background="@drawable/shape_rounded_blue"
-                app:layout_constraintTop_toBottomOf="@id/email_edt"
+                app:layout_constraintTop_toBottomOf="@id/lin_phone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
 
 
-            <LinearLayout
+            <Button
+                android:onClick="@{()->loginVM.visitor()}"
+                android:textAllCaps="false"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:id="@+id/skip_btn"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="40dp"
+                android:text="@string/visitor"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/shape_rounded_moov_12"
                 app:layout_constraintTop_toBottomOf="@id/login_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+
+            <TextView
+                android:id="@+id/hint_txt"
+                android:layout_gravity="center_vertical"
+                android:text="@string/to_use_this_app_u_accept"
+                android:textColor="@color/colorText"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@id/skip_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/lin_privacy"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/hint_txt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/to_use_this_app_u_accept"
-                    android:textColor="@color/colorText"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/login_btn"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:textAlignment="viewStart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"/>
 
                 <TextView
-                    android:onClick="@{()->loginVM.policy()}"
+                    android:onClick="@{()->loginVM.policyUSe()}"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="3dp"
-                    android:id="@+id/policy_txt"
-                    android:textSize="12sp"
-                    android:text="@string/policy_terms"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/policy"
                     android:textColor="@color/colorBlue"
                     app:layout_constraintTop_toBottomOf="@+id/login_btn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:textAlignment="viewStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+               <View
+                   android:layout_width="0dp"
+                   android:layout_weight=".5"
+                   android:layout_height="1dp"/>
+
+                <TextView
+                    android:onClick="@{()->loginVM.privacyPolicy()}"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="3dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/privacy"
+                    android:textColor="@color/colorBlue"
+                    app:layout_constraintTop_toBottomOf="@+id/login_btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"/>
 
             </LinearLayout>
 

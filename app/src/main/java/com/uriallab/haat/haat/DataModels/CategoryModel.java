@@ -36,7 +36,33 @@ public class CategoryModel {
             private String Category_Type;
             private String Category_Icon_Urls;
             private String Category_Title_EN;
+            private String Category_Id;
+            private String Category_AuthorityId;
             private boolean selected;
+
+            public String getCategory_Icon_Urls() {
+                return Category_Icon_Urls;
+            }
+
+            public void setCategory_Icon_Urls(String category_Icon_Urls) {
+                Category_Icon_Urls = category_Icon_Urls;
+            }
+
+            public String getCategory_Id() {
+                return Category_Id;
+            }
+
+            public void setCategory_Id(String category_Id) {
+                Category_Id = category_Id;
+            }
+
+            public String getCategory_AuthorityId() {
+                return Category_AuthorityId;
+            }
+
+            public void setCategory_AuthorityId(String category_AuthorityId) {
+                Category_AuthorityId = category_AuthorityId;
+            }
 
             public boolean isSelected() {
                 return selected;

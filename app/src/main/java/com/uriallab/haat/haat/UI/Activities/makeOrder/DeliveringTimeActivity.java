@@ -9,6 +9,11 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,17 +24,11 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.uriallab.haat.haat.R;
-import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.databinding.ActivityDeliveringTimeBinding;
 import com.uriallab.haat.haat.viewModels.DeliveringTimeViewModel;
 
 import java.util.ArrayList;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
 
 public class DeliveringTimeActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -91,7 +90,7 @@ public class DeliveringTimeActivity extends AppCompatActivity implements OnMapRe
 
     @Override
     public void onBackPressed() {
-      //  super.onBackPressed();
+        //  super.onBackPressed();
         Intent returnIntent = new Intent();
         returnIntent.putExtra("time", "none");
         setResult(Activity.RESULT_OK, returnIntent);
@@ -104,12 +103,6 @@ public class DeliveringTimeActivity extends AppCompatActivity implements OnMapRe
         if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
-    }
-
-    private void getFusedLocation() {
-        GPSTracker gpsTracker = new GPSTracker(this);
-        Log.e("Location", gpsTracker.getLatitude() + ", " + gpsTracker.getLongitude());
-        latLngTo = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
     }
 
     private void setUpMapIfNeeded() {
@@ -130,8 +123,7 @@ public class DeliveringTimeActivity extends AppCompatActivity implements OnMapRe
 
         setUpMap();
 
-        GPSTracker gpsTracker = new GPSTracker(this);
-        latLngTo = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+        latLngTo = new LatLng(GlobalVariables.LOCATION_LAT, GlobalVariables.LOCATION_LNG);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLngTo).zoom(14).build();
         mMap.animateCamera(CameraUpdateFactory
@@ -147,10 +139,10 @@ public class DeliveringTimeActivity extends AppCompatActivity implements OnMapRe
         MapStyleOptions style = new MapStyleOptions(myMapStyle);
         mMap.setMapStyle(style);
         mMap.getUiSettings().setZoomControlsEnabled(false);
-        getFusedLocation();
+        latLngTo = new LatLng(GlobalVariables.LOCATION_LAT, GlobalVariables.LOCATION_LNG);
     }
 
-    public void confirmTime(){
+    public void confirmTime() {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("time", binding.scrollChoice.getCurrentSelection());
         returnIntent.putExtra("timeId", String.valueOf(viewModel.timeListId.get(binding.scrollChoice.getCurrentItemPosition())));

@@ -1,14 +1,9 @@
 package com.uriallab.haat.haat.Utilities;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.IntentSender;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,15 +12,12 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.text.format.DateFormat;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -34,22 +26,19 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.bumptech.glide.Glide;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
-import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -58,12 +47,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
@@ -617,7 +600,7 @@ public class Utilities {
     }
 
     public static double getKilometers(double lat1, double long1, double lat2, double long2) {
-        Log.e("LATLNGKM", lat1+"\t"+long1+"\n"+lat2+"\t"+long2);
+        Log.e("LATLNGKM", lat1 + "\t" + long1 + "\n" + lat2 + "\t" + long2);
         double PI_RAD = Math.PI / 180.0;
         double phi1 = lat1 * PI_RAD;
         double phi2 = lat2 * PI_RAD;
@@ -628,21 +611,21 @@ public class Utilities {
     }
 
     public static double CalculationByDistance(double initialLat, double initialLong,
-                                        double finalLat, double finalLong){
+                                               double finalLat, double finalLong) {
         int R = 6371; // km
-        double dLat = toRadians(finalLat-initialLat);
-        double dLon = toRadians(finalLong-initialLong);
+        double dLat = toRadians(finalLat - initialLat);
+        double dLon = toRadians(finalLong - initialLong);
         initialLat = toRadians(initialLat);
         finalLat = toRadians(finalLat);
 
-        double a = sin(dLat/2) * sin(dLat/2) +
-                sin(dLon/2) * sin(dLon/2) * cos(initialLat) * cos(finalLat);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double a = sin(dLat / 2) * sin(dLat / 2) +
+                sin(dLon / 2) * sin(dLon / 2) * cos(initialLat) * cos(finalLat);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;
     }
 
     public static double toRadians(double deg) {
-        return deg * (Math.PI/180);
+        return deg * (Math.PI / 180);
     }
 
     public static double distanceBetweenTwoLatLng(double lat1, double lon1, double lat2, double lon2) {
@@ -666,14 +649,12 @@ public class Utilities {
         return (rad * 180.0 / Math.PI);
     }
 
-    public static LatLng getCurrentLocation(Activity activity){
-        GPSTracker gpsTracker = new GPSTracker(activity);
-        return new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+    public static LatLng getCurrentLocation(Activity activity) {
+        return new LatLng(GlobalVariables.LOCATION_LAT, GlobalVariables.LOCATION_LNG);
     }
 
-    public static LatLng getCurrentLocation(Context activity){
-        GPSTracker gpsTracker = new GPSTracker(activity);
-        return new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+    public static LatLng getCurrentLocation(Context activity) {
+        return new LatLng(GlobalVariables.LOCATION_LAT, GlobalVariables.LOCATION_LNG);
     }
 
     private static final int SECOND_MILLIS = 1000;
@@ -683,7 +664,7 @@ public class Utilities {
 
     public static String getTimeAgo(Activity activity, String timeString) {
 
-      //  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        //  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         //format.setTimeZone(TimeZone.getTimeZone("GTM+3"));
         Date newDate = null;
@@ -691,10 +672,10 @@ public class Utilities {
         try {
             newDate = format.parse(timeString);
             time = newDate.getTime();
-          //  Log.e("Time", timeString+"\t"+time);
+            //  Log.e("Time", timeString+"\t"+time);
         } catch (ParseException e) {
             time = 0;
-          //  Log.e("Time", "Exception"+timeString+"\t"+time);
+            //  Log.e("Time", "Exception"+timeString+"\t"+time);
             e.printStackTrace();
         }
 
@@ -716,15 +697,15 @@ public class Utilities {
         } else if (diff < 2 * MINUTE_MILLIS) {
             return activity.getResources().getString(R.string.a_minute);
         } else if (diff < 50 * MINUTE_MILLIS) {
-            return diff / MINUTE_MILLIS + " "+activity.getResources().getString(R.string.minute);
+            return diff / MINUTE_MILLIS + " " + activity.getResources().getString(R.string.minute);
         } else if (diff < 90 * MINUTE_MILLIS) {
             return activity.getResources().getString(R.string.an_hour);
         } else if (diff < 24 * HOUR_MILLIS) {
-            return diff / HOUR_MILLIS + " "+activity.getResources().getString(R.string.hour);
+            return diff / HOUR_MILLIS + " " + activity.getResources().getString(R.string.hour);
         } else if (diff < 48 * HOUR_MILLIS) {
             return activity.getResources().getString(R.string.yesterday);
         } else {
-            return diff / DAY_MILLIS + " "+activity.getResources().getString(R.string.day_ago);
+            return diff / DAY_MILLIS + " " + activity.getResources().getString(R.string.day_ago);
         }
     }
 

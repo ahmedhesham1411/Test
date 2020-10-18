@@ -59,23 +59,20 @@ public class HomeFragment extends Fragment implements CategoryClick {
 
         binding.setHomeVM(viewModel);
 
-        binding.edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    Utilities.hideKeyboard(getActivity());
-                    handled = true;
-                    Bundle bundle = new Bundle();
-                    bundle.putString("type", "");
-                    bundle.putString("category", "");
-                    bundle.putString("searchTxt", binding.edtSearch.getText().toString());
-                    bundle.putBoolean("isSearch", true);
-                    IntentClass.goToActivity(getActivity(), StoresActivity.class, bundle);
-                    binding.edtSearch.setText("");
-                }
-                return handled;
+        binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                Utilities.hideKeyboard(getActivity());
+                handled = true;
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "");
+                bundle.putString("category", "");
+                bundle.putString("searchTxt", binding.edtSearch.getText().toString());
+                bundle.putBoolean("isSearch", true);
+                IntentClass.goToActivity(getActivity(), StoresActivity.class, bundle);
+                binding.edtSearch.setText("");
             }
+            return handled;
         });
 
         return binding.getRoot();

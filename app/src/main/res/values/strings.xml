@@ -41,7 +41,7 @@
     <string name="meter">meter</string>
     <string name="my_profile">Profile</string>
     <string name="edit_profile">Edit profile</string>
-    <string name="comments">Comments</string>
+    <string name="comments">Ratings</string>
     <string name="setting">Setting</string>
     <string name="active">active</string>
     <string name="finished">finished</string>
@@ -64,6 +64,7 @@
     <string name="policy_terms"><u>policy use terms</u></string>
     <string name="new_account">new account</string>
     <string name="name">full name</string>
+    <string name="client_name">visitor</string>
     <string name="enter_full_name">enter full name</string>
     <string name="go">go</string>
     <string name="user_rates">user rates</string>
@@ -259,6 +260,7 @@
     <string name="other_branches">Other branches</string>
     <string name="pay_dues">Pay the dues</string>
     <string name="logout">Do you want to log out of the app?</string>
+    <string name="logout_">Dear, you are not registered in the Hat app</string>
     <string name="searching_for_driver">The driver is being located</string>
     <string name="low_price">lower price</string>
     <string name="qr_code">QR code</string>
@@ -273,7 +275,7 @@
     <string name="status">status</string>
     <string name="eligible">eligible</string>
     <string name="stopped">stopped</string>
-    <string name="places_around_you">services ...</string>
+    <string name="places_around_you">menu and prices ...</string>
     <string name="hat_card">Haat Card</string>
     <string name="hat_service">Haat Service</string>
     <string name="site">location</string>
@@ -314,4 +316,15 @@
     <string name="no_need_for_order">no need for order</string>
     <string name="driver_not_accepting_online_payment">the driver not accepting online payment</string>
     <string name="driver_ask_for_contact_outside_the_application">the driver ask for contact outside the application</string>
+    <string name="orders_">order</string>
+    <string name="visitor">visitor</string>
+    <string name="register">register</string>
+    <string name="visit_hat">To visit the site on Hat application</string>
+    <string name="city">city</string>
+    <string name="region">region</string>
+    <string name="please_choose_region">please choose region</string>
+    <string name="please_choose_city">please choose city</string>
+    <string name="identity_type">نوع الهوية</string>
+    <string name="please_choose_identity_type">الرجاء تحديد نوع الهوية</string>
+    <string name="car">السيارة</string>
 </resources>

@@ -54,18 +54,15 @@ public class StoresActivity extends AppCompatActivity {
 
         binding.setStoresVM(viewModel);
 
-        binding.edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    Utilities.hideKeyboard(StoresActivity.this);
-                    handled = true;
-                    viewModel.categoryName.set(binding.edtSearch.getText().toString());
-                   viewModel.getSearchResult(binding.edtSearch.getText().toString());
-                }
-                return handled;
+        binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                Utilities.hideKeyboard(StoresActivity.this);
+                handled = true;
+                viewModel.categoryName.set(binding.edtSearch.getText().toString());
+               viewModel.getSearchResult(binding.edtSearch.getText().toString());
             }
+            return handled;
         });
     }
 

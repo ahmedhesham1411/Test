@@ -20,10 +20,13 @@ public class ProductMenuAdapter extends RecyclerView.Adapter<ProductMenuAdapter.
     private List<ProductMenuModel.ResultBean.CategoryBean> incomingList;
     private MenuClick menuClick;
 
-    public ProductMenuAdapter(Activity activity, List<ProductMenuModel.ResultBean.CategoryBean> incomingList, MenuClick menuClick) {
+    private int MenuId;
+
+    public ProductMenuAdapter(Activity activity, List<ProductMenuModel.ResultBean.CategoryBean> incomingList, int MenuId, MenuClick menuClick) {
         this.activity = activity;
         this.incomingList = incomingList;
         this.menuClick = menuClick;
+        this.MenuId = MenuId;
     }
 
     @Override
@@ -38,7 +41,27 @@ public class ProductMenuAdapter extends RecyclerView.Adapter<ProductMenuAdapter.
 
         holder.binding.menuName.setText(incomingList.get(position).getTitle());
 
-        holder.itemView.setOnClickListener(v -> menuClick.menuClick(incomingList.get(position).getId()));
+
+        for (int i = 0; i < incomingList.size(); i++) {
+            if (MenuId != incomingList.get(i).getId())
+                incomingList.get(i).setSelected(false);
+            else
+                incomingList.get(i).setSelected(true);
+        }
+
+        if (incomingList.get(position).isSelected()) {
+            holder.binding.menuLin.setBackgroundResource(R.drawable.shape_rounded_blue_corner_4);
+        } else {
+            holder.binding.menuLin.setBackgroundResource(R.drawable.shape_rounded_moov);
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            MenuId = incomingList.get(position).getId();
+
+            menuClick.menuClick(incomingList.get(position).getId());
+
+            notifyDataSetChanged();
+        });
 
     }
 

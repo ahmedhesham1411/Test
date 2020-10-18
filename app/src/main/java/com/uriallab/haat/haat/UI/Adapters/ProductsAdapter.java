@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -30,10 +31,14 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MenuVi
 
     private List<StoreProductsModel.ProductBean> productMenuModelList;
 
-    public ProductsAdapter(StoreDetailsActivity activity, List<ProductsModel.ResultEntity.ProductsEntity> incomingList, List<StoreProductsModel.ProductBean> productMenuModelList) {
+    private ObservableField<String> totalPrice;
+
+    public ProductsAdapter(StoreDetailsActivity activity, List<ProductsModel.ResultEntity.ProductsEntity> incomingList,
+                           List<StoreProductsModel.ProductBean> productMenuModelList, ObservableField<String> totalPrice) {
         this.activity = activity;
         this.productMenuModelList = productMenuModelList;
         this.incomingList = incomingList;
+        this.totalPrice = totalPrice;
     }
 
     @Override
@@ -50,24 +55,33 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MenuVi
 
         holder.binding.productName.setText(incomingList.get(position).getProduct_name());
         holder.binding.productDesc.setText(incomingList.get(position).getProduct_description());
-        holder.binding.productPrice.setText(incomingList.get(position).getProduct_price() + "");
+        holder.binding.productPrice.setText((incomingList.get(position).getProduct_price()) + "");
 
         holder.binding.deleteQuantity.setImageResource(R.drawable.rubish);
         holder.binding.deleteQuantity.setColorFilter(activity.getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
 
-        if (incomingList.get(position).isSelected()){
+        if (incomingList.get(position).isSelected()) {
             holder.binding.deleteFrame.setVisibility(View.VISIBLE);
             holder.binding.quantity.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.binding.deleteFrame.setVisibility(View.INVISIBLE);
             holder.binding.quantity.setVisibility(View.INVISIBLE);
         }
 
         holder.binding.deleteFrame.setOnClickListener(v -> {
             incomingList.get(position).setSelected(false);
+
             try {
-                Log.e("list_size", productMenuModelList.size() + " before delete");
-                productMenuModelList.remove(incomingList.get(position).getProductUID());// TODO: 8/18/2020
+
+                int index = 0;
+                for (int i = 0; i < productMenuModelList.size(); i++) {
+                    if (productMenuModelList.get(i).getName().equals(incomingList.get(position).getProduct_name())) {
+                        index = i;
+                    }
+                }
+
+                Log.e("list_size", productMenuModelList.size() + " before delete index=" + index);
+                productMenuModelList.remove(index);// TODO: 8/18/2020
                 Log.e("list_size", productMenuModelList.size() + " after delete");
             } catch (Exception e) {
                 Log.e("list_size", "delete Exception" + e.getMessage());
@@ -76,11 +90,19 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MenuVi
 
             holder.binding.deleteFrame.setVisibility(View.INVISIBLE);
             holder.binding.quantity.setVisibility(View.INVISIBLE);
+
+            double tPrice = 0;
+            for (int i = 0; i < productMenuModelList.size(); i++) {
+                double itemPrice = productMenuModelList.get(i).getPrice() * productMenuModelList.get(i).getQuantity();
+                tPrice += itemPrice;
+            }
+            totalPrice.set(tPrice +" "+ activity.getString(R.string.currency));
+
         });
 
         holder.itemView.setOnClickListener(v -> {
             ProductBottomSheet productBottomSheet = new ProductBottomSheet(activity, incomingList.get(position),
-                    holder.binding.deleteFrame, holder.binding.quantity, productMenuModelList);
+                    holder.binding.deleteFrame, holder.binding.quantity, holder.binding.productPrice, productMenuModelList, totalPrice);
             productBottomSheet.show(activity.getSupportFragmentManager(), "tag");
         });
     }

@@ -25,7 +25,7 @@ import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Activities.Updates.StoresActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 
 import java.lang.reflect.Type;
@@ -64,10 +64,8 @@ public class StoresViewModel extends ViewModel {
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             final LoadingDialog loadingDialog = new LoadingDialog();
 
-            GPSTracker gpsTracker = new GPSTracker(activity);
-
-            double lat = gpsTracker.getLatitude();
-            double lng = gpsTracker.getLongitude();
+            double lat = GlobalVariables.LOCATION_LAT;
+            double lng = GlobalVariables.LOCATION_LNG;
             String urlType = "";
             if (!catType.equals(""))
                 urlType = "&type=" + catType;
@@ -210,14 +208,13 @@ public class StoresViewModel extends ViewModel {
 
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            GPSTracker gpsTracker = new GPSTracker(activity);
 
             final LoadingDialog loadingDialog = new LoadingDialog();
             String urlType = "";
             if (!catType.equals(""))
                 urlType = "&type=" + catType;
             String url = "nearbysearch/json?key=" + activity.getResources().getString(R.string.api_key) +
-                    "&location=" + gpsTracker.getLocation().getLatitude() + "," + gpsTracker.getLocation().getLongitude() +
+                    "&location=" + GlobalVariables.LOCATION_LAT + "," + GlobalVariables.LOCATION_LNG +
                     "&radius=2500" +
                     "&pagetoken=" + pageToken +
                     urlType +

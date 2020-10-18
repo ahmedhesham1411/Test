@@ -12,6 +12,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.gson.Gson;
@@ -41,7 +42,7 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
 
     private String storeName, shopImg;
 
-    public String selectedProducts = "";
+    public ObservableField<String> selectedProducts = new ObservableField<>("");
 
     private double lat, lng;
 
@@ -66,23 +67,21 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
             lat = bundle.getDouble("lat");
             lng = bundle.getDouble("lng");
 
-
             Gson gson = new Gson();
             StoreProductsModel storeProductsModel = gson.fromJson(bundle.getString("myjson"), StoreProductsModel.class);
 
             if (storeProductsModel.getProductBeans().size() > 0) {
                 initRecyclerProducts(storeProductsModel.getProductBeans());
 
+                String temp = getString(R.string.orders_)+"\n";
                 for (int i = 0; i < storeProductsModel.getProductBeans().size(); i++) {
-                    selectedProducts += (getString(R.string.cat_name) + " ::\t" + storeProductsModel.getProductBeans().get(i).getName() + "\n" +
-                            getString(R.string.quantity) + " ::\t" + storeProductsModel.getProductBeans().get(i).getQuantity() + "\n" +
-                            getString(R.string.total_price) + " ::\t" +
-                            (storeProductsModel.getProductBeans().get(i).getPrice() * storeProductsModel.getProductBeans().get(i).getQuantity()) + "\n");
+                    temp += ( storeProductsModel.getProductBeans().get(i).getName() + " " +
+                            getString(R.string.quantity) + " : " + storeProductsModel.getProductBeans().get(i).getQuantity())+"\n";
                 }
+                selectedProducts.set(temp);
             } else
                 binding.recyclerProducts.setVisibility(View.GONE);
         }
-
 
         viewModel = new MakeOrderFirstStepViewModel(this, lat, lng, storeName, shopImg, isService);
 
@@ -106,7 +105,7 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
     }
 
     private void initRecyclerProducts(List<StoreProductsModel.ProductBean> productBeanList) {
-        StoreProductsAdapter productsAdapter = new StoreProductsAdapter(this, productBeanList);
+        StoreProductsAdapter productsAdapter = new StoreProductsAdapter(this, productBeanList, selectedProducts);
         binding.recyclerProducts.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerProducts.setAdapter(productsAdapter);
     }

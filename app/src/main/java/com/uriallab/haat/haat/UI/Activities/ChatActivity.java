@@ -389,6 +389,9 @@ public class ChatActivity extends AppCompatActivity {
                     Log.e("IMAGE", "CAMERA_REQUEST Exception: " + e.getMessage());
                     e.printStackTrace();
                 }
+            }else if (requestCode == 103) {
+                if (data.getExtras().getBoolean("isPayed"))
+                    viewModel.rate();
             }
         } catch (Exception e) {
             e.printStackTrace();

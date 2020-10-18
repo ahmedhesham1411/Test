@@ -20,8 +20,8 @@ public abstract class GlobalVariables {
 
     public static final String GET_ADDRESSES_FROM_LATLNG_URL = "https://maps.googleapis.com/maps/api/geocode/json?sensor=true&latlng=";
 
-    public static double LOCATION_LAT = 30.033333;
-    public static double LOCATION_LNG = 31.233334;
+    public static double LOCATION_LAT = 0;
+    public static double LOCATION_LNG = 0;
 
     public static String qrCode = "";
 

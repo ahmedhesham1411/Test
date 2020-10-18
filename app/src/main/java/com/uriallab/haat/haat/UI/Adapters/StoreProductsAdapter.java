@@ -1,11 +1,11 @@
 package com.uriallab.haat.haat.UI.Adapters;
 
 import android.app.Activity;
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uriallab.haat.haat.DataModels.StoreProductsModel;
@@ -22,10 +22,12 @@ public class StoreProductsAdapter extends RecyclerView.Adapter<StoreProductsAdap
 
     private Activity activity;
     private List<StoreProductsModel.ProductBean> incomingList;
+    private ObservableField<String> selectedProducts;
 
-    public StoreProductsAdapter(Activity activity, List<StoreProductsModel.ProductBean> incomingList) {
+    public StoreProductsAdapter(Activity activity, List<StoreProductsModel.ProductBean> incomingList, ObservableField<String> selectedProducts) {
         this.activity = activity;
         this.incomingList = incomingList;
+        this.selectedProducts = selectedProducts;
     }
 
     @Override
@@ -39,8 +41,38 @@ public class StoreProductsAdapter extends RecyclerView.Adapter<StoreProductsAdap
     public void onBindViewHolder(final MenuViewHolder holder, final int position) {
 
         holder.binding.name.setText(incomingList.get(position).getName());
-        holder.binding.quantity.setText(incomingList.get(position).getQuantity()+"");
-        holder.binding.productPrice.setText(incomingList.get(position).getPrice() + "");
+        holder.binding.quantity.setText(incomingList.get(position).getQuantity() + "");
+        holder.binding.productPrice.setText(( incomingList.get(position).getPrice() * incomingList.get(position).getQuantity() ) + "");
+
+        holder.binding.increaseQuant.setOnClickListener(v -> {
+            int quant = incomingList.get(position).getQuantity() + 1;
+            incomingList.get(position).setQuantity(quant);
+            holder.binding.quantity.setText(quant + "");
+            holder.binding.productPrice.setText(( incomingList.get(position).getPrice() * quant ) + "");
+
+            String temp = activity.getString(R.string.orders_)+"\n";
+            for (int i = 0; i < incomingList.size(); i++) {
+                temp += ( incomingList.get(i).getName() + " " +
+                        activity.getString(R.string.quantity) + " : " + incomingList.get(i).getQuantity()) + "\n";
+            }
+            selectedProducts.set(temp);
+        });
+
+        holder.binding.deleteFrame.setOnClickListener(v -> {
+            if (incomingList.get(position).getQuantity() > 1) {
+                int quant = incomingList.get(position).getQuantity() - 1;
+                incomingList.get(position).setQuantity(quant);
+                holder.binding.quantity.setText(quant + "");
+                holder.binding.productPrice.setText(( incomingList.get(position).getPrice() * quant ) + "");
+
+                String temp = activity.getString(R.string.orders_)+"\n";
+                for (int i = 0; i < incomingList.size(); i++) {
+                    temp += ( incomingList.get(i).getName() + " " +
+                            activity.getString(R.string.quantity) + " : " + incomingList.get(i).getQuantity())+ "\n";
+                }
+                selectedProducts.set(temp);
+            }
+        });
 
     }
 

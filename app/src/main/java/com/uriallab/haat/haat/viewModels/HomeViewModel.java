@@ -24,7 +24,7 @@ import com.uriallab.haat.haat.UI.Activities.Updates.StoresActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.MakeOrderFirstStepActivity;
 import com.uriallab.haat.haat.UI.Fragments.HomeFragment;
 import com.uriallab.haat.haat.Utilities.Dialogs;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 import com.uriallab.haat.haat.Utilities.Utilities;
@@ -62,11 +62,9 @@ public class HomeViewModel extends ViewModel {
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // final LoadingDialog loadingDialog = new LoadingDialog();
 
-            GPSTracker gpsTracker = new GPSTracker(activity);
-
             final LoadingDialog loadingDialog = new LoadingDialog();
 
-            APIModel.getMethod(activity, "Data/GetStors?lat=" + gpsTracker.getLatitude() + "&lng=" + gpsTracker.getLongitude(), new TextHttpResponseHandler() {
+            APIModel.getMethod(activity, "Data/GetStors?lat=" + GlobalVariables.LOCATION_LAT + "&lng=" + GlobalVariables.LOCATION_LNG, new TextHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     Log.e("response", responseString + "Error");

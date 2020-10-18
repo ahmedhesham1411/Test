@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
 import com.google.gson.Gson;
@@ -34,7 +35,7 @@ import com.uriallab.haat.haat.UI.Activities.makeOrder.MakeOrderFirstStepActivity
 import com.uriallab.haat.haat.UI.Activities.makeOrder.OtherBranchesActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.StoreDetailsActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 import com.uriallab.haat.haat.Utilities.Utilities;
@@ -66,6 +67,8 @@ public class StoreDetailsViewModel {
 
     private OtherBranchesModel otherBranchesList = new OtherBranchesModel();
 
+    public ObservableField<String> totalPrice = new ObservableField<>("");
+
     private String placeId;
 
     public double lat, lng;
@@ -87,6 +90,8 @@ public class StoreDetailsViewModel {
             getServerStoreDetails();
 
             getProductMenu();
+
+            totalPrice.set( "0 "+ activity.getString(R.string.currency));
         } else {
             getStoreDetails();
         }
@@ -136,11 +141,10 @@ public class StoreDetailsViewModel {
 
                 if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    GPSTracker gpsTracker = new GPSTracker(activity);
 
                     String distance = mNumberFormat.format(Math.round(Utilities.getKilometers(
-                            gpsTracker.getLocation().getLatitude(),
-                            gpsTracker.getLocation().getLongitude(),
+                            GlobalVariables.LOCATION_LAT,
+                            GlobalVariables.LOCATION_LNG,
                             storeDetailsModel.getResult().getGeometry().getLocation().getLat(),
                             storeDetailsModel.getResult().getGeometry().getLocation().getLng())));
 
@@ -169,7 +173,7 @@ public class StoreDetailsViewModel {
 
                 otherBranchesList.setProductBeans(otherList);
 
-                Picasso.get().load(photoUrl).placeholder(R.drawable.logo).into(activity.binding.storeImg);
+                Picasso.get().load(photoUrl).into(activity.binding.storeImg);
 
                 try {
                     if (storeDetailsModel.getResult().getOpening_hours().isOpen_now()) {
@@ -280,17 +284,16 @@ public class StoreDetailsViewModel {
                 // TODO: 8/18/2020
                 try {
                     otherBranchesList.setProductBeans(otherList);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
                 if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    GPSTracker gpsTracker = new GPSTracker(activity);
 
                     String distance = mNumberFormat.format(Math.round(Utilities.getKilometers(
-                            gpsTracker.getLocation().getLatitude(),
-                            gpsTracker.getLocation().getLongitude(),
+                            GlobalVariables.LOCATION_LAT,
+                            GlobalVariables.LOCATION_LNG,
                             storeDetailsModel.getResult().getGeometry().getLocation().getLat(),
                             storeDetailsModel.getResult().getGeometry().getLocation().getLng())));
 
@@ -523,7 +526,14 @@ public class StoreDetailsViewModel {
     public void shareStore() {
         final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(Intent.EXTRA_TEXT, "http://haat.com/" + placeId + "$");
+
+        String sharedData = activity.getString(R.string.visit_hat)+"\n"+
+                storeDetailsModel.getResult().getName()+"\n" +
+                storeDetailsModel.getResult().getFormatted_address() +"\n"+
+                "https://play.google.com/store/apps/details?id=com.uriallab.hathat";
+
+        //intent.putExtra(Intent.EXTRA_TEXT, "http://haat.com/" + placeId + "$");
+        intent.putExtra(Intent.EXTRA_TEXT, sharedData);
         intent.setType("text/plain");
         activity.startActivity(Intent.createChooser(intent, activity.getResources().getString(R.string.app_name)));
     }

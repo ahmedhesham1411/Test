@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.uriallab.haat.haat.API.APIModel;
+import com.uriallab.haat.haat.DataModels.CarModel;
 import com.uriallab.haat.haat.DataModels.CarTpeModel;
 import com.uriallab.haat.haat.DataModels.CarYearModel;
 import com.uriallab.haat.haat.DataModels.DriverRegisterModel;
@@ -48,11 +49,16 @@ public class DriverRegisterThirdStepViewModel {
     public ObservableField<String> plateNumberObservable = new ObservableField<>("");
     public ObservableField<String> plateNumberError = new ObservableField<>();
 
-    public List<String> typeList = new ArrayList<>();
-    public List<Integer> typeIdList = new ArrayList<>();
+    public List<String> carList = new ArrayList<>();
+    public List<String> carIdList = new ArrayList<>();
+
+    public List<String> carTypeList = new ArrayList<>();
+    public List<String> carTypeIdList = new ArrayList<>();
+
     public List<String> yearList = new ArrayList<>();
 
-    public int type = 0;
+    public String car = "0";
+    public String carType = "0";
     public String year = "";
 
     public String profilePic = "";
@@ -72,9 +78,13 @@ public class DriverRegisterThirdStepViewModel {
         if (ConfigurationFile.getCurrentLanguage(activity).equals("ar"))
             rotation.set(180);
 
-        typeList.add(activity.getResources().getString(R.string.car_type));
-        typeIdList.add(0);
+        carList.add(activity.getResources().getString(R.string.car));
+        carIdList.add("0");
+        carTypeList.add(activity.getResources().getString(R.string.car_type));
+        carTypeIdList.add("0");
         yearList.add(activity.getResources().getString(R.string.produce_year));
+
+        getCar();
 
         getCarType();
 
@@ -90,13 +100,16 @@ public class DriverRegisterThirdStepViewModel {
         Utilities.hideKeyboard(activity);
 
         if (plateNumberObservable.get().isEmpty() ||
-                type == 0 || year.equals(activity.getResources().getString(R.string.produce_year)) ||
+                car.equals("0") || carType.equals("0") || year.equals(activity.getResources().getString(R.string.produce_year)) ||
                 licensePic.equals("") || profilePic.equals("") || idPic.equals("")) {
 
             if (plateNumberObservable.get().isEmpty())
                 plateNumberError.set(activity.getResources().getString(R.string.required));
 
-            if (type == 0)
+            if (car.equals("0"))
+                Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.car));
+
+            if (carType.equals("0"))
                 Utilities.toastyRequiredFieldCustom(activity, activity.getString(R.string.car_type));
 
             if (year.equals(activity.getResources().getString(R.string.produce_year)))
@@ -131,8 +144,11 @@ public class DriverRegisterThirdStepViewModel {
             jsonParams.put("User_NationalID", driverRegisterModel.getUser_NationalID());
             jsonParams.put("User_CountryID", driverRegisterModel.getUser_CountryID());
             jsonParams.put("User_CityID", driverRegisterModel.getUser_CityID());
+            jsonParams.put("User_RegionID", driverRegisterModel.getUser_RegionID());
+            jsonParams.put("User_NationalID_Type", driverRegisterModel.getUser_NationalID_Type());
+            jsonParams.put("User_CarTypeID", carType);
             jsonParams.put("User_CarYearID", year);
-            jsonParams.put("User_CarID", type);
+            jsonParams.put("User_CarID", car);
             jsonParams.put("User_STCPay_Acc", driverRegisterModel.getUser_STCPay_Acc());
             jsonParams.put("User_License_Number", plateNumberObservable.get());
             jsonParams.put("User_ImgUrl", profilePic);
@@ -216,20 +232,58 @@ public class DriverRegisterThirdStepViewModel {
         });
     }
 
-    private void getCarType() {
+    private void getCar() {
         final LoadingDialog loadingDialog = new LoadingDialog();
-        APIModel.getMethod(activity, "Setting/GetCarType", new TextHttpResponseHandler() {
+        APIModel.getMethod(activity, "Setting/GetCars", new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
                 Log.e("response", responseString + "Error");
                 switch (statusCode) {
                     default:
-                        APIModel.handleFailure(activity, statusCode, responseString, new APIModel.RefreshTokenListener() {
-                            @Override
-                            public void onRefresh() {
-                                getCarType();
-                            }
-                        });
+                        APIModel.handleFailure(activity, statusCode, responseString, () -> getCar());
+                        break;
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
+                Log.e("response", responseString);
+
+                Type dataType = new TypeToken<CarModel>() {
+                }.getType();
+                CarModel data = new Gson().fromJson(responseString, dataType);
+
+                for (int i = 0; i < data.getResult().getData().size(); i++) {
+                    carList.add(data.getResult().getData().get(i).getCare_Type());
+                    carIdList.add(data.getResult().getData().get(i).getId());
+                }
+
+                activity.carAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                Dialogs.showLoading(activity, loadingDialog);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Dialogs.dismissLoading(loadingDialog);
+            }
+        });
+    }
+
+    private void getCarType() {
+        final LoadingDialog loadingDialog = new LoadingDialog();
+        APIModel.getMethod(activity, "Setting/GetCarTypes", new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+                Log.e("response", responseString + "Error");
+                switch (statusCode) {
+                    default:
+                        APIModel.handleFailure(activity, statusCode, responseString, () -> getCarType());
                         break;
                 }
             }
@@ -242,9 +296,9 @@ public class DriverRegisterThirdStepViewModel {
                 }.getType();
                 CarTpeModel data = new Gson().fromJson(responseString, dataType);
 
-                for (int i = 0; i < data.getResult().getTypes().size(); i++) {
-                    typeList.add(data.getResult().getTypes().get(i).getCare_Ar_Nm());
-                    typeIdList.add(data.getResult().getTypes().get(i).getCareUID());
+                for (int i = 0; i < data.getResult().getData().size(); i++) {
+                    carTypeList.add(data.getResult().getData().get(i).getName());
+                    carTypeIdList.add(data.getResult().getData().get(i).getId());
                 }
 
                 activity.carTypeAdapter.notifyDataSetChanged();

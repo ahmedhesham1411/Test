@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.DataModels.HatServiceModel;
 import com.uriallab.haat.haat.R;
+import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 import com.uriallab.haat.haat.UI.Activities.PaymentGateActivity;
 import com.uriallab.haat.haat.UI.Activities.Updates.PhotoViewActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
@@ -76,15 +77,12 @@ public class HatCardBottomSheet extends BottomSheetDialogFragment {
         TextView cardName = dialog.findViewById(R.id.card_name);
         RoundedImageView cardImg = dialog.findViewById(R.id.card_img);
 
-        Picasso.get().load(cardData.getUrl()).placeholder(R.drawable.logo).into(cardImg);
+        Picasso.get().load(cardData.getUrl()).into(cardImg);
 
-        cardImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("img", cardData.getUrl());
-                IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
-            }
+        cardImg.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("img", cardData.getUrl());
+            IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
         });
 
         tPrice = cardData.getPrice();
@@ -126,10 +124,8 @@ public class HatCardBottomSheet extends BottomSheetDialogFragment {
             }
         });
 
-        hatCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //hatCardRequest();
+        hatCard.setOnClickListener(v -> {
+            if (LoginSession.isLoggedIn(activity)){
                 Bundle bundle = new Bundle();
                 bundle.putDouble("money", tPrice);
                 bundle.putString("orderID", "0");
@@ -137,93 +133,13 @@ public class HatCardBottomSheet extends BottomSheetDialogFragment {
                 bundle.putInt("hatCardId", cardData.getCard_UID());
                 bundle.putInt("hatCardQuantity", cardQuantity);
                 IntentClass.goToActivity(activity, PaymentGateActivity.class, bundle);
-                dismiss();
+            }else {
+                Dialogs.showLoginDialog(activity);
             }
+            dismiss();
         });
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-    }
-
-    private void hatCardRequest() {
-        final LoadingDialog loadingDialog = new LoadingDialog();
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("card_id", cardData.getCard_UID());
-            jsonParams.put("card_quantity", cardQuantity);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        APIModel.postMethod(activity, "api/HaatCard/Check", jsonParams, new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
-                Log.e("response", responseString + "Error");
-                switch (statusCode) {
-                    case 400:
-                        try {
-                            JSONObject jsonObject = new JSONObject(responseString);
-                            if (jsonObject.has("error"))
-                                Utilities.toastyError(activity, jsonObject.getJSONObject("error").getString("Message"));
-                            else
-                                Utilities.toastyError(activity, responseString + "    ");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case 500:
-                        try {
-                            JSONObject jsonObject = new JSONObject(responseString);
-                            if (jsonObject.has("error"))
-                                Utilities.toastyError(activity, jsonObject.getJSONObject("error").getString("Message"));
-                            else
-                                Utilities.toastyError(activity, responseString + "");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    default:
-                        APIModel.handleFailure(activity, statusCode, responseString, new APIModel.RefreshTokenListener() {
-                            @Override
-                            public void onRefresh() {
-                                hatCardRequest();
-                            }
-                        });
-                        break;
-                }
-            }
-
-            @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
-                Log.e("response", responseString);
-
-                Bundle bundle = new Bundle();
-                bundle.putDouble("money", tPrice);
-                bundle.putString("orderID", "0");
-                bundle.putInt("type", 3);
-                bundle.putInt("hatCardId", cardData.getCard_UID());
-                bundle.putInt("hatCardQuantity", cardQuantity);
-                IntentClass.goToActivity(activity, PaymentGateActivity.class, bundle);
-
-                dismiss();
-            }
-
-            @Override
-            public void onStart() {
-                super.onStart();
-                Dialogs.showLoading(activity, loadingDialog);
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                Dialogs.dismissLoading(loadingDialog);
-            }
-        });
+        close.setOnClickListener(v -> dismiss());
     }
 
 }

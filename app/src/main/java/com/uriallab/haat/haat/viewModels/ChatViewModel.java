@@ -321,7 +321,7 @@ public class ChatViewModel extends ViewModel {
         isCash();
     }
 
-    private void rate() {
+    public void rate() {
         dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_alert_dialog_rate);
@@ -418,7 +418,7 @@ public class ChatViewModel extends ViewModel {
                     bundle.putDouble("money", price);
                     bundle.putString("orderID", orderId);
                     bundle.putInt("type", 1);
-                    IntentClass.goToActivity(activity, PaymentGateActivity.class, bundle);
+                    IntentClass.goToStartForResult(activity, PaymentGateActivity.class,103, bundle);
                 }
 
             }

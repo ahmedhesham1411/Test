@@ -20,7 +20,7 @@ import com.uriallab.haat.haat.DataModels.OverviewPointModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Activities.TrackDriverActivity;
-import com.uriallab.haat.haat.Utilities.GPSTracker;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -48,8 +48,7 @@ public class TrackDriverViewModel {
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // final LoadingDialog loadingDialog = new LoadingDialog();
 
-            GPSTracker gpsTracker = new GPSTracker(activity);
-            currentLatLng = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+            currentLatLng = new LatLng(GlobalVariables.LOCATION_LAT, GlobalVariables.LOCATION_LNG);
 
             String url = "/directions/json?origin=" +
                     activity.storeLatLng.latitude + "," + activity.storeLatLng.longitude +

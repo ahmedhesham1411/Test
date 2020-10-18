@@ -22,6 +22,7 @@ import com.uriallab.haat.haat.UI.Activities.utilsAndAccountInfo.CommentsActivity
 import com.uriallab.haat.haat.UI.Activities.utilsAndAccountInfo.EditProfileActivity;
 import com.uriallab.haat.haat.UI.Activities.utilsAndAccountInfo.MyAccountDetailsActivity;
 import com.uriallab.haat.haat.UI.Activities.utilsAndAccountInfo.SettingActivity;
+import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.Utilities;
 
@@ -29,7 +30,12 @@ public class MoreViewModel {
 
     public ObservableBoolean isDriver = new ObservableBoolean(false);
 
+    public ObservableBoolean isLoginUser = new ObservableBoolean(false);
+
+    public ObservableBoolean isLogin = new ObservableBoolean(false);
+
     public ObservableField<String> userName = new ObservableField<>();
+
 
     public ObservableField<String> orderNumObservable = new ObservableField<>();
 
@@ -38,7 +44,7 @@ public class MoreViewModel {
     public ObservableInt rotation = new ObservableInt(0);
     public ObservableInt rotationRating = new ObservableInt(0);
 
-    public ObservableInt rating = new ObservableInt(1);
+    public ObservableInt rating = new ObservableInt(5);
 
     private Activity activity;
 
@@ -51,11 +57,13 @@ public class MoreViewModel {
             rotationRating.set(180);
 
         if (LoginSession.isLoggedIn(activity)) {
+            isLogin.set(true);
             try {
                 try {
                     if (LoginSession.getUserData(activity).getResult().getUserData().isIsDelivery()) {
                         isDriver.set(true);
-                    }
+                    }else
+                        isLoginUser.set(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -74,7 +82,8 @@ public class MoreViewModel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+        }else {
+            userName.set(activity.getString(R.string.client_name));
         }
     }
 
@@ -88,17 +97,21 @@ public class MoreViewModel {
     }
 
     public void openComment() {
-        IntentClass.goToActivity(activity, CommentsActivity.class, null);
+        if (LoginSession.isLoggedIn(activity))
+            IntentClass.goToActivity(activity, CommentsActivity.class, null);
+        else
+            Dialogs.showLoginDialog(activity);
     }
 
     public void editProfile() {
         if (LoginSession.isLoggedIn(activity))
             IntentClass.goToActivity(activity, EditProfileActivity.class, null);
+        else
+            Dialogs.showLoginDialog(activity);
     }
 
     public void setting() {
-        if (LoginSession.isLoggedIn(activity))
-            IntentClass.goToActivity(activity, SettingActivity.class, null);
+        IntentClass.goToActivity(activity, SettingActivity.class, null);
     }
 
     public void logout() {
@@ -114,27 +127,19 @@ public class MoreViewModel {
 
         alertText.setText(activity.getString(R.string.logout));
 
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginSession.clearData(activity);
-                IntentClass.goToActivityAndClear(activity, LoginActivity.class, null);
-                try {
-                    Intent myService = new Intent(activity, TrackingDelegate.class);
-                    activity.stopService(myService);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                dialog.dismiss();
+        yes.setOnClickListener(v -> {
+            LoginSession.clearData(activity);
+            IntentClass.goToActivityAndClear(activity, LoginActivity.class, null);
+            try {
+                Intent myService = new Intent(activity, TrackingDelegate.class);
+                activity.stopService(myService);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+            dialog.dismiss();
         });
 
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        no.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
     }
 }

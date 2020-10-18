@@ -1,5 +1,6 @@
 package com.uriallab.haat.haat.UI.Activities;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import com.oppwa.mobile.connect.service.ConnectService;
 import com.oppwa.mobile.connect.service.IProviderBinder;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
+import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ActivityPaymentGateBinding;
 import com.uriallab.haat.haat.viewModels.PaymentGateViewModel;
@@ -346,9 +348,9 @@ public class PaymentGateActivity extends AppCompatActivity implements ITransacti
                     Log.e("Transaction", "transactionCompleted\t" + url);
 
                     // TODO: 7/16/2020
-                    //Bundle bundle = new Bundle();
-                    //bundle.putString("url", url);
-                    //IntentClass.goToStartForResult(PaymentGateActivity.this, ConfirmPaymentActivity.class, 101, bundle);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("url", url);
+                    IntentClass.goToStartForResult(PaymentGateActivity.this, ConfirmPaymentActivity.class, 101, bundle);
 
 //                    WebView webView = new WebView(PaymentGateActivity.this);
 //                    webView.setWebViewClient(new WebViewClient());
@@ -358,15 +360,13 @@ public class PaymentGateActivity extends AppCompatActivity implements ITransacti
 //                    binding.checkoutWebview.addView(webView);
 
 
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivityForResult(intent, 200);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+//                        startActivityForResult(intent, 200);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
                 }
-
-
             }
         };
         mainHandler.post(myRunnable);
@@ -454,7 +454,10 @@ public class PaymentGateActivity extends AppCompatActivity implements ITransacti
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Utilities.hideKeyboard(this);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("isPayed", false);
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
     }
 }

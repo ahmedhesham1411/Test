@@ -4,47 +4,46 @@ import java.util.List;
 
 public class NationalityModel {
 
-    private ResultEntity result;
+    private ResultBean result;
 
-    public void setResult(ResultEntity result) {
-        this.result = result;
-    }
-
-    public ResultEntity getResult() {
+    public ResultBean getResult() {
         return result;
     }
 
-    public class ResultEntity {
+    public void setResult(ResultBean result) {
+        this.result = result;
+    }
 
-        private List<CountryEntity> country;
+    public static class ResultBean {
+        private List<DataBean> data;
 
-        public void setCountry(List<CountryEntity> country) {
-            this.country = country;
+        public List<DataBean> getData() {
+            return data;
         }
 
-        public List<CountryEntity> getCountry() {
-            return country;
+        public void setData(List<DataBean> data) {
+            this.data = data;
         }
 
-        public class CountryEntity {
+        public static class DataBean {
 
-            private String Country_Name;
-            private int CountryUID;
+            private String id;
+            private String name;
 
-            public void setCountry_Ar_Nm(String Country_Ar_Nm) {
-                this.Country_Name = Country_Ar_Nm;
+            public String getId() {
+                return id;
             }
 
-            public void setCountryUID(int CountryUID) {
-                this.CountryUID = CountryUID;
+            public void setId(String id) {
+                this.id = id;
             }
 
-            public String getCountry_Ar_Nm() {
-                return Country_Name;
+            public String getName() {
+                return name;
             }
 
-            public int getCountryUID() {
-                return CountryUID;
+            public void setName(String name) {
+                this.name = name;
             }
         }
     }

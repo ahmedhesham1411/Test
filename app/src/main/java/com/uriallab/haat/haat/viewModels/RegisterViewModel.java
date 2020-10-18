@@ -1,6 +1,5 @@
 package com.uriallab.haat.haat.viewModels;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.util.Log;
@@ -8,10 +7,14 @@ import android.widget.DatePicker;
 
 import androidx.databinding.ObservableField;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.uriallab.haat.haat.API.APIModel;
+import com.uriallab.haat.haat.DataModels.NationalityModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.LoginSession;
+import com.uriallab.haat.haat.UI.Activities.Auth.RegisterActivity;
 import com.uriallab.haat.haat.UI.MainActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
@@ -21,7 +24,10 @@ import com.uriallab.haat.haat.Utilities.Validations;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Mahmoud on 4/22/2020.
@@ -42,17 +48,26 @@ public class RegisterViewModel {
     public ObservableField<String> passwordError = new ObservableField<>();
     public ObservableField<String> confirmPasswordError = new ObservableField<>();
 
-    private Activity activity;
+    private RegisterActivity activity;
 
     private int mYear, mMonth, mDay;
 
     public int gender = 0;
+    public String city = "0";
+    public String region = "0";
 
     private String phone;
 
-    public RegisterViewModel(Activity activity, String phone) {
+    public List<String> regionList = new ArrayList<>();
+    public List<String> regionIdList = new ArrayList<>();
+    public List<String> cityList = new ArrayList<>();
+    public List<String> cityIdList = new ArrayList<>();
+
+    public RegisterViewModel(RegisterActivity activity, String phone) {
         this.activity = activity;
         this.phone = phone;
+
+        getRegion();
     }
 
     public void register() {
@@ -72,6 +87,8 @@ public class RegisterViewModel {
 //            jsonParams.put("User_BirthDate", birthdayObservable.get());
             jsonParams.put("User_GenderID", gender);
             jsonParams.put("User_Mail", emailObservable.get());
+            jsonParams.put("User_CityID", city);
+            jsonParams.put("User_RegionID", region);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -149,11 +166,17 @@ public class RegisterViewModel {
     private boolean validate() {
 
         Utilities.hideKeyboard(activity);
-        if (userNameObservable.get().isEmpty() || emailObservable.get().isEmpty()) {
+        if (userNameObservable.get().isEmpty() || emailObservable.get().isEmpty() || region.equals("0") || city.equals("0")) {
             if (userNameObservable.get().isEmpty())
                 userNameError.set(activity.getResources().getString(R.string.required));
             if (emailObservable.get().isEmpty())
                 emailError.set(activity.getResources().getString(R.string.required));
+
+            if (region.equals("0"))
+                Utilities.toastyError(activity, activity.getResources().getString(R.string.please_choose_region));
+
+            if (city.equals("0"))
+                Utilities.toastyError(activity, activity.getResources().getString(R.string.please_choose_city));
 
             return false;
         }
@@ -187,5 +210,110 @@ public class RegisterViewModel {
                 }, mYear, mMonth, mDay);
         birthdayError.set(null);
         dpd.show();
+    }
+
+
+    private void getRegion() {
+        final LoadingDialog loadingDialog = new LoadingDialog();
+        APIModel.getMethod(activity, "Setting/GetRegions", new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+                Log.e("response", responseString + "Error");
+                switch (statusCode) {
+                    default:
+                        APIModel.handleFailure(activity, statusCode, responseString, new APIModel.RefreshTokenListener() {
+                            @Override
+                            public void onRefresh() {
+                                getRegion();
+                            }
+                        });
+                        break;
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
+                Log.e("response", responseString);
+
+                Type dataType = new TypeToken<NationalityModel>() {
+                }.getType();
+                NationalityModel data = new Gson().fromJson(responseString, dataType);
+
+                regionList.clear();
+                regionIdList.clear();
+                regionList.add(activity.getResources().getString(R.string.please_choose_region));
+                regionIdList.add("0");
+
+                if (data.getResult().getData().size() > 0) {
+                    for (int i = 0; i < data.getResult().getData().size(); i++) {
+                        regionList.add(data.getResult().getData().get(i).getName());
+                        regionIdList.add(data.getResult().getData().get(i).getId());
+                    }
+                }
+                activity.adapterRegion.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                Dialogs.showLoading(activity, loadingDialog);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Dialogs.dismissLoading(loadingDialog);
+            }
+        });
+    }
+
+    public void getCity() {
+        final LoadingDialog loadingDialog = new LoadingDialog();
+
+        APIModel.getMethod(activity, "Setting/GetCities?regionId=" + region, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+                Log.e("response", responseString + "Error");
+                switch (statusCode) {
+                    default:
+                        APIModel.handleFailure(activity, statusCode, responseString, () -> getCity());
+                        break;
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
+                Log.e("response", responseString);
+
+                Type dataType = new TypeToken<NationalityModel>() {
+                }.getType();
+                NationalityModel data = new Gson().fromJson(responseString, dataType);
+
+                cityList.clear();
+                cityIdList.clear();
+                cityList.add(activity.getResources().getString(R.string.please_choose_city));
+                cityIdList.add("0");
+
+                if (data.getResult().getData().size() > 0) {
+                    for (int i = 0; i < data.getResult().getData().size(); i++) {
+                        cityList.add(data.getResult().getData().get(i).getName());
+                        cityIdList.add(data.getResult().getData().get(i).getId());
+                    }
+                }
+                activity.adapterCity.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                Dialogs.showLoading(activity, loadingDialog);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Dialogs.dismissLoading(loadingDialog);
+            }
+        });
     }
 }
