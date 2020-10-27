@@ -66,7 +66,7 @@ public class ChatModel {
             private int User_Rate;
             private String User_CarID;
             private String EditUser;
-            private int User_CityID;
+            private String User_CityID;
             private int User_Count_Rate;
             private String User_NationalID;
             private String User_CarYearID;
@@ -86,7 +86,7 @@ public class ChatModel {
             private String AdUser;
             private String User_NationalID_ImgUrl;
             private String Mobile_Type;
-            private int User_CountryID;
+            private String User_CountryID;
 
             public void setIsDelivery(boolean IsDelivery) {
                 this.IsDelivery = IsDelivery;
@@ -132,7 +132,7 @@ public class ChatModel {
                 this.EditUser = EditUser;
             }
 
-            public void setUser_CityID(int User_CityID) {
+            public void setUser_CityID(String User_CityID) {
                 this.User_CityID = User_CityID;
             }
 
@@ -212,7 +212,7 @@ public class ChatModel {
                 this.Mobile_Type = Mobile_Type;
             }
 
-            public void setUser_CountryID(int User_CountryID) {
+            public void setUser_CountryID(String User_CountryID) {
                 this.User_CountryID = User_CountryID;
             }
 
@@ -260,7 +260,7 @@ public class ChatModel {
                 return EditUser;
             }
 
-            public int getUser_CityID() {
+            public String getUser_CityID() {
                 return User_CityID;
             }
 
@@ -340,7 +340,7 @@ public class ChatModel {
                 return Mobile_Type;
             }
 
-            public int getUser_CountryID() {
+            public String getUser_CountryID() {
                 return User_CountryID;
             }
         }
