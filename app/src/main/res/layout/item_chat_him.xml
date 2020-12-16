@@ -1,75 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="horizontal"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="5dp"
+        android:textAlignment="viewStart"
+        android:layoutDirection="ltr"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
+
         <View
+            android:visibility="gone"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="1dp"/>
 
         <LinearLayout
-            android:gravity="start"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/img"/>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/time_txt"
-                android:textAlignment="viewEnd"
-                android:textSize="13sp"
-                android:text="6:30 pm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_gravity="end"
-                android:id="@+id/message_txt"
-                android:textAlignment="viewStart"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:text="a"
-                android:textColor="@color/colorWhite"
-                android:background="@drawable/shape_rounded_blue_corner_4"
-                android:minHeight="40dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <FrameLayout
-                android:id="@+id/frame_img"
-                android:minWidth="150dp"
-                android:layout_gravity="end"
-                android:layout_width="150dp"
-                android:layout_height="180dp">
-                <ProgressBar
-                    android:layout_gravity="center"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"/>
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/img_chat"
-                    app:riv_corner_radius="8dp"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </FrameLayout>
 
             <LinearLayout
-                android:background="@drawable/shape_rounded_blue_corner_4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center">
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:maxWidth="@dimen/_210sdp"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    android:id="@+id/message_txt"
+                    android:textAlignment="viewStart"
+                    android:paddingBottom="@dimen/_3sdp"
+                    android:paddingTop="@dimen/_3sdp"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:text="aaaaaaaaaaaaaaaa"
+                    android:textColor="@color/colorBlack"
+                    android:background="@color/colorWhite"
+                    android:minHeight="@dimen/_30sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="start"
+                >
+                <FrameLayout
+                    android:visibility="visible"
+                    android:id="@+id/frame_img"
+                    android:minWidth="@dimen/_120sdp"
+                    android:layout_gravity="end"
+                    android:layout_width="@dimen/_125sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    >
+                    <ProgressBar
+                        android:layout_gravity="center"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:indeterminateTint="@color/colorGreen2"
+                        />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:scaleType="fitXY"
+                        android:id="@+id/img_chat"
+                        android:layout_width="@dimen/_125sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:layout_gravity="center"
+                        app:riv_corner_radius="@dimen/_4sdp" />
+                </FrameLayout>
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:visibility="visible"
+                    android:layout_weight="1"
+                    android:id="@+id/time_txttt"
+                    android:textAlignment="center"
+                    android:textSize="10sp"
+                    android:text="6:30 pm"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextHint"
+                    android:layout_gravity="center"
+                    />
+
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:background="@color/colorWhite"
                 android:visibility="visible"
                 android:id="@+id/sound_lin"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp">
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="end"
+                android:layoutDirection="ltr">
+
+                <ImageView
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:id="@+id/voice_img"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/play_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
 
                 <com.warkiz.widget.IndicatorSeekBar
+                    android:layoutDirection="ltr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/seekbar_voice_lib"
@@ -79,21 +158,27 @@
                     app:isb_show_tick_marks_type="oval"
                     app:isb_tick_marks_size="0dp"
                     app:isb_show_tick_texts="false"
-                    app:isb_thumb_color="@color/colorMoov"
+                    app:isb_thumb_color="@color/colorGreen2"
                     app:isb_thumb_size="15dp"
                     app:isb_show_indicator="none"/>
 
-                <ImageView
-                    android:id="@+id/voice_img"
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/play_icon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"/>
+
 
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:fontFamily="@font/cairo_regular"
+            android:id="@+id/time_txt"
+            android:textAlignment="center"
+            android:textSize="10sp"
+            android:text="6:30 pm"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextHint"
+            android:layout_gravity="center"
+            />
 
     </LinearLayout>
 </layout>

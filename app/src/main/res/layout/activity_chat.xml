@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
+        android:background="@color/colorDarkGrey"
         tools:context="com.uriallab.haat.haat.UI.Activities.ChatActivity">
 
         <LinearLayout
@@ -23,7 +23,6 @@
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -38,13 +37,14 @@
                 <ImageView
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/arrow_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
@@ -52,9 +52,8 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="20dp"
                 android:layout_height="wrap_content"
-                android:text="@{chatVM.orderNumber}"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -69,11 +68,72 @@
             </LinearLayout>
 
         </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_35sdp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/lin1"
+            android:id="@+id/lineeee"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@color/colorGreen2"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_9ssp"
+                    android:textColor="@color/colorWhite"
+                    android:fontFamily="@font/cairo_regular"
+                    android:text="asdasda"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorTextHint"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_3sdp"/>
+
+            <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#11111"
+                android:textColor="@color/colorTextHint2"
+                android:textSize="@dimen/_9ssp"/>
+
+
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorTextHint"
+            android:layout_below="@id/lineeee"
+            android:id="@+id/space1"
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_below="@id/lin1"
-            android:background="@color/colorWhite"
+            android:layout_below="@id/space1"
+            android:background="@color/colorDarkGrey"
             android:layout_above="@+id/cancel_order_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -100,9 +160,10 @@
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                     <TextView
+                        android:fontFamily="@font/cairo_regular"
                         android:id="@+id/driver_name"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="-5dp"
@@ -133,6 +194,7 @@
                             />
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
                             android:id="@+id/rates_number_val"
                             android:layout_marginStart="10dp"
                             android:layout_gravity="center_vertical"
@@ -146,14 +208,6 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:onClick="@{()->chatVM.callUser()}"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/chat_call"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"/>
 
                 <ImageView
                     android:onClick="@{()->chatVM.track()}"
@@ -161,39 +215,178 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/chat_track"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"/>
+                    android:background="@drawable/locationicon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
 
                 <ImageView
+                    android:onClick="@{()->chatVM.callUser()}"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/call"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+
+
+<!--
+                android:visibility="@{chatVM.isRecieved? View.VISIBLE : View.GONE}"
+-->
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/chat_recieve"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    />
+<!--                <ImageView
                     android:onClick="@{()->chatVM.recieve()}"
                     android:visibility="@{chatVM.isRecieved? View.VISIBLE : View.GONE}"
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/chat_recieve"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"/>
-
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    />-->
 
             </LinearLayout>
 
             <View
+                android:visibility="gone"
                 android:rotation="180"
                 android:background="@drawable/shadow"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"/>
 
+            <LinearLayout
+                android:visibility="@{chatVM.isPaid? View.VISIBLE : View.GONE}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@color/colorGreen2"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_done_24aa"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_20sdp"/>
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pay_done"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_gravity="center"/>
+
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:visibility="@{chatVM.isRecieved? View.VISIBLE : View.GONE}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@color/colorGreen2"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="المجموع"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10ssp"
+                        android:layout_gravity="center"/>
+
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10ssp"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="رس"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10ssp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+
+
+
+                <Space
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="match_parent"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    >
+
+                    <Button
+                        android:onClick="@{()->chatVM.recieve()}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_25sdp"
+                        android:background="@drawable/bbbb"
+                        android:layout_gravity="center"
+                        android:text="سدد الان"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10ssp"/>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
+                android:background="@color/colorDarkGrey"
                 android:id="@+id/recycler_chat"
                 android:paddingTop="3dp"
                 android:layout_marginBottom="95dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                />
 
         </LinearLayout>
 
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:visibility="gone"
             android:id="@+id/recording_txt"
             android:textColor="@color/colorBlue"
@@ -206,6 +399,8 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/cairo_regular"
             android:visibility="gone"
             android:id="@+id/typing_txt"
             android:textColor="@color/colorBlack"
@@ -224,7 +419,7 @@
             android:orientation="horizontal"
             android:id="@+id/message_lin"
             android:gravity="center_vertical"
-            android:background="@color/colorBlue"
+            android:background="@color/colorWhite"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -241,7 +436,8 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
                 <ImageView
                     android:background="@drawable/info"
                     android:layout_marginTop="3dp"
@@ -249,12 +445,21 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"/>
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:text="@string/report"
                     android:textColor="@color/colorWhite"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_more_vert_24"
+                android:id="@+id/menu"
+                android:layout_marginStart="15dp"
+                android:gravity="center"/>
 
             <LinearLayout
                 android:background="@drawable/shape_rounded_grey"
@@ -266,6 +471,40 @@
                 android:layout_weight="1"
                 android:minHeight="40dp"
                 android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:id="@+id/record_sound"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="3dp"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:background="@drawable/ic_baseline_mic_24"
+                        android:layout_gravity="center"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
+
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:onClick="@{()->chatVM.getPhoto()}"
+                    android:id="@+id/send_img"
+                    android:layout_gravity="center"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/camera"
+                        android:background="@drawable/ic_baseline_camera_alt_24"
+                        android:layout_gravity="center"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:scaleType="fitCenter"/>
+
+                </FrameLayout>
+
 
                 <EditText
                     app:addTextChangedListener="@{chatVM.getMessageText()}"
@@ -284,36 +523,7 @@
                     android:minHeight="40dp"
                     android:layout_height="wrap_content"/>
 
-                <FrameLayout
-                    android:onClick="@{()->chatVM.getPhoto()}"
-                    android:id="@+id/send_img"
-                    android:layout_gravity="center"
-                    android:layout_width="35dp"
-                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/camera"
-                        android:background="@drawable/camera2"
-                        android:layout_gravity="center"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"/>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/record_sound"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="3dp"
-                    android:layout_width="35dp"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:background="@drawable/microphone2"
-                        android:layout_gravity="center"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"/>
-
-                </FrameLayout>
 
             </LinearLayout>
 
@@ -321,12 +531,13 @@
                 android:onClick="@{()->chatVM.sendMessageAction()}"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/shape_rounded_moov"
+                android:background="@drawable/shape_rounded_green_corner_4"
                 android:layout_marginEnd="18dp"
                 android:layout_width="55dp"
                 android:layout_height="40dp">
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:layout_gravity="center"
                     android:text="@string/send"
                     android:textSize="13sp"

@@ -2,6 +2,7 @@ package com.uriallab.haat.haat.viewModels;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,7 +10,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModel;
 
@@ -19,6 +22,7 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.DataModels.CategoryModel;
 import com.uriallab.haat.haat.DataModels.ServerStoresModel;
+import com.uriallab.haat.haat.Test.NetworkUtil2;
 import com.uriallab.haat.haat.UI.Activities.Updates.HatOnlineStoreActivity;
 import com.uriallab.haat.haat.UI.Activities.Updates.StoresActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.MakeOrderFirstStepActivity;
@@ -37,6 +41,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by Mahmoud on 4/19/2020.
@@ -45,16 +52,26 @@ import cz.msebera.android.httpclient.Header;
 public class HomeViewModel extends ViewModel {
 
     private List<CategoryModel.ResultBean.CategoryBean> listCategory = new ArrayList<>();
+    private CompositeSubscription mSubscriptions = new CompositeSubscription();
 
     private Activity activity;
     private HomeFragment fragment;
+    Boolean doneStores = false;
+    Boolean doneCat = false;
+    final LoadingDialog loadingDialog = new LoadingDialog();
 
     public HomeViewModel(HomeFragment fragment) {
         activity = fragment.getActivity();
         this.fragment = fragment;
 
-        getStores();
-        getCategoryRequest();
+        //final LoadingDialog loadingDialog = new LoadingDialog();
+
+        //Dialogs.showLoading(activity, loadingDialog);
+        showLoading(activity,loadingDialog);
+        GetStory();
+        GetCat();
+        //getStores();
+        //getCategoryRequest();
     }
 
     public void getStores() {
@@ -88,12 +105,29 @@ public class HomeViewModel extends ViewModel {
                     ServerStoresModel data = new Gson().fromJson(responseString, dataType);
 
                     if (data.getResult().isEmpty()) {
-                        fragment.binding.storesRecycler.setVisibility(View.GONE);
-                        fragment.binding.famousPlaces.setVisibility(View.GONE);
+                        Dialogs.dismissLoading(loadingDialog);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                // yourMethod();
+                                fragment.binding.storesRecycler.setVisibility(View.GONE);
+                                fragment.binding.famousPlaces.setVisibility(View.GONE);
+                            }
+                        }, 1000);
+                        //Dialogs.dismissLoading(loadingDialog);
+
                     } else {
                         fragment.binding.storesRecycler.setVisibility(View.VISIBLE);
-                        fragment.binding.famousPlaces.setVisibility(View.VISIBLE);
+                        //fragment.binding.famousPlaces.setVisibility(View.VISIBLE);
                         fragment.updateRecycler(data.getResult());
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                // yourMethod();
+                                Dialogs.dismissLoading(loadingDialog);
+                            }
+                        }, 1000);
+
                     }
                 }
 
@@ -106,7 +140,7 @@ public class HomeViewModel extends ViewModel {
                 @Override
                 public void onFinish() {
                     super.onFinish();
-                    Dialogs.dismissLoading(loadingDialog);
+                    //Dialogs.dismissLoading(loadingDialog);
                 }
             });
         }
@@ -142,7 +176,6 @@ public class HomeViewModel extends ViewModel {
 
     private void getCategoryRequest() {
         final LoadingDialog loadingDialog = new LoadingDialog();
-
         APIModel.getMethod(activity, "Client/GetCategory", new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
@@ -172,6 +205,7 @@ public class HomeViewModel extends ViewModel {
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
+
                 Log.e("response", responseString);
 
                 Type dataType = new TypeToken<CategoryModel>() {
@@ -179,11 +213,14 @@ public class HomeViewModel extends ViewModel {
                 CategoryModel data = new Gson().fromJson(responseString, dataType);
 
                 try {
+                    //Dialogs.dismissLoading(loadingDialog);
                     listCategory.clear();
                     listCategory.addAll(data.getResult().getCategory());
                     listCategory.get(0).setSelected(true);
                     fragment.initCategoryRecycler(listCategory);
+                    //Dialogs.dismissLoading(loadingDialog);
                 } catch (Exception e) {
+                    //Dialogs.dismissLoading(loadingDialog);
                     e.printStackTrace();
                 }
             }
@@ -191,13 +228,13 @@ public class HomeViewModel extends ViewModel {
             @Override
             public void onStart() {
                 super.onStart();
-                Dialogs.showLoading(activity, loadingDialog);
+                //Dialogs.showLoading(activity, loadingDialog);
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                Dialogs.dismissLoading(loadingDialog);
+                //Dialogs.dismissLoading(loadingDialog);
             }
         });
     }
@@ -211,4 +248,88 @@ public class HomeViewModel extends ViewModel {
     public void hatCard() {
         IntentClass.goToActivity(activity, HatOnlineStoreActivity.class, null);
     }
+
+    public void GetStory() {
+       //showLoading(activity,loadingDialog);
+        mSubscriptions.add(NetworkUtil2.getRetrofitNoHeader()
+                .GetStory( GlobalVariables.LOCATION_LAT, GlobalVariables.LOCATION_LNG)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponsee, this::handleErrorr));
+    }
+
+    private void handleResponsee(ServerStoresModel serverStoresModel) {
+        doneStores = true;
+        if (doneStores == true && doneCat == true){
+            dismissLoading(loadingDialog);
+        }
+        if (serverStoresModel.getResult().isEmpty()){
+        }else{
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    fragment.updateRecycler(serverStoresModel.getResult());
+                }
+            }, 100);
+
+        }
+        //Toast.makeText(activity, serverStoresModel.getResult().get(1).getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void handleErrorr(Throwable throwable) {
+        dismissLoading(loadingDialog);
+    }
+
+    public void GetCat() {
+        //showLoading(activity,loadingDialog);
+        mSubscriptions.add(NetworkUtil2.getRetrofitNoHeader()
+                .GetCategories()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponsee, this::handleErrorr2));
+    }
+
+    private void handleErrorr2(Throwable throwable) {
+        dismissLoading(loadingDialog);
+    }
+
+    private void handleResponsee(CategoryModel categoryModel) {
+        doneCat = true;
+        if (doneCat == true && doneStores == true){
+            dismissLoading(loadingDialog);
+        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // yourMethod();
+                listCategory.clear();
+                listCategory.addAll(categoryModel.getResult().getCategory());
+                listCategory.get(0).setSelected(true);
+                fragment.initCategoryRecycler(listCategory);
+            }
+        }, 100);
+
+
+
+    }
+
+    public static void showLoading(Activity activity, LoadingDialog loadingDialog) {
+        try {
+            loadingDialog.show(((AppCompatActivity) activity).getSupportFragmentManager(), "showLoading");
+
+        } catch (Exception e) {
+        }
+    }
+
+    public static void dismissLoading(LoadingDialog loadingDialog) {
+        try {
+            if (loadingDialog != null)
+                loadingDialog.dismiss();
+            loadingDialog = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

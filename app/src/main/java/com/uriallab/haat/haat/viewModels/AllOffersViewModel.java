@@ -92,7 +92,7 @@ public class AllOffersViewModel {
 
                 if (data.getResult().getOffers().size() > 0)
                     activity.initRecycler(data.getResult().getOffers());
-
+                    activity.initRecyclerPop(data.getResult().getOffers());
             }
 
             @Override

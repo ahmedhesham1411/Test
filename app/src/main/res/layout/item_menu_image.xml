@@ -1,30 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:orientation="vertical">
+        android:layout_width="@dimen/_180sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:orientation="vertical"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <com.makeramen.roundedimageview.RoundedImageView
             app:riv_corner_radius="8dp"
             android:id="@+id/menu_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
 
-        <ImageView
-            android:visibility="invisible"
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_cancel_red"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@color/colorRed2"
+                    app:riv_corner_radius="@dimen/_5sdp"
+                    android:scaleType="fitXY"/>
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/delete"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_delete_24"
+                    app:riv_corner_radius="@dimen/_5sdp"
+                    />
+
+
+            </FrameLayout>
+
+        </RelativeLayout>
+        </FrameLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

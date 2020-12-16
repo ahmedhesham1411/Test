@@ -38,6 +38,9 @@ import cz.msebera.android.httpclient.Header;
 public class PaymentGateViewModel {
 
     public ObservableBoolean isSTCPAY = new ObservableBoolean(true);
+    public ObservableBoolean isVISA = new ObservableBoolean(false);
+    public ObservableBoolean isMADA = new ObservableBoolean(false);
+    public ObservableBoolean isMASTER = new ObservableBoolean(false);
     public ObservableBoolean isQr = new ObservableBoolean(false);
 
     public ObservableField<String> moneyObservable = new ObservableField<>();
@@ -346,27 +349,52 @@ public class PaymentGateViewModel {
         if (type == 1) {
             cardType = "STC_PAY";
             isSTCPAY.set(true);
-        } else {
+            isMADA.set(false);
+            isMASTER.set(false);
+            isVISA.set(false);
+        }else if (type == 2) {
+            cardType = "VISA";
+            isSTCPAY.set(false);
+            isMADA.set(false);
+            isMASTER.set(false);
+            isVISA.set(true);
+            activity.binding.cardPaymentType.setBackgroundResource(R.drawable.visa);
+
+        } else if (type == 3){
+            cardType = "MASTER";
+            isSTCPAY.set(false);
+            isMADA.set(false);
+            isMASTER.set(true);
+            isVISA.set(false);
+            activity.binding.cardPaymentType.setBackgroundResource(R.drawable.mastercard);
+            //activity.binding.cardPaymentType.setBackgroundResource(R.drawable.mada);
+            //activity.binding.paymentType2.setBackgroundResource(R.drawable.mada);
+        }else if (type == 4){
             cardType = "MADA";
             isSTCPAY.set(false);
+            isMADA.set(true);
+            isMASTER.set(false);
+            isVISA.set(false);
             activity.binding.cardPaymentType.setBackgroundResource(R.drawable.mada);
-            activity.binding.paymentType2.setBackgroundResource(R.drawable.mada);
+            //activity.binding.cardPaymentType.setBackgroundResource(R.drawable.mada);
+            //activity.binding.paymentType2.setBackgroundResource(R.drawable.mada);
         }
+
     }
 
     public void chooseCardPaymentMethod(int type) {
         if (type == 1) {
             cardType = "VISA";
             activity.binding.cardPaymentType.setBackgroundResource(R.drawable.visa);
-            activity.binding.paymentType2.setBackgroundResource(R.drawable.visa);
+            //activity.binding.paymentType2.setBackgroundResource(R.drawable.visa);
         } else if (type == 2) {
             cardType = "MASTER";
             activity.binding.cardPaymentType.setBackgroundResource(R.drawable.mastercard);
-            activity.binding.paymentType2.setBackgroundResource(R.drawable.mastercard);
+            //activity.binding.paymentType2.setBackgroundResource(R.drawable.mastercard);
         } else {
             cardType = "MADA";
             activity.binding.cardPaymentType.setBackgroundResource(R.drawable.mada);
-            activity.binding.paymentType2.setBackgroundResource(R.drawable.mada);
+            //activity.binding.paymentType2.setBackgroundResource(R.drawable.mada);
         }
     }
 

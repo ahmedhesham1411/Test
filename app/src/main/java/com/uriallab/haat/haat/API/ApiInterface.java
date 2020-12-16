@@ -28,5 +28,4 @@ public interface ApiInterface {
                                      @Part("type") RequestBody  type,
                                      @Part("message") RequestBody message
     );
-
 }

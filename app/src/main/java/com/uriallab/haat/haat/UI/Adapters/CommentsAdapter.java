@@ -45,7 +45,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         Picasso.get().load(APIModel.BASE_URL+incomingList.get(position).getFrom_Img_Url())
                 .placeholder(R.drawable.profile).into(holder.binding.userImg);
 
-        holder.binding.commentTxt.setText(incomingList.get(position).getComment_Desc());
+        holder.binding.desc.setText(incomingList.get(position).getComment_Desc());
+        holder.binding.commentTxt.setText(incomingList.get(position).getComment_Date());
 
         holder.binding.starBar.setRating(incomingList.get(position).getComment_Rate());
 

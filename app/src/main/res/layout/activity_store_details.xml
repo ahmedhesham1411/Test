@@ -15,48 +15,57 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
+        android:background="@color/colorDarkGrey"
         tools:context="com.uriallab.haat.haat.UI.Activities.makeOrder.StoreDetailsActivity">
 
-        <LinearLayout
-            android:layout_alignParentTop="true"
-            android:id="@+id/lin1"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
-            android:elevation="5dp"
-            android:orientation="horizontal">
+            android:id="@+id/lin1"
+            >
 
-            <FrameLayout
-                android:onClick="@{()->storeDetailsVM.back()}"
-                android:layout_marginStart="10dp"
-                android:id="@+id/frame_back"
-                android:layout_gravity="center"
-                android:layout_width="35dp"
-                android:layout_height="35dp">
+            <LinearLayout
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:elevation="5dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <ImageView
-                    android:id="@+id/back_img"
+                <FrameLayout
+                    android:onClick="@{()->storeDetailsVM.back()}"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/frame_back"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp">
 
-            </FrameLayout>
+                    <ImageView
+                        android:id="@+id/back_img"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/store_name"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="اسم المتجر"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                </FrameLayout>
 
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_centerVertical="false"
+                    android:layout_toEndOf="@+id/frame_back"
+                    android:id="@+id/store_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/store_details"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
             <FrameLayout
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
                 android:onClick="@{()->storeDetailsVM.shareStore()}"
                 android:layout_marginEnd="10dp"
                 android:id="@+id/frame_share"
@@ -67,12 +76,13 @@
                 <ImageView
                     android:layout_gravity="center"
                     android:background="@drawable/share"
-                    android:layout_width="12dp"
-                    android:layout_height="15dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
-        </LinearLayout>
+
+        </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
             android:paddingBottom="51dp"
@@ -92,7 +102,15 @@
                     android:layout_marginEnd="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="visible"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:id="@+id/imgs_recycler"
+                    android:visibility="gone"/>
+
 
                 <LinearLayout
                     android:onClick="@{()->storeDetailsVM.getReviews()}"
@@ -102,7 +120,6 @@
                     android:layout_marginStart="15dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:background="@drawable/background_with_shadow"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -116,6 +133,8 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:textSize="12sp"
                             android:textStyle="bold"
                             android:textAlignment="viewStart"
                             android:gravity="center_vertical"
@@ -147,8 +166,8 @@
                             <TextView
                                 android:layout_marginStart="10dp"
                                 android:layout_gravity="center_vertical"
-                                android:textSize="13sp"
-                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp"
+                                android:textColor="@color/colorTextHint"
                                 android:text=" 12 "
                                 android:textAlignment="viewStart"
                                 android:layout_width="wrap_content"
@@ -163,13 +182,16 @@
                         android:layout_height="1dp"/>
 
                     <TextView
+                        android:fontFamily="@font/cairo_regular"
                         android:id="@+id/user_rates_number"
-                        android:textSize="13sp"
+                        android:textSize="10sp"
                         android:textAlignment="viewStart"
                         android:layout_marginStart="15dp"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:textColor="@color/colorTextHint"
+                        />
 
                     <ImageView
                         android:rotation="@{storeDetailsVM.rotation}"
@@ -177,35 +199,47 @@
                         android:id="@+id/rate_arrow"
                         android:layout_marginEnd="15dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/arrow_left"
-                        android:layout_width="12dp"
-                        android:layout_height="16dp" />
+                        android:background="@drawable/arrow_point_right"
+                        android:layout_width="8dp"
+                        android:layout_height="12dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorTextHint"/>
+
+                <LinearLayout
                     android:onClick="@{()->storeDetailsVM.otherBranches()}"
                     android:id="@+id/store_branch_lin"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginStart="15dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:background="@drawable/background_with_shadow"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginStart="15dp"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:src="@drawable/ic_baseline_location_on_24"
+                        android:layout_gravity="center"/>
 
                     <LinearLayout
                         android:gravity="start"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginStart="15dp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:textSize="12sp"
                             android:id="@+id/store_location"
                             android:maxLength="35"
                             android:ellipsize="end"
@@ -217,10 +251,12 @@
                             android:layout_height="match_parent" />
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:layout_marginTop="@dimen/_3sdp"
                             android:id="@+id/distance_from_you"
                             android:layout_gravity="center_vertical"
-                            android:textSize="13sp"
-                            android:textColor="@color/colorText"
+                            android:textSize="10sp"
+                            android:textColor="@color/colorTextHint"
                             android:textAlignment="viewStart"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -233,8 +269,10 @@
                         android:layout_height="1dp"/>
 
                     <TextView
+                        android:textColor="@color/colorTextHint"
+                        android:fontFamily="@font/cairo_regular"
                         android:id="@+id/change_branch"
-                        android:textSize="13sp"
+                        android:textSize="10sp"
                         android:text="@string/change"
                         android:textAlignment="viewStart"
                         android:layout_marginStart="5dp"
@@ -248,35 +286,49 @@
                         android:id="@+id/branch_arrow"
                         android:layout_marginEnd="15dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/arrow_left"
-                        android:layout_width="12dp"
-                        android:layout_height="16dp" />
+                        android:background="@drawable/arrow_point_right"
+                        android:layout_width="8dp"
+                        android:layout_height="12dp" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorTextHint"/>
+
 
                 <LinearLayout
                     android:onClick="@{()->storeDetailsVM.workingHours()}"
                     android:layout_marginBottom="10dp"
                     android:id="@+id/store_time_lin"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginStart="15dp"
                     android:clickable="true"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:background="@drawable/background_with_shadow"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <ImageView
+                        android:layout_marginStart="15dp"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:src="@drawable/clockk"
+                        android:layout_gravity="center"/>
+
                     <LinearLayout
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginStart="15dp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
                             android:id="@+id/open_closed"
                             android:textStyle="bold"
                             android:textAlignment="viewStart"
@@ -285,10 +337,12 @@
                             android:layout_height="match_parent" />
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:layout_marginTop="@dimen/_3sdp"
                             android:id="@+id/open_from_to"
                             android:layout_gravity="center_vertical"
                             android:textSize="13sp"
-                            android:textColor="@color/colorText"
+                            android:textColor="@color/colorTextHint"
                             android:textAlignment="viewStart"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -301,8 +355,10 @@
                         android:layout_height="1dp"/>
 
                     <TextView
+                        android:textColor="@color/colorTextHint"
+                        android:fontFamily="@font/cairo_regular"
                         android:id="@+id/store_time"
-                        android:textSize="13sp"
+                        android:textSize="10sp"
                         android:textAlignment="viewStart"
                         android:layout_marginStart="15dp"
                         android:gravity="center_vertical"
@@ -316,15 +372,36 @@
                         android:id="@+id/time_arrow"
                         android:layout_marginEnd="15dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/arrow_left"
-                        android:layout_width="12dp"
-                        android:layout_height="16dp" />
+                        android:background="@drawable/arrow_point_right"
+                        android:layout_width="8dp"
+                        android:layout_height="12dp" />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorTextHint"/>
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:id="@+id/menu_txt"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_25sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:text="@string/menu"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/btngrey"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"/>
+
+
                 <TextView
                     android:visibility="gone"
-                    android:id="@+id/menu_txt"
                     android:textAlignment="viewStart"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="10dp"
@@ -333,17 +410,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:id="@+id/imgs_recycler2"
+                    android:visibility="gone"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_menu"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginTop="-5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible" />
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:visibility="@{storeDetailsVM.isFromServerObservable? View.VISIBLE : View.GONE}"
                     android:id="@+id/products"
                     android:textAlignment="viewStart"
@@ -369,26 +452,35 @@
                     android:visibility="@{storeDetailsVM.isFromServerObservable? View.VISIBLE : View.GONE}"
                     android:nestedScrollingEnabled="false"
                     android:id="@+id/products_recycler"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginBottom="40dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <LinearLayout
+  <!--      <LinearLayout
             android:visibility="@{storeDetailsVM.isFromServerObservable? View.VISIBLE : View.GONE}"
             android:id="@+id/lin_prices"
             android:orientation="horizontal"
-            android:background="@color/colorMoov"
+            android:layout_above="@+id/next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            -->
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/lin_prices"
+            android:orientation="horizontal"
             android:layout_above="@+id/next_btn"
             android:layout_width="match_parent"
             android:layout_height="30dp">
 
             <TextView
-                android:textColor="@color/colorWhite"
+                android:visibility="gone"
+                android:textColor="@color/colorBlack"
                 android:text="@string/total_price"
                 android:layout_marginStart="20dp"
                 android:textAlignment="viewStart"
@@ -420,9 +512,9 @@
             android:id="@+id/next_btn"
             android:gravity="center"
             android:textAllCaps="false"
-            android:text="@string/next"
+            android:text="@string/complete_order"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorBlue"
+            android:background="@color/colorGreen2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"

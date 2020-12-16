@@ -1,11 +1,14 @@
 package com.uriallab.haat.haat.UI.Adapters;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableInt;
@@ -40,6 +43,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     private Activity activity;
     private List<ChatModel.ResultEntity.MessagesEntity> incomingList;
     private List<String> incomingListNew;
+    String aaa;
 
     private boolean isNew = false;
 
@@ -79,27 +83,32 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public void onBindViewHolder(final ChatViewHolder holder, final int position) {
 
+         aaa = GetImage(activity);
+
         if (isNew) {
             if (position == 0) {
                 holder.mineBinding.messageTxt.setText(incomingListNew.get(position));
-
                 holder.mineBinding.frameImg.setVisibility(View.GONE);
                 holder.mineBinding.soundLin.setVisibility(View.GONE);
                 holder.mineBinding.messageTxt.setVisibility(View.VISIBLE);
+                holder.mineBinding.timeTxt.setVisibility(View.VISIBLE);
+
             } else {
                 holder.mineBinding.frameImg.setVisibility(View.VISIBLE);
                 holder.mineBinding.soundLin.setVisibility(View.GONE);
                 holder.mineBinding.messageTxt.setVisibility(View.GONE);
+                //holder.mineBinding.timeTxt.setVisibility(View.VISIBLE);
+                holder.mineBinding.imgChat.setVisibility(View.VISIBLE);
 
-                Picasso.get().load(APIModel.BASE_URL + incomingListNew.get(position)).into(holder.mineBinding.imgChat);
+                    Picasso.get().load(APIModel.BASE_URL + incomingListNew.get(position)).into(holder.mineBinding.imgChat);
+                    holder.mineBinding.imgChat.setOnClickListener(v -> {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("img", APIModel.BASE_URL + incomingListNew.get(position));
+                        IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
+                    });
 
-                holder.mineBinding.imgChat.setOnClickListener(v -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("img", APIModel.BASE_URL + incomingListNew.get(position));
-                    IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
-                });
             }
-
+            //holder.himBinding.timeTxt.setText(incomingList.get(position).getMssge_Time().substring(0, 5));
             holder.mineBinding.timeTxt.setText("");
         } else {
 
@@ -120,12 +129,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                             holder.mineBinding.frameImg.setVisibility(View.GONE);
                             holder.mineBinding.soundLin.setVisibility(View.GONE);
                             holder.mineBinding.messageTxt.setVisibility(View.VISIBLE);
+                            holder.mineBinding.timeTxt.setVisibility(View.VISIBLE);
+                            holder.mineBinding.timeTxtaa.setVisibility(View.GONE);
+                            holder.mineBinding.timeTxtbb.setVisibility(View.GONE);
+
                             holder.mineBinding.messageTxt.setText(incomingList.get(position).getMessage());
                         } else if (incomingList.get(position).getType().equals("2")) {
                             holder.mineBinding.frameImg.setVisibility(View.VISIBLE);
                             holder.mineBinding.messageTxt.setVisibility(View.GONE);
                             holder.mineBinding.soundLin.setVisibility(View.GONE);
-
+                            holder.mineBinding.timeTxt.setVisibility(View.GONE);
+                            holder.mineBinding.timeTxtaa.setVisibility(View.VISIBLE);
+                            holder.mineBinding.timeTxtbb.setVisibility(View.GONE);
                             Picasso.get().load(APIModel.BASE_URL + incomingList.get(position).getMessage()).into(holder.mineBinding.imgChat);
 
                             holder.mineBinding.imgChat.setOnClickListener(v -> {
@@ -137,7 +152,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                             holder.mineBinding.frameImg.setVisibility(View.GONE);
                             holder.mineBinding.messageTxt.setVisibility(View.GONE);
                             holder.mineBinding.soundLin.setVisibility(View.VISIBLE);
-
+                            holder.mineBinding.timeTxt.setVisibility(View.GONE);
+                            holder.mineBinding.timeTxtaa.setVisibility(View.GONE);
+                            holder.mineBinding.timeTxtbb.setVisibility(View.VISIBLE);
                             holder.mineBinding.voiceImg.setOnClickListener(v -> {
                                 try {
 
@@ -183,6 +200,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                             });
                         }
                         holder.mineBinding.timeTxt.setText(incomingList.get(position).getMssge_Time().substring(0, 5));
+                        holder.mineBinding.timeTxtaa.setText(incomingList.get(position).getMssge_Time().substring(0, 5));
+                        holder.mineBinding.timeTxtbb.setText(incomingList.get(position).getMssge_Time().substring(0, 5));
+
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -199,16 +219,23 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                     }
 
                     try {
+                        aaa = GetImage(activity);
                         if (incomingList.get(position).getType().equals("1")) {
+                            Picasso.get().load(aaa).into(holder.himBinding.img);
                             holder.himBinding.frameImg.setVisibility(View.GONE);
                             holder.himBinding.soundLin.setVisibility(View.GONE);
+                            holder.himBinding.timeTxttt.setVisibility(View.GONE);
                             holder.himBinding.messageTxt.setVisibility(View.VISIBLE);
                             holder.himBinding.messageTxt.setText(incomingList.get(position).getMessage());
+                            Picasso.get().load(APIModel.BASE_URL + incomingList.get(position).getMessage()).into(holder.himBinding.imgChat);
+
                         } else if (incomingList.get(position).getType().equals("2")) {
                             holder.himBinding.frameImg.setVisibility(View.VISIBLE);
                             holder.himBinding.messageTxt.setVisibility(View.GONE);
                             holder.himBinding.soundLin.setVisibility(View.GONE);
-
+                            holder.himBinding.timeTxt.setVisibility(View.GONE);
+                            holder.himBinding.timeTxttt.setVisibility(View.VISIBLE);
+                            Picasso.get().load(aaa).into(holder.himBinding.img);
                             Picasso.get().load(APIModel.BASE_URL + incomingList.get(position).getMessage()).into(holder.himBinding.imgChat);
 
                             holder.himBinding.imgChat.setOnClickListener(v -> {
@@ -217,9 +244,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                                 IntentClass.goToActivity(activity, PhotoViewActivity.class, bundle);
                             });
                         } else {
+                            Picasso.get().load(aaa).into(holder.himBinding.img);
                             holder.himBinding.messageTxt.setVisibility(View.GONE);
                             holder.himBinding.frameImg.setVisibility(View.GONE);
+                            holder.himBinding.timeTxttt.setVisibility(View.GONE);
                             holder.himBinding.soundLin.setVisibility(View.VISIBLE);
+                            holder.himBinding.timeTxt.setVisibility(View.VISIBLE);
 
                             holder.himBinding.voiceImg.setOnClickListener(v -> {
                                 try {
@@ -267,6 +297,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                             });
                         }
                         holder.himBinding.timeTxt.setText(incomingList.get(position).getMssge_Time().substring(0, 5));
+                        holder.himBinding.timeTxttt.setText(incomingList.get(position).getMssge_Time().substring(0, 5));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -314,4 +345,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             this.himBinding = himBinding;
         }
     }
+
+    public static String GetImage(Context context){
+        SharedPreferences pref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        return pref.getString("imageurl","default Code");
+    }
+
 }

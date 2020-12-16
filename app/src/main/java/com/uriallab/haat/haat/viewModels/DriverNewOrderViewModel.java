@@ -1,5 +1,7 @@
 package com.uriallab.haat.haat.viewModels;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -45,7 +47,7 @@ public class DriverNewOrderViewModel extends ViewModel {
         this.activity = activity;
         this.orderId = orderId;
 
-        orderNumber.set(activity.getString(R.string.order_number) + " \n" + orderId);
+        orderNumber.set(activity.getString(R.string.order_number)+" "+ orderId);
 
         if (ConfigurationFile.getCurrentLanguage(activity).equals("ar")) {
             activity.binding.backImg.setRotation(180);
@@ -92,6 +94,7 @@ public class DriverNewOrderViewModel extends ViewModel {
                 activity.binding.driverName.setText(data.getResult().getOrder().getClient_Full_Name());
                 activity.binding.ratesNumberVal.setText(data.getResult().getOrder().getClient_Count_Rate() + "");
                 activity.binding.starBar.setRating(data.getResult().getOrder().getClient_Rate());
+                activity.binding.storeName.setText(data.getResult().getOrder().getOrd_Shop_Nm());
 
                 shopLat = Double.parseDouble(data.getResult().getOrder().getShop_Lat());
                 shopLng = Double.parseDouble(data.getResult().getOrder().getShop_Lng());

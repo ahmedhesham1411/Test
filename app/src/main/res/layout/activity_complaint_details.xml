@@ -12,14 +12,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite">
+        android:background="@color/colorDarkGrey">
 
         <LinearLayout
             android:layout_alignParentTop="true"
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -35,20 +34,20 @@
                     android:rotation="@{complaintVM.rotation}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/complaint_details"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -75,11 +74,12 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_margin="15dp"
-                    android:background="@drawable/background_with_shadow"
+                    android:background="@drawable/shape_rounded_white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -89,7 +89,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="8dp"
                             bind:civ_border_width="1dp"
-                            bind:civ_border_color="@color/colorBlue"
+                            bind:civ_border_color="@color/colorTextHint"
                             android:layout_marginTop="8dp"
                             android:layout_width="50dp"
                             android:layout_height="50dp" />
@@ -104,6 +104,9 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:fontFamily="@font/cairo_regular"
+
+                                android:textSize="@dimen/_12ssp"
                                 android:paddingStart="2dp"
                                 android:ellipsize="end"
                                 android:maxLength="40"
@@ -134,27 +137,34 @@
                             android:layout_marginEnd="15dp"
                             android:gravity="center"
                             android:paddingStart="10dp"
-                            android:orientation="vertical"
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            >
 
                             <TextView
+                                android:fontFamily="@font/cairo_regular"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_8ssp"
+                                android:text="رقم الطلب"
+                                android:textColor="@color/colorGreen2"/>
+
+                            <TextView
+                                android:fontFamily="@font/cairo_regular"
+                                android:textColor="@color/colorTextHint"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:text="121212"
                                 android:id="@+id/complaint_id"
                                 android:maxLength="6"
                                 android:maxLines="1"
-                                android:textSize="16sp"
-                                android:layout_marginTop="8dp"
+                                android:textSize="@dimen/_8ssp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
 
-                            <TextView
-                                android:text="@{complaintVM.isFinishedObservable? @string/proessed : @string/waiting_processed}"
-                                android:textColor="@{complaintVM.isFinishedObservable? @color/colorBlue : @color/colorMoov}"
-                                android:layout_marginTop="5dp"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+
 
                         </LinearLayout>
                     </LinearLayout>
@@ -169,14 +179,15 @@
                             android:layout_marginTop="8dp"
                             android:id="@+id/profile_img"
                             bind:civ_border_width="1dp"
-                            bind:civ_border_color="@color/colorBlue"
+                            bind:civ_border_color="@color/colorTextHint"
                             android:layout_marginStart="10dp"
                             android:layout_width="50dp"
                             android:layout_height="50dp" />
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
                             android:id="@+id/user_name"
-                            android:textSize="18sp"
+                            android:textSize="@dimen/_12ssp"
                             android:textStyle="bold"
                             android:layout_marginStart="15dp"
                             android:layout_gravity="center_vertical"
@@ -188,15 +199,16 @@
                     </LinearLayout>
 
                     <LinearLayout
+
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:textSize="18sp"
+                            android:fontFamily="@font/cairo_regular"
+                            android:textSize="@dimen/_12ssp"
                             android:textStyle="bold"
-                            android:layout_marginStart="15dp"
-                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="75dp"
                             android:paddingStart="2dp"
                             android:maxLines="1"
                             android:textAlignment="viewStart"
@@ -205,11 +217,12 @@
                             android:layout_height="wrap_content" />
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:id="@+id/reason_id"
-                            android:textSize="18sp"
+                            android:textSize="@dimen/_10ssp"
                             android:textStyle="bold"
-                            android:layout_marginStart="15dp"
-                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="75dp"
                             android:paddingStart="2dp"
                             android:maxLines="1"
                             android:textColor="@color/colorTextHint"
@@ -220,6 +233,7 @@
                     </LinearLayout>
 
                     <View
+                        android:visibility="gone"
                         android:layout_marginTop="11dp"
                         android:layout_marginEnd="15dp"
                         android:layout_marginStart="15dp"
@@ -229,14 +243,14 @@
 
                     <LinearLayout
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:textSize="18sp"
+                            android:fontFamily="@font/cairo_regular"
+                            android:textSize="@dimen/_12ssp"
                             android:textStyle="bold"
-                            android:layout_marginStart="15dp"
-                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="75dp"
                             android:paddingStart="2dp"
                             android:maxLines="1"
                             android:textAlignment="viewStart"
@@ -245,11 +259,12 @@
                             android:layout_height="wrap_content" />
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:id="@+id/notes_id"
-                            android:textSize="18sp"
+                            android:textSize="@dimen/_10ssp"
                             android:textStyle="bold"
-                            android:layout_marginStart="15dp"
-                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="75dp"
                             android:paddingStart="2dp"
                             android:maxLines="1"
                             android:textColor="@color/colorTextHint"
@@ -260,6 +275,7 @@
                     </LinearLayout>
 
                     <View
+                        android:visibility="gone"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="15dp"
                         android:layout_marginStart="15dp"
@@ -268,16 +284,16 @@
                         android:layout_height="1dp"/>
 
                     <LinearLayout
-                        android:layout_marginBottom="60dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
                             android:textSize="18sp"
                             android:textStyle="bold"
-                            android:layout_marginStart="15dp"
-                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="75dp"
                             android:paddingStart="2dp"
                             android:maxLines="1"
                             android:textAlignment="viewStart"
@@ -286,11 +302,12 @@
                             android:layout_height="wrap_content" />
 
                         <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:id="@+id/no_attachment"
-                            android:textSize="18sp"
+                            android:textSize="@dimen/_10ssp"
                             android:textStyle="bold"
-                            android:layout_marginStart="15dp"
-                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="75dp"
                             android:paddingStart="2dp"
                             android:maxLines="1"
                             android:textColor="@color/colorTextHint"
@@ -300,18 +317,44 @@
                             android:layout_height="wrap_content" />
 
                         <com.makeramen.roundedimageview.RoundedImageView
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:id="@+id/attach_img"
                             android:visibility="gone"
                             android:layout_marginStart="10dp"
                             bind:riv_corner_radius="8dp"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"/>
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"/>
                     </LinearLayout>
 
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:layout_alignParentStart="true"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:background="@drawable/shape_rounded_green_corner_4"
+                        android:id="@+id/complaint_status"
+                        android:textSize="@dimen/_10ssp"
+                        android:text="@{complaintVM.isFinishedObservable? @string/proessed : @string/waiting_processed}"
+                        android:textColor="@color/colorWhite"
+                        android:gravity="center"
+                        />
+
+<!--                    <TextView
+                        android:text="@{complaintVM.isFinishedObservable? @string/proessed : @string/waiting_processed}"
+                        android:textColor="@{complaintVM.isFinishedObservable? @color/colorBlue : @color/colorMoov}"
+                        android:layout_marginTop="5dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />-->
                 </LinearLayout>
+                android:visibility="@{complaintVM.isFinishedObservable? View.VISIBLE: View.GONE}"
 
                 <TextView
-                    android:visibility="@{complaintVM.isFinishedObservable? View.VISIBLE: View.GONE}"
+                    android:visibility="gone"
                     android:text="@string/we_aplogize"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
@@ -329,31 +372,40 @@
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:onClick="@{()->complaintVM.complainAction(1)}"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/accepted"
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
-                android:background="@color/colorBlue"
+                android:background="@drawable/shape_rounded_green_corner_4"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"/>
+
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:onClick="@{()->complaintVM.complainAction(2)}"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/unacceptable"
                 android:gravity="center"
-                android:textColor="@color/colorWhite"
-                android:background="@color/colorMoov"
+                android:textColor="@color/colorBlack"
+                android:background="@drawable/btn2"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"/>
 
         </LinearLayout>
 

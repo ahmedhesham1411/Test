@@ -54,13 +54,13 @@ public class FinishedJourneyAdapter extends RecyclerView.Adapter<FinishedJourney
         holder.binding.storeNameTxt.setText(incomingList.get(position).getOrd_Shop_Nm());
         holder.binding.orderDetails.setText(incomingList.get(position).getOrd_Dtls());
 
-        holder.binding.deliverLocImg.setImageResource(R.drawable.delivering);
-        holder.binding.recieveLocImg.setImageResource(R.drawable.delivering);
-        holder.binding.meLocImg.setImageResource(R.drawable.location);
+        holder.binding.deliverLocImg.setImageResource(R.drawable.locationicon);
+        holder.binding.recieveLocImg.setImageResource(R.drawable.locationicon);
+        holder.binding.meLocImg.setImageResource(R.drawable.locationicon);
 
-        holder.binding.deliverLocImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
+    /*    holder.binding.deliverLocImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
         holder.binding.recieveLocImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
-        holder.binding.meLocImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
+        holder.binding.meLocImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);*/
 
         holder.itemView.setOnClickListener(view -> {
 

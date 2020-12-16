@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">HAAT|هات</string>
-    <string name="app_name_2">HAAT</string>
+    <string name="app_name">CAKE</string>
+    <string name="app_name_2">CAKE</string>
     <string name="notification_channel_id">Hat</string>
     <string name="api_key" translatable="false">AIzaSyAmD_A7N-SI2JbkhGh4xY_OFip7GtQRZfg</string>
     <string name="no_network">Something wrong please try again</string>
@@ -31,7 +31,7 @@
 
     <string name="no_data">No data</string>
     <string name="notifications">Notifications</string>
-    <string name="orders">orders</string>
+    <string name="orders">Orders</string>
     <string name="journey">Journey</string>
     <string name="me">Me</string>
     <string name="search_for_store">search for a store</string>
@@ -43,13 +43,13 @@
     <string name="edit_profile">Edit profile</string>
     <string name="comments">Ratings</string>
     <string name="setting">Setting</string>
-    <string name="active">active</string>
-    <string name="finished">finished</string>
+    <string name="active">Active</string>
+    <string name="finished">Finished</string>
     <string name="order_details">order details</string>
     <string name="order_number">order number</string>
 
-    <string name="waiting_order">new order</string>
-    <string name="stores_info">active order</string>
+    <string name="waiting_order">New</string>
+    <string name="stores_info">order</string>
     <string name="delivering_location">delivering location</string>
     <string name="receiving_location">receiving location</string>
     <string name="recieving_location">receiving location</string>
@@ -82,7 +82,7 @@
     <string name="enter_phone_number">enter phone number</string>
     <string name="scan_your_qr_code">scan your qr code</string>
     <string name="birthday">birthday</string>
-    <string name="enter_birthday">enter your birthday</string>
+    <string name="enter_birthday">your birthday</string>
     <string name="gender">gender</string>
     <string name="choose_gender">please choose gender</string>
     <string name="male">male</string>
@@ -91,7 +91,7 @@
     <string name="reenter_password">reenter password</string>
     <string name="code_validation">Verification code</string>
     <string name="enter_code">please enter code that sent to your phone</string>
-    <string name="resend_in">resend again in</string>
+    <string name="resend_in">resend code again</string>
     <string name="resend_again">resend again </string>
     <string name="verify">verify</string>
     <string name="offers">Offers</string>
@@ -152,7 +152,7 @@
     <string name="copouns">coupons</string>
     <string name="language_setting">language setting</string>
     <string name="policy">policy use</string>
-    <string name="privacy">privacy policy</string>
+    <string name="privacy">terms and conditions</string>
     <string name="rate_app">rate app</string>
     <string name="contact_us">contact us</string>
     <string name="app_language">app language</string>
@@ -183,7 +183,7 @@
     <string name="amount">cost of the goods</string>
     <string name="enter_amount">enter cost</string>
     <string name="delivering_amount">delivery cost</string>
-    <string name="total_amount">total cost</string>
+    <string name="total_amount">total cost including tax</string>
     <string name="invoice_img">Copy of the bill</string>
     <string name="create_invoice">create invoice</string>
     <string name="yes">yes</string>
@@ -325,6 +325,72 @@
     <string name="please_choose_region">please choose region</string>
     <string name="please_choose_city">please choose city</string>
     <string name="identity_type">نوع الهوية</string>
-    <string name="please_choose_identity_type">الرجاء تحديد نوع الهوية</string>
-    <string name="car">السيارة</string>
+    <string name="please_choose_identity_type">please choose identity type</string>
+    <string name="car">car</string>
+    <string name="deliveryy">Delivery</string>
+    <string name="shipping">shipping</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="most_requested_services">Most requested services</string>
+    <string name="more">More</string>
+    <string name="log_out">Log out</string>
+    <string name="time">7 دقيقة</string>
+    <string name="title">title</string>
+    <string name="new_orders">New</string>
+    <string name="order_state">order state</string>
+    <string name="delivery_within_an_hour">Delivery within an hour</string>
+    <string name="delivery_price_20">Delivery price is 20</string>
+    <string name="welcome">Welcome</string>
+    <string name="your_string_here">This is an <u>underline</u>.</string>
+    <string name="verification_codee">Verification code</string>
+    <string name="please_enter_info">please enter your phone</string>
+    <string name="all_comments">All comments</string>
+    <string name="recieved">recieved</string>
+    <string name="later">later</string>
+    <string name="not_now">not now</string>
+    <string name="expired_date">expired date</string>
+    <string name="choose">choose the appropriate payment methods</string>
+    <string name="lang">Arabic</string>
+    <string name="u_state_lang">English</string>
+    <string name="orderswww">4 orders</string>
+    <string name="finished_orders">finished</string>
+    <string name="stop_not">stop notification</string>
+    <string name="open_not">active notification</string>
+    <string name="km2">km</string>
+    <string name="point">receiving point</string>
+    <string name="point2">Ahmed Ben Rady street - Riad - Saudi</string>
+    <string name="point3">delivery point</string>
+
+    <string name="number">12.50</string>
+    <string name="_10_20">enter price between 10 - 20 ua</string>
+    <string name="enter_mob">please enter your phone </string>
+    <string name="by_signing_up">By signing up, you agree to</string>
+    <string name="sort_by">sort by</string>
+    <string name="nearby">the closest</string>
+    <string name="nearby_not">the furthest</string>
+    <string name="mange_juice">mange juice</string>
+    <string name="vegetable_salad">vegetable salad</string>
+    <string name="pepsi">pepsi</string>
+    <string name="complete_order">complete order</string>
+    <string name="choose_from_map">choose from map</string>
+    <string name="searchaa">search...</string>
+    <string name="amount2">purchases value</string>
+    <string name="amount3">Delivery cost + tax</string>
+    <string name="edit_info">Edit your data</string>
+    <string name="edit_info_details">you can edit your data by clicking on itا</string>
+    <string name="cancel_offer">cancel offer</string>
+    <string name="choose_time">choose a time</string>
+    <string name="offers2">offers</string>
+    <string name="search_other">search</string>
+    <string name="alerts">Alerts</string>
+    <string name="best_offers">Best offers</string>
+    <string name="save2">save</string>
+    <string name="pay_done">payment done</string>
+    <string name="how_was_your_experience_with_the_captain">How was your experience with the captain</string>
+    <string name="store_details">Store details</string>
+    <string name="cancel_1">cancel order</string>
+    <string name="delivery_of_the_order">Delivery </string>
+    <string name="deliver">Delivery</string>
+
+
 </resources>

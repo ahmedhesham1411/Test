@@ -2,15 +2,15 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
-    android:layout_height="match_parent">
+    android:background="@color/colorDarkGrey"
+    android:layout_height="match_parent"
+    >
 
     <LinearLayout
         android:layout_alignParentTop="true"
         android:id="@+id/lin1"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/colorBlue"
         android:elevation="5dp"
         android:orientation="horizontal">
 
@@ -24,21 +24,21 @@
             <ImageView
                 android:id="@+id/back_img"
                 android:layout_gravity="center"
-                android:background="@drawable/arrow_left"
+                android:background="@drawable/left"
                 android:layout_width="12dp"
                 android:layout_height="18dp" />
 
         </FrameLayout>
 
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:id="@+id/store_name"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/scan_card"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorBlack"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -72,13 +72,14 @@
         <LinearLayout
             android:gravity="center"
             android:orientation="vertical"
-            android:background="@drawable/shape_stroke"
+            android:background="@drawable/shape_green"
             android:layout_gravity="center"
             android:layout_margin="30dp"
             android:layout_width="match_parent"
             android:layout_height="210dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:textStyle="bold"
                 android:text="امسح البطاقة هنا..."
                 android:textColor="@color/colorTextHint"
@@ -87,6 +88,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:textStyle="bold"
                 android:layout_marginTop="3dp"
                 android:text="ستمسح تلقائيا..."

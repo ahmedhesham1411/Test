@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layoutDirection="ltr"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+     android:layout_margin="@dimen/_5sdp">
+
+    <CheckBox
+        android:layout_weight="1"
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="price"
+        android:fontFamily="@font/cairo_regular"/>
+
+    <TextView
+        android:fontFamily="@font/cairo_regular"
+        android:layout_weight="4"
+        android:id="@+id/code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/checkBox1"
+        android:layout_alignBottom="@+id/checkBox1"
+        android:layout_toRightOf="@+id/checkBox1"
+        android:text="عصير"
+        android:textDirection="rtl"
+        />
+
+</LinearLayout>

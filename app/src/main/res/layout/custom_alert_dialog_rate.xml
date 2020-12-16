@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/shape_rounded_white"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_background"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -14,9 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@drawable/shape_rounded_blue_corner_4"
-        android:text="@string/rate_user"/>
+        android:text="@string/rate_user"
+        android:visibility="gone"/>
 
     <TextView
+        android:visibility="gone"
         android:rotation="180"
         android:layout_width="match_parent"
         android:layout_height="5dp"
@@ -28,14 +31,29 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:id="@+id/user_img"
-            app:civ_border_color="@color/colorBlack"
+            android:layout_marginTop="30dp"
+            android:id="@+id/user_imgaa"
+            app:civ_border_color="@color/colorDarkGrey"
             app:civ_border_width="2dp"/>
+
+
+        <TextView
+            android:fontFamily="@font/cairo_regular"
+            android:id="@+id/ahmedtxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/how_was_your_experience_with_the_captain"
+            android:textColor="@color/colorTextHint"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:id="@+id/user_name"
@@ -46,7 +64,8 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <com.eugeneek.smilebar.SmileBar
             android:id="@+id/starBar"
@@ -62,10 +81,11 @@
             app:smileRate3="@drawable/ic_star_orange"
             app:smileRate4="@drawable/ic_star_orange"
             app:smileRate5="@drawable/ic_star_orange"
-            />
+            android:layout_marginBottom="20dp"/>
     </LinearLayout>
 
     <EditText
+        android:textSize="@dimen/_10ssp"
         app:fontFamily="@font/cairo_regular"
         android:id="@+id/comment_edt"
         android:textAlignment="viewStart"
@@ -78,22 +98,59 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/shape_rounded_dark_grey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="80dp" />
 
-    <Button
-        android:textAllCaps="false"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:id="@+id/rate_btn"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="@string/rate"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/shape_rounded_blue"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:fontFamily="@font/cairo_regular"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:id="@+id/rate_btn"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/rate"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/shape_rounded_green_corner_4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+
+        <Button
+            android:fontFamily="@font/cairo_regular"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:id="@+id/not_now_btn"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/not_now"
+            android:textColor="@color/colorTextHint"
+            android:background="@drawable/btngrey"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
+
+
+

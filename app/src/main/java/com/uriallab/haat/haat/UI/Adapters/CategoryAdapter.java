@@ -51,6 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         else
             holder.binding.catName.setText(incomingList.get(position).getCategory_Title_EN());
 
+        String aa = incomingList.get(position).getCategory_Icon_Urls();
         Picasso.get().load(incomingList.get(position).getCategory_Icon_Urls()).into(holder.binding.catImg);
 
         holder.itemView.setOnClickListener(v -> {

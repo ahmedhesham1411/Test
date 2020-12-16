@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.security.KeyStore;
+import java.util.concurrent.ExecutorService;
 
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.protocol.HTTP;
@@ -34,8 +35,9 @@ public class APIModel {
     public final static int take = 20;
     public final static int take_2 = 10;
 //    public final static String BASE_URL = "http://apidev.haatapp.com/";
-    public final static String BASE_URL = "http://api.haatapp.com/";
-//    public final static String BASE_URL = "https://www.haatapp.com/";
+    public final static String BASE_URL =  "http://85.194.65.236:700/";
+    public final static String BASE_URL_SOCKET =  "ws://85.194.65.236:701/";
+    //    public final static String BASE_URL = "https://www.haatapp.com/";
     public final static String BASE_URL_GOOGLE = "https://maps.googleapis.com/maps/api/place/";
     public final static String BASE_URL_GOOGLE2 = "https://maps.googleapis.com/maps/api";
     public final static int FORCE_UPDATE = 451;
@@ -94,7 +96,7 @@ public class APIModel {
                 break;
 
             case REFRESH_TOKEN:
-                LoginSession.clearData(activity);
+/*                LoginSession.clearData(activity);
                 Utilities.toastyError(activity, activity.getString(R.string.session_expired));
                 IntentClass.goToActivityAndClear(activity, LoginActivity.class, null);
                 try {
@@ -102,7 +104,7 @@ public class APIModel {
                     activity.stopService(myService);
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                }*/
                 break;
 
             default:
@@ -112,6 +114,9 @@ public class APIModel {
 
     public static AsyncHttpClient getMethod(Activity currentActivity, String url, TextHttpResponseHandler textHttpResponseHandler) {
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(290000);
+        client.setConnectTimeout(290000);
+
         if (Utilities.checkNetworkConnectivity(currentActivity)) {
             KeyStore trustStore = null;
             try {
@@ -121,6 +126,8 @@ public class APIModel {
                 socketFactory.setHostnameVerifier(MySSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
                 client = new AsyncHttpClient();
                 client.setSSLSocketFactory(socketFactory);
+                //client.setTimeout(300000);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -143,6 +150,10 @@ public class APIModel {
 
     public static AsyncHttpClient getMethodForGoogle(Activity currentActivity, String url, TextHttpResponseHandler textHttpResponseHandler) {
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(290000);
+        client.setConnectTimeout(290000);
+
+
         if (Utilities.checkNetworkConnectivity(currentActivity)) {
             KeyStore trustStore = null;
             try {
@@ -169,6 +180,9 @@ public class APIModel {
 
     public static AsyncHttpClient getMethodForGoogle2(Activity currentActivity, String url, TextHttpResponseHandler textHttpResponseHandler) {
         AsyncHttpClient client = new AsyncHttpClient();
+        //client.setTimeout(290000);
+        client.setResponseTimeout(1000);
+
         if (Utilities.checkNetworkConnectivity(currentActivity)) {
             KeyStore trustStore = null;
             try {
@@ -194,7 +208,13 @@ public class APIModel {
     }
 
     public static AsyncHttpClient postMethod(Context currentActivity, String url, JSONObject jsonParams, TextHttpResponseHandler textHttpResponseHandler) {
+
+        final int DEFAULT_TIMEOUT = 20 * 1000;
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(290000);
+        //client.setConnectTimeout(290000);
+        //client.setResponseTimeout(300000);
+        //client.setConnectTimeout(300000);
 
         if (Utilities.checkNetworkConnectivity(currentActivity)) {
             KeyStore trustStore = null;
@@ -205,6 +225,8 @@ public class APIModel {
                 socketFactory.setHostnameVerifier(MySSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
                 client = new AsyncHttpClient();
                 client.setSSLSocketFactory(socketFactory);
+                client.setTimeout(300000);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -233,7 +255,6 @@ public class APIModel {
 
     public static AsyncHttpClient postMethodNoBaseUrl(Context currentActivity, String url, JSONObject jsonParams, TextHttpResponseHandler textHttpResponseHandler) {
         AsyncHttpClient client = new AsyncHttpClient();
-
         if (Utilities.checkNetworkConnectivity(currentActivity)) {
             KeyStore trustStore = null;
             try {
@@ -271,7 +292,6 @@ public class APIModel {
 
     public static AsyncHttpClient postMethodParams(Context currentActivity, String url, RequestParams params, TextHttpResponseHandler textHttpResponseHandler) {
         AsyncHttpClient client = new AsyncHttpClient();
-
         if (Utilities.checkNetworkConnectivity(currentActivity)) {
             KeyStore trustStore = null;
             try {
@@ -392,6 +412,7 @@ public class APIModel {
 
     public static AsyncHttpClient deleteMethod(Activity currentActivity, String url, JSONObject jsonParams, TextHttpResponseHandler textHttpResponseHandler) {
         AsyncHttpClient client = new AsyncHttpClient();
+
         if (Utilities.checkNetworkConnectivity(currentActivity)) {
             KeyStore trustStore = null;
             try {

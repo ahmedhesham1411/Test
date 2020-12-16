@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.LocalNotification.TrackingDelegate;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.LoginSession;
@@ -56,7 +57,7 @@ public class JourneyFragment extends Fragment {
 
         binding.setOrdersVM(viewModel);
 
-        binding.switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    /*    binding.switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
@@ -70,16 +71,35 @@ public class JourneyFragment extends Fragment {
                     viewModel.activeDriver(false);
                 }
             }
+        });*/
+
+        binding.openNotiLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.activeDriver(true);
+                startService();
+                binding.openNotiLayout.setVisibility(View.GONE);
+                binding.stopNotiLayout.setVisibility(View.VISIBLE);
+            }
         });
 
+        binding.stopNotiLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.activeDriver(false);
+                binding.openNotiLayout.setVisibility(View.VISIBLE);
+                binding.stopNotiLayout.setVisibility(View.GONE);
+            }
+        });
         return binding.getRoot();
     }
+
 
     public void createWebSocketClient() {
         URI uri;
         try {
             // Connect to local host
-            uri = new URI("ws://176.9.164.57:898/driver");
+            uri = new URI(APIModel.BASE_URL_SOCKET + "driver");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return;
@@ -149,7 +169,7 @@ public class JourneyFragment extends Fragment {
             }
         };
         webSocketClient.setConnectTimeout(10000);
-        webSocketClient.setReadTimeout(90000);
+        webSocketClient.setReadTimeout(900000);
         webSocketClient.enableAutomaticReconnection(5000);
         webSocketClient.connect();
     }
@@ -178,8 +198,11 @@ public class JourneyFragment extends Fragment {
 
     public void startService() {
         // TODO: 6/10/2020
-        Intent myService = new Intent(getContext(), TrackingDelegate.class);
-        getActivity().startService(myService);
+        try {
+            Intent myService = new Intent(getContext(), TrackingDelegate.class);
+            getActivity().startService(myService);
+        }catch (Exception e){}
+
     }
 
 }

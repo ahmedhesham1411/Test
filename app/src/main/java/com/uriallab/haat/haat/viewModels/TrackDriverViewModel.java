@@ -158,8 +158,8 @@ public class TrackDriverViewModel {
             if (polyz != null) {
                 PolylineOptions lineOptions = new PolylineOptions();
                 lineOptions.addAll(polyz);
-                lineOptions.width(5);
-                lineOptions.color(ContextCompat.getColor(activity, R.color.colorMoov));
+                lineOptions.width(15);
+                lineOptions.color(ContextCompat.getColor(activity, R.color.orange2));
                 activity.mMap.addPolyline(lineOptions);
             }
         }

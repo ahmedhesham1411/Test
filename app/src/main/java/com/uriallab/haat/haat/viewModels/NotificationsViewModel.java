@@ -71,18 +71,22 @@ public class NotificationsViewModel extends ViewModel {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
                 Log.e("response", responseString);
-
+                Dialogs.dismissLoading(loadingDialog);
                 Type dataType = new TypeToken<NotificationsModel>() {
                 }.getType();
                 NotificationsModel data = new Gson().fromJson(responseString, dataType);
 
                 lastPage = data.getResult().getEndPage();
 
-                if (data.getResult().getNotfications().size() > 0)
+                if (data.getResult().getNotfications().size() > 0){
+                    //Dialogs.dismissLoading(loadingDialog);
                     fragment.updateRecycler(data.getResult().getNotfications());
-                else
+                }
+                else {
+                    //Dialogs.dismissLoading(loadingDialog);
                     isNoData.set(true);
-            }
+                    }
+                }
 
             @Override
             public void onStart() {
@@ -95,7 +99,7 @@ public class NotificationsViewModel extends ViewModel {
             public void onFinish() {
                 super.onFinish();
                 isLoading = false;
-                Dialogs.dismissLoading(loadingDialog);
+                //Dialogs.dismissLoading(loadingDialog);
             }
         });
     }

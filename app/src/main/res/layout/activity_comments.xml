@@ -13,14 +13,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite">
+        android:background="@color/colorDarkGrey">
 
         <LinearLayout
             android:layout_alignParentTop="true"
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -36,21 +35,21 @@
                     android:rotation="@{commentsVM.rotation}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/comments"
-                android:textColor="@color/colorWhite"
+                android:text="@string/all_comments"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -73,10 +72,11 @@
             android:layout_height="match_parent"/>
 
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:visibility="@{commentsVM.isNoData? View.VISIBLE : View.GONE}"
             android:layout_below="@id/lin1"
             android:gravity="center"
-            android:textColor="@color/colorBlue"
+            android:textColor="@color/colorGreen2"
             android:textStyle="bold"
             android:text="@string/no_data"
             android:layout_width="match_parent"

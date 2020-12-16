@@ -34,6 +34,9 @@ public class SplashActivity extends AppCompatActivity {
         videoView.requestFocus();
         videoView.start();
 
+        startActivity();
+
+
         try {
             if (getIntent().getExtras().getBoolean("notification")) {
                 String type = getIntent().getExtras().getString("key");
@@ -58,6 +61,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startActivity() {
+
         new Handler().postDelayed(() -> {
 
             if (LoginSession.isLoggedIn(SplashActivity.this)) {
@@ -70,6 +74,6 @@ public class SplashActivity extends AppCompatActivity {
                 IntentClass.goToActivityAndClear(SplashActivity.this, LoginActivity.class, null, R.anim.fade_in_slow, R.anim.fade_out_slow);
             }
 
-        }, 3000);
+        }, 10);
     }
 }

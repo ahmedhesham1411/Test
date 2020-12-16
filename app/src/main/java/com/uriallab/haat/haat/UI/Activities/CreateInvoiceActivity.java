@@ -34,8 +34,8 @@ public class CreateInvoiceActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getBundleExtra("data");
 
-        binding.addImg.setImageResource(R.drawable.coupon);
-        binding.addImg.setColorFilter(getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
+        //binding.addImg.setImageResource(R.drawable.coupon);
+        //binding.addImg.setColorFilter(getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
 
         viewModel = new CreateInvoiceViewModel(this, bundle.getDouble("price"), bundle.getString("orderId"));
 

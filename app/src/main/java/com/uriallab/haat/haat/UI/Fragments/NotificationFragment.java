@@ -1,23 +1,36 @@
 package com.uriallab.haat.haat.UI.Fragments;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.uriallab.haat.haat.DataModels.NotificationsModel;
 import com.uriallab.haat.haat.R;
+import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Adapters.NotificationsAdapter;
+import com.uriallab.haat.haat.UI.Adapters.SwipAdapter;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.FragmentNotificationBinding;
+import com.uriallab.haat.haat.viewModels.HomeViewModel;
 import com.uriallab.haat.haat.viewModels.NotificationsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +46,8 @@ public class NotificationFragment extends Fragment {
     private NotificationsViewModel viewModel;
 
     public int nextPage = 1;
+    private Paint p = new Paint();
+    float newDx;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -47,9 +62,20 @@ public class NotificationFragment extends Fragment {
 
         initRecycler();
 
-        viewModel = new NotificationsViewModel(this);
+/*
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // yourMethod();
+                viewModel = new NotificationsViewModel(NotificationFragment.this);
+                binding.setNotificationVM(viewModel);
+            }
+        }, 300);
+*/
 
+        viewModel = new NotificationsViewModel(NotificationFragment.this);
         binding.setNotificationVM(viewModel);
+
 
         return binding.getRoot();
     }
@@ -73,6 +99,13 @@ public class NotificationFragment extends Fragment {
             }
         });
         Utilities.runAnimation(binding.notificationRecycler, 1);
+
+        if (ConfigurationFile.getCurrentLanguage(getContext()).equals("ar")){
+            initSwipe2("ar");
+        }else if (ConfigurationFile.getCurrentLanguage(getContext()).equals("en")){
+            initSwipe2("en");
+        }
+
     }
 
     public void updateRecycler(List<NotificationsModel.ResultBean.NotficationsBean> notificationsModel) {
@@ -80,5 +113,87 @@ public class NotificationFragment extends Fragment {
             notificationsList.clear();
         notificationsList.addAll(notificationsModel);
         notificationsAdapter.notifyDataSetChanged();
+    }
+
+
+    private void initSwipe() {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START | ItemTouchHelper.END) {
+
+            @Override
+            public float getSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder) {
+                return 0.5f;
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+
+                if (direction == ItemTouchHelper.LEFT) {
+                    notificationsAdapter.removeItem(position);
+                    notificationsAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                Bitmap icon;
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+
+                    View itemView = viewHolder.itemView;
+                    float height = (float) itemView.getBottom() - (float) itemView.getTop();
+                    float width = height / 2;
+
+                    if (dX > 0) {
+                        p.setColor(Color.parseColor("#FFC43F"));
+                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
+                        c.drawRect(background, p);
+                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_sweep_white_24dp);
+                        RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
+
+                    }
+                    else{
+
+                    }
+                }
+
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(binding.notificationRecycler);
+    }
+
+    private void initSwipe2(String lang){
+        SwipAdapter swipeHelper = new SwipAdapter(getContext(),lang) {
+            @Override
+            public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
+                underlayButtons.add(new SwipAdapter.UnderlayButton(
+                        getContext(),
+                        "",
+                        getResources().getDrawable(R.drawable.notification),
+                        R.color.orange2,
+                        new SwipAdapter.UnderlayButtonClickListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                int aa = pos+1;
+                                Toast.makeText(getContext(), "You clicked delete on item position " + aa, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                ));
+            }
+
+        };
+        swipeHelper.attachToRecyclerView(binding.notificationRecycler);
+
     }
 }

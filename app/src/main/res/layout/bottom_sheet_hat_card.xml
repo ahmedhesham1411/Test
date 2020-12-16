@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/advertiser_products_bottom_sheet"
+<LinearLayout
+    android:id="@+id/advertiser_products_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/card_name"
                 android:gravity="center"
                 android:textAlignment="viewStart"
@@ -80,17 +82,19 @@
                 android:layout_height="35dp">
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:text="+"
-                    android:textColor="@color/colorMoov"
+                    android:textColor="@color/colorGreen2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/quantity"
                 android:layout_marginEnd="35dp"
                 android:layout_marginStart="35dp"
@@ -98,7 +102,7 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:text="1"
-                android:textColor="@color/colorMoov"
+                android:textColor="@color/colorGreen2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -112,11 +116,12 @@
                 android:layout_height="35dp">
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:text="-"
-                    android:textColor="@color/colorMoov"
+                    android:textColor="@color/colorGreen2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -131,6 +136,7 @@
         </LinearLayout>
 
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:id="@+id/price"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="50dp"
@@ -139,12 +145,12 @@
             android:textStyle="bold"
             android:gravity="center"
             android:text="100 SAR"
-            android:textColor="@color/colorMoov"
+            android:textColor="@color/colorGreen2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <Button
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:id="@+id/hat_card"
@@ -152,11 +158,13 @@
             android:textAllCaps="false"
             android:text="@string/confirm"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorMoov"
+            android:background="@drawable/shape_rounded_green_corner_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"/>
 
     </LinearLayout>
 

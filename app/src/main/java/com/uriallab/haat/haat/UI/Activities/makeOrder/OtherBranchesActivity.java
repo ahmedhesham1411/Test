@@ -18,12 +18,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -42,6 +44,7 @@ import com.uriallab.haat.haat.DataModels.OtherBranchesModel;
 import com.uriallab.haat.haat.Interfaces.BranchClick;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.UI.Adapters.OtherBranchesAdapter;
+import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ActivityOtherBranchesBinding;
 import com.uriallab.haat.haat.viewModels.OtherBranchesViewModel;
@@ -58,9 +61,12 @@ public class OtherBranchesActivity extends AppCompatActivity implements OnMapRea
     private OtherBranchesModel storeDetailsModel;
 
     private GoogleApiClient mGoogleApiClient;
+    Marker marker2;
+    String address;
+    Double lat,lng;
 
     private GoogleMap mMap;
-
+    OtherBranchesAdapter otherBranchesAdapter;
     List<OtherBranchesModel.BranchBean> listMarkers = new ArrayList<>();
 
     @Override
@@ -86,11 +92,17 @@ public class OtherBranchesActivity extends AppCompatActivity implements OnMapRea
     }
 
     public void initRecycler(List<OtherBranchesModel.BranchBean> branchesList) {
-        OtherBranchesAdapter otherBranchesAdapter = new OtherBranchesAdapter(this, branchesList, this);
-        binding.recylerOther.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        otherBranchesAdapter = new OtherBranchesAdapter(this, branchesList, this,binding.goToNext,binding.recylerOther,layoutManager);
+        binding.recylerOther.setLayoutManager(layoutManager);
         binding.recylerOther.setAdapter(otherBranchesAdapter);
         Utilities.runAnimation(binding.recylerOther, 2);
     }
+
+    public void showToast(List<OtherBranchesModel.BranchBean> branchesList) {
+        Toast.makeText(this, "ddd", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void setUpMapIfNeeded() {
         if (mMap == null) {
@@ -148,7 +160,7 @@ public class OtherBranchesActivity extends AppCompatActivity implements OnMapRea
                     .anchor(0.5f, 0.5f)
                     .snippet(position)
                     .title(storeName)
-                    .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView())));
+                    .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(position))));
         } else return null;
     }
 
@@ -167,12 +179,21 @@ public class OtherBranchesActivity extends AppCompatActivity implements OnMapRea
         }
     }
 
-    public Bitmap getMarkerBitmapFromView() {
+    public Bitmap getMarkerBitmapFromView(String position) {
         View customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_view_home_marker, null);
 
         LinearLayout title_lin = customMarkerView.findViewById(R.id.title_lin);
         ImageView icon_img = customMarkerView.findViewById(R.id.icon_img2);
 
+        TextView textView = customMarkerView.findViewById(R.id.distance_by_km);
+        double distance = Utilities.getKilometers(GlobalVariables.LOCATION_LAT,
+                GlobalVariables.LOCATION_LNG,
+                listMarkers.get(Integer.parseInt(position)).getLat(),
+                listMarkers.get(Integer.parseInt(position)).getLng());
+
+        textView.setText(Utilities.roundPrice(distance) + " " + getResources().getString(R.string.km));
+
+        //textView.setText("a");
         icon_img.setImageResource(R.drawable.haat_store_2);
 
         title_lin.setVisibility(View.GONE);
@@ -230,6 +251,12 @@ public class OtherBranchesActivity extends AppCompatActivity implements OnMapRea
                 TextView store_address = markerItemView.findViewById(R.id.store_address);
                 store_name.setText(storeDetailsModel.getProductBeans().get(Integer.parseInt(marPosInt)).getName());
                 store_address.setText(storeDetailsModel.getProductBeans().get(Integer.parseInt(marPosInt)).getAddress());
+
+                address = storeDetailsModel.getProductBeans().get(Integer.valueOf(marker.getSnippet())).getAddress();
+                lat = storeDetailsModel.getProductBeans().get(Integer.valueOf(marker.getSnippet())).getLat();
+                lng =  storeDetailsModel.getProductBeans().get(Integer.valueOf(marker.getSnippet())).getLng();
+
+
                 return markerItemView;  // 4
             }
 
@@ -243,10 +270,24 @@ public class OtherBranchesActivity extends AppCompatActivity implements OnMapRea
         mMap.setOnInfoWindowClickListener(marker -> {
             marker.hideInfoWindow();
 
-            infoBottomSheet(Integer.valueOf(marker.getSnippet()));
+            address = storeDetailsModel.getProductBeans().get(Integer.valueOf(marker.getSnippet())).getAddress();
+            lat = storeDetailsModel.getProductBeans().get(Integer.valueOf(marker.getSnippet())).getLat();
+            lng =  storeDetailsModel.getProductBeans().get(Integer.valueOf(marker.getSnippet())).getLng();
+
+
         });
 
-
+        binding.goToNextMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("address", address);
+                returnIntent.putExtra("lat", lat);
+                returnIntent.putExtra("lng", lng);
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -271,6 +312,7 @@ public class OtherBranchesActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     public void branchClick(String newAddress, LatLng latLng) {
+
         Intent returnIntent = new Intent();
         returnIntent.putExtra("address", newAddress);
         returnIntent.putExtra("lat", latLng.latitude);

@@ -9,6 +9,7 @@
     </data>
 
     <LinearLayout
+        android:background="@color/colorDarkGrey"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -18,7 +19,6 @@
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -34,21 +34,21 @@
                     android:rotation="@{privacyVM.rotation}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@{privacyVM.titleObservable}"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -69,19 +69,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="visible">
 
                 <ImageView
                     android:layout_marginTop="30dp"
                     android:layout_gravity="center"
                     android:background="@drawable/logo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/logo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@color/colorWhite"
+                    android:layout_gravity="center"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/rec_policy"
+                    android:visibility="gone"/>
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextHint"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:fontFamily="@font/cairo_regular"
+                    android:id="@+id/det_pol"
+                    android:padding="@dimen/_5sdp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:visibility="gone"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="16dp"

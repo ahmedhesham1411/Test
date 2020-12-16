@@ -30,6 +30,10 @@ import java.util.List;
 
 public class MakeOrderFirstStepViewModel {
 
+    public ObservableBoolean isCash = new ObservableBoolean(true);
+    public ObservableBoolean isSTC = new ObservableBoolean(false);
+    public ObservableBoolean isCreditCard = new ObservableBoolean(false);
+
     public ObservableBoolean isCoupon = new ObservableBoolean(false);
 
     public ObservableBoolean isValidCoupon = new ObservableBoolean(false);
@@ -203,5 +207,23 @@ public class MakeOrderFirstStepViewModel {
 
     public void back() {
         activity.finish();
+    }
+
+    public void cashClick(){
+        isCash.set(true);
+        isCreditCard.set(false);
+        isSTC.set(false);
+    }
+    public void stcClick(){
+        isCash.set(false);
+        isCreditCard.set(false);
+        isSTC.set(true);
+
+    }
+    public void creditClick(){
+        isCash.set(false);
+        isCreditCard.set(true);
+        isSTC.set(false);
+
     }
 }

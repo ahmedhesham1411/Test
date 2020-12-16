@@ -20,7 +20,6 @@
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -31,26 +30,29 @@
                 android:layout_gravity="center"
                 android:layout_width="35dp"
                 android:layout_height="35dp">
+<!--
+                android:rotation="@{secondStepVM.rotation}"
+-->
 
                 <ImageView
-                    android:rotation="@{secondStepVM.rotation}"
+
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/register_as_captain"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -78,6 +80,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:text="@string/identity_type"
                     android:textColor="@color/colorBlack"
                     android:layout_marginTop="20dp"
@@ -118,6 +121,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:id="@+id/name_txt"
                     android:text="@string/id_number"
                     android:textColor="@color/colorBlack"
@@ -136,6 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <EditText
+                        android:fontFamily="@font/cairo_regular"
                         app:fontFamily="@font/cairo_regular"
                         android:text="@={secondStepVM.idNumberObservable}"
                         bind:error="@{secondStepVM.idNumberError}"
@@ -150,6 +155,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:text="@string/stcpay"
                     android:textColor="@color/colorBlack"
                     android:layout_marginTop="20dp"
@@ -167,6 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <EditText
+                        android:fontFamily="@font/cairo_regular"
                         android:text="@={secondStepVM.stcPhoneObservable}"
                         bind:error="@{secondStepVM.stcPhoneError}"
                         android:layout_gravity="center_vertical"
@@ -182,6 +189,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:text="@string/nationality"
                     android:textColor="@color/colorBlack"
                     android:layout_marginTop="20dp"
@@ -222,6 +230,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:text="@string/area"
                     android:textColor="@color/colorBlack"
                     android:layout_marginTop="20dp"
@@ -262,6 +271,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:text="@string/city"
                     android:textColor="@color/colorBlack"
                     android:layout_marginTop="20dp"
@@ -306,6 +316,7 @@
         </ScrollView>
 
         <Button
+            android:fontFamily="@font/cairo_regular"
             android:onClick="@{()->secondStepVM.nextStep()}"
             android:layout_marginTop="20dp"
             android:layout_alignParentBottom="true"
@@ -314,12 +325,13 @@
             android:gravity="center"
             android:textAllCaps="false"
             android:text="@string/next_"
+
             android:textColor="@color/colorWhite"
-            android:background="@color/colorMoov"
+            android:background="@drawable/btngreen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="60dp"/>
+            android:layout_height="@dimen/_35sdp"/>
 
     </RelativeLayout>
 </layout>

@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"/>
 
     <CheckBox
+        android:fontFamily="@font/cairo_regular"
         android:textStyle="bold"
         android:text="@string/expinsive_price"
         android:layout_marginTop="10dp"
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"/>
 
     <CheckBox
+        android:fontFamily="@font/cairo_regular"
         android:textStyle="bold"
         android:text="@string/driver_ask_for_cancel"
         android:layout_marginTop="5dp"
@@ -34,6 +36,7 @@
         android:layout_height="wrap_content"/>
 
     <CheckBox
+        android:fontFamily="@font/cairo_regular"
         android:textStyle="bold"
         android:text="@string/no_need_for_order"
         android:layout_marginTop="5dp"
@@ -42,6 +45,7 @@
         android:layout_height="wrap_content"/>
 
     <CheckBox
+        android:fontFamily="@font/cairo_regular"
         android:textStyle="bold"
         android:text="@string/driver_not_accepting_online_payment"
         android:layout_marginTop="5dp"
@@ -50,6 +54,7 @@
         android:layout_height="wrap_content"/>
 
     <CheckBox
+        android:fontFamily="@font/cairo_regular"
         android:textStyle="bold"
         android:text="@string/driver_ask_for_contact_outside_the_application"
         android:layout_marginTop="5dp"
@@ -75,7 +80,8 @@
             android:layout_height="50dp">
 
             <TextView
-                android:background="@color/colorMoov"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:background="@drawable/btn"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:id="@+id/no_id"
@@ -85,15 +91,12 @@
                 android:text="@string/no"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"/>
+                android:layout_height="@dimen/_35sdp"/>
 
-            <View
-                android:layout_width="1dp"
-                android:background="@color/colorText"
-                android:layout_height="match_parent"/>
+
 
             <TextView
-                android:background="@color/colorBlue"
+                android:background="@drawable/shape_rounded_green_corner_4"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:id="@+id/yes_id"
@@ -102,8 +105,10 @@
                 android:gravity="center"
                 android:text="@string/yes"
                 android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"/>
+                android:layout_height="@dimen/_35sdp"/>
 
         </LinearLayout>
 

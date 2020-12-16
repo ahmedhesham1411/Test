@@ -1,6 +1,7 @@
 package com.uriallab.haat.haat.UI.Activities.makeOrder;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
@@ -20,6 +21,7 @@ import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Adapters.ProductMenuAdapter;
 import com.uriallab.haat.haat.UI.Adapters.ProductsAdapter;
+import com.uriallab.haat.haat.UI.Adapters.StoreProductsAdapter2;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ActivityStoreDetailsBinding;
@@ -93,6 +95,13 @@ public class StoreDetailsActivity extends AppCompatActivity implements MenuClick
         Utilities.runAnimation(binding.menuRecycler, 2);
     }
 
+    public void initRecyclerMenu(Activity activity) {
+        StoreProductsAdapter2 productMenuAdapter = new StoreProductsAdapter2(this);
+        binding.recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.recyclerMenu.setAdapter(productMenuAdapter);
+        Utilities.runAnimation(binding.recyclerMenu, 2);
+    }
+
     public void updateProductsRecycler(List<ProductsModel.ResultEntity.ProductsEntity> productsMenus, int catId) {
         productsMenuList.clear();
         productsMenuList2.clear();
@@ -146,7 +155,7 @@ public class StoreDetailsActivity extends AppCompatActivity implements MenuClick
                                 data.getExtras().getDouble("lat"),
                                 data.getExtras().getDouble("lng"));
 
-                        binding.distanceFromYou.setText(getString(R.string.distance_from_you) + "  " + Utilities.roundPrice(distance) +
+                        binding.distanceFromYou.setText(getString(R.string.distance_from_you) + "  " + Double.parseDouble(Utilities.roundPrice(distance)) +" "+
                                 getString(R.string.km));
                     }
                 }

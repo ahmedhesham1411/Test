@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,67 +12,158 @@
     </data>
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:background="@color/colorWhite"
+        android:background="@color/colorDarkGrey"
         android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="40dp"
+            app:layout_constraintEnd_toStartOf="@+id/logohidden"
+            app:layout_constraintStart_toStartOf="@+id/logohidden"
             tools:context="com.uriallab.haat.haat.UI.Activities.Auth.CodeActivity">
 
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_marginTop="80dp"
-                app:layout_constraintTop_toTopOf="parent"
+
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="24dp"
+                android:elevation="5dp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@drawable/logo"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:id="@+id/frame_back"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:onClick="@{()->codeVM.back()}">
+
+                    <ImageView
+                        android:id="@+id/back_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                        android:rotation="@{codeVM.rotation}" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:id="@+id/store_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="@string/offers"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/order_number"
+                        android:textColor="@color/colorWhite" />
+
+                    <TextView
+                        android:id="@+id/order_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-5dp"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/logo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="160dp"
+                android:src="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/logohidden"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:background="@drawable/logo"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/code_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
                 android:text="@string/code_validation"
                 android:textColor="@color/colorText"
-                android:layout_marginTop="60dp"
-                app:layout_constraintTop_toBottomOf="@+id/logo"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                app:layout_constraintHorizontal_bias="0.086"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo" />
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/code_txt_2"
-                android:text="@string/enter_code"
-                android:textColor="@color/colorText"
-                app:layout_constraintTop_toBottomOf="@+id/code_txt"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/enter_code"
+                android:textColor="@color/colorTextHint2"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.147"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/code_txt" />
 
             <LinearLayout
                 android:id="@+id/code_lin"
-                app:layout_constraintTop_toBottomOf="@+id/code_txt_2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="14dp"
                 android:layout_marginStart="14dp"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="14dp"
                 android:layoutDirection="ltr"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/code_txt_2">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -78,37 +171,36 @@
                     android:orientation="vertical">
 
                     <EditText
-                        android:digits="0,1,2,3,4,5,6,7,8,9"
-                        android:inputType="number"
                         android:id="@+id/num1_edt"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
                         android:background="@drawable/background_with_shadow"
-                        android:gravity="center"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"
                         android:focusable="true"
-                        android:maxLength="1"
-                        />
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="1" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:orientation="vertical">
 
                     <EditText
-                        android:digits="0,1,2,3,4,5,6,7,8,9"
-                        android:inputType="number"
                         android:id="@+id/num2_edt"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
                         android:background="@drawable/background_with_shadow"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"
                         android:gravity="center"
-                        android:maxLength="1"/>
+                        android:inputType="number"
+                        android:maxLength="1" />
 
                 </LinearLayout>
 
@@ -118,33 +210,33 @@
                     android:orientation="vertical">
 
                     <EditText
-                        android:digits="0,1,2,3,4,5,6,7,8,9"
-                        android:inputType="number"
                         android:id="@+id/num3_edt"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
                         android:background="@drawable/background_with_shadow"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"
                         android:gravity="center"
+                        android:inputType="number"
                         android:maxLength="1" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:orientation="vertical">
 
                     <EditText
-                        android:digits="0,1,2,3,4,5,6,7,8,9"
-                        android:inputType="number"
                         android:id="@+id/num4_edt"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
                         android:background="@drawable/background_with_shadow"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"
                         android:gravity="center"
+                        android:inputType="number"
                         android:maxLength="1" />
                 </LinearLayout>
 
@@ -154,66 +246,69 @@
                     android:orientation="vertical">
 
                     <EditText
-                        android:digits="0,1,2,3,4,5,6,7,8,9"
-                        android:inputType="number"
                         android:id="@+id/num5_edt"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
                         android:background="@drawable/background_with_shadow"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"
                         android:gravity="center"
+                        android:inputType="number"
                         android:maxLength="1" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <TextView
-                android:onClick="@{()->codeVM.resendAgain()}"
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/duration_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:onClick="@{()->codeVM.resendAgain()}"
                 android:text="@string/resend_in"
-                android:textColor="@color/colorText"
-                android:layout_marginTop="25dp"
-                app:layout_constraintTop_toBottomOf="@+id/code_lin"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorTextHint2"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textAlignment="viewStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                app:layout_constraintTop_toBottomOf="@+id/code_lin" />
 
             <TextView
-                android:visibility="invisible"
                 android:id="@+id/server_code_txt"
-                android:textColor="@color/colorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
-                app:layout_constraintTop_toBottomOf="@+id/code_lin"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorText"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textAlignment="viewStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                app:layout_constraintTop_toBottomOf="@+id/code_lin" />
 
             <Button
-                android:onClick="@{()->codeVM.checkCodeAndGo()}"
-                android:textAllCaps="false"
+                android:fontFamily="@font/cairo_regular"
+                android:id="@+id/verify_btn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/shape_rounded_green_corner_4"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:id="@+id/verify_btn"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
                 android:gravity="center"
+                android:onClick="@{()->codeVM.checkCodeAndGo()}"
                 android:text="@string/verify"
+                android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/shape_rounded_blue"
-                app:layout_constraintTop_toBottomOf="@id/duration_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                app:layout_constraintTop_toBottomOf="@id/duration_txt" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

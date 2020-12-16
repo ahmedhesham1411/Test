@@ -1,58 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/layout_vertical"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/shape_rounded_grey_stroke"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/store_img"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="10dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_110sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@color/colorWhite">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/store_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F9F9F9"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/united_state"
+                    app:riv_corner_radius_top_left="@dimen/_10sdp"
+                    app:riv_corner_radius_top_right="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/shape_rounded_grey_strokeee"
+                    android:gravity="center"
+                    android:orientation="vertical"
+
+                    >
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:id="@+id/store_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="10.00"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/_8ssp" />
+
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:id="@+id/km_mr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/km"
+                        android:textSize="6sp" />
+
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </FrameLayout>
+
+
+
+
+
+
+
 
         <LinearLayout
             android:gravity="center_vertical"
             android:paddingStart="15dp"
             android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_15sdp"
+            >
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:textSize="@dimen/_10ssp"
+                android:gravity="center_vertical"
                 android:paddingStart="2dp"
                 android:ellipsize="end"
                 android:maxLength="40"
                 android:maxLines="1"
                 android:textAlignment="viewStart"
                 android:id="@+id/store_name"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="-5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"/>
 
-            <TextView
-                android:layout_marginTop="6dp"
-                android:paddingStart="2dp"
-                android:ellipsize="end"
-                android:maxLength="50"
-                android:maxLines="1"
-                android:textAlignment="viewStart"
-                android:id="@+id/store_location"
-                android:textSize="12sp"
-                android:textColor="@color/colorTextHint"
+            <LinearLayout
+                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/pinn"/>
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:textSize="@dimen/_10ssp"
+                    android:paddingStart="2dp"
+                    android:ellipsize="end"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:textAlignment="viewStart"
+                    android:id="@+id/store_location"
+                    android:textColor="@color/colorTextHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -64,24 +154,168 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:maxLength="6"
-                android:maxLines="1"
-                android:id="@+id/store_distance"
-                android:textSize="16sp"
-                android:textColor="@color/colorBlue"
-                android:layout_marginTop="8dp"
-                android:text=""
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/km_mr"
-                android:layout_marginTop="3dp"
-                android:textSize="14sp"
-                android:text="@string/km"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            >
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:visibility="visible"
+                android:id="@+id/layout_horizontal"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:layout_width="@dimen/_135sdp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btngrey22"
+                android:layout_gravity="center"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_110sdp"
+                    android:background="@color/colorWhite"
+                    >
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:visibility="visible"
+                        android:scaleType="fitXY"
+                        android:id="@+id/store_img_hori"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#F9F9F9"
+                        android:paddingBottom="@dimen/_10sdp"/>
+
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_15sdp"
+
+                    android:layout_marginStart="@dimen/_3sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        >
+
+                        <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:gravity="center_vertical"
+                            android:paddingStart="2dp"
+                            android:ellipsize="end"
+                            android:maxLength="40"
+                            android:textSize="@dimen/_10ssp"
+                            android:text="tag elsham"
+                            android:maxLines="1"
+                            android:textAlignment="viewStart"
+                            android:id="@+id/store_name_hori"
+                            android:layout_width="@dimen/_75sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            >
+
+                            <TextView
+                                android:fontFamily="@font/cairo_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10.00"
+                                android:textSize="@dimen/_8ssp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/orange"
+                                android:id="@+id/store_distance_hori"
+                                />
+
+
+                            <TextView
+                                android:fontFamily="@font/cairo_regular"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:id="@+id/km_mr_hori"
+                                android:textSize="@dimen/_6ssp"
+                                android:text="@string/km"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/pinn"/>
+
+                        <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:paddingStart="2dp"
+                            android:ellipsize="end"
+                            android:maxLength="50"
+                            android:maxLines="1"
+                            android:textAlignment="viewStart"
+                            android:id="@+id/store_location_hori"
+                            android:textSize="@dimen/_6ssp"
+                            android:textColor="@color/colorTextHint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_2sdp"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginEnd="15dp"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.uriallab.haat.haat.viewModels;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -44,6 +45,7 @@ import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 import com.uriallab.haat.haat.UI.Activities.AddOfferActivity;
 import com.uriallab.haat.haat.UI.Activities.SentSuccessfullyActivity;
+import com.uriallab.haat.haat.UI.MainActivity;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
@@ -176,13 +178,32 @@ public class AddOfferViewModel {
                 public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
                     Log.e("response", responseString);
 
-                    Bundle bundle = new Bundle();
+                    activity.binding.cancelClick.setVisibility(View.VISIBLE);
+                    activity.binding.offerSent.setVisibility(View.VISIBLE);
+                    activity.binding.edtPrice.setClickable(false);
+                    activity.binding.edtPrice.setFocusable(false);
+                    activity.binding.clickSend.setClickable(false);
+                    activity.binding.lin1.setClickable(false);
+                    activity.binding.cancelOrder.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            cancelOffer();
+                        }
+                    });
+                    activity.binding.home.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            homePage();
+                        }
+                    });
+
+                 /*   Bundle bundle = new Bundle();
                     bundle.putInt("sentType", 2);
                     bundle.putString("orderId", orderId);
                     bundle.putString("clientId", clientId);
                     IntentClass.goToActivity(activity, SentSuccessfullyActivity.class, bundle);
 
-                    activity.finish();
+                    activity.finish();*/
                 }
 
                 @Override
@@ -199,6 +220,14 @@ public class AddOfferViewModel {
             });
         }
     }
+
+    public void homePage() {
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("isHome", true);
+        activity.startActivity(intent);
+    }
+
 
     public TextWatcher getSearchText() {
         return new TextWatcher() {
@@ -306,8 +335,8 @@ public class AddOfferViewModel {
             if (polyz != null) {
                 PolylineOptions lineOptions = new PolylineOptions();
                 lineOptions.addAll(polyz);
-                lineOptions.width(5);
-                lineOptions.color(ContextCompat.getColor(activity, R.color.colorMoov));
+                lineOptions.width(15);
+                lineOptions.color(ContextCompat.getColor(activity, R.color.orange2));
                 activity.mMap.addPolyline(lineOptions);
             }
 
@@ -463,4 +492,77 @@ public class AddOfferViewModel {
         customMarkerView.draw(canvas);
         return returnedBitmap;
     }
+
+    public void cancelOffer() {
+
+        final LoadingDialog loadingDialog = new LoadingDialog();
+
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("Order_ID", orderId);
+            jsonParams.put("Client_ID", clientId);
+            jsonParams.put("Driver_ID", LoginSession.getUserData(activity).getResult().getUserData().getUserUID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        APIModel.postMethod(activity, "Driver/RemoveOrderOffer", jsonParams, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+                Log.e("response", responseString + "Error");
+                switch (statusCode) {
+                    case 401:
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseString);
+                            if (jsonObject.getJSONObject("error").has("message"))
+                                Utilities.toastyError(activity, jsonObject.getJSONObject("error").getString("Message"));
+                            else
+                                Utilities.toastyError(activity, responseString + "    ");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case 400:
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseString);
+                            if (jsonObject.getJSONObject("error").has("message"))
+                                Utilities.toastyError(activity, jsonObject.getJSONObject("error").getString("Message"));
+                            else
+                                Utilities.toastyError(activity, responseString + "  ");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    default:
+                        APIModel.handleFailure(activity, statusCode, responseString, new APIModel.RefreshTokenListener() {
+                            @Override
+                            public void onRefresh() {
+                                cancelOffer();
+                            }
+                        });
+                        break;
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
+                Log.e("response", responseString);
+                GlobalVariables.FINISH_ACTIVITY_3 = true;
+                activity.finish();
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                Dialogs.showLoading(activity, loadingDialog);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Dialogs.dismissLoading(loadingDialog);
+            }
+        });
+    }
+
 }

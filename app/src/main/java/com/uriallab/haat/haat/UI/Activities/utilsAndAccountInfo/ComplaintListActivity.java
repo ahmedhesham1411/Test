@@ -33,7 +33,7 @@ public class ComplaintListActivity extends AppCompatActivity {
     }
 
     public void initRecycler(List<ComplaintModel.ResultBean.ComplaintsBean> complaintList) {
-        ComplaintAdapter complaintAdapter = new ComplaintAdapter(this, complaintList);
+        ComplaintAdapter complaintAdapter = new ComplaintAdapter(this, complaintList,binding.recyclerComplaint);
         binding.recyclerComplaint.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerComplaint.setAdapter(complaintAdapter);
         Utilities.runAnimation(binding.recyclerComplaint, 1);

@@ -5,14 +5,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorDarkGrey">
 
         <LinearLayout
             android:layout_alignParentTop="true"
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -26,21 +26,21 @@
                 <ImageView
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/app_language"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -57,12 +57,115 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp"
+                android:id="@+id/arabic_layout"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/egypt"
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/egypt"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/egypt"
+                    android:text="@string/lang"
+                    android:textSize="16dp"
+                    android:id="@+id/egypt_lang"
+                    android:layout_marginStart="15dp"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/check_mark"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/check_egypt"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@id/check_egypt"
+                    android:layout_toEndOf="@id/egypt_lang"
+                    android:id="@+id/txteg"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/english_layout">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/united_state"
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/u_state"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/u_state"
+                    android:text="@string/u_state_lang"
+                    android:textSize="16dp"
+                    android:id="@+id/ustate_lang"
+                    android:layout_marginStart="15dp"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/check_mark"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/check_ustate"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@id/check_ustate"
+                    android:layout_toEndOf="@id/ustate_lang"
+                    android:id="@+id/txtus"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
         <RadioGroup
             android:orientation="vertical"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <RadioButton
                 android:id="@+id/arabic_button"

@@ -105,6 +105,10 @@ public class DeliveringTimeViewModel {
         activity.confirmTime();
     }
 
+    public void confirmTime2() {
+        activity.no();
+    }
+
     public void back() {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("time", "none");

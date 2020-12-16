@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBlue"
+        android:background="@color/white"
         tools:context="com.uriallab.haat.haat.UI.Activities.makeOrder.DelivieringLocationActivity">
 
         <LinearLayout
@@ -22,7 +22,7 @@
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
+            android:background="@color/white"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -38,21 +38,21 @@
                     android:rotation="@{dLocationVM.rotate}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/detect_delivering_location"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -68,26 +68,75 @@
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_above="@id/next_btn"
-            android:layout_marginBottom="120dp"
-            android:layout_below="@id/lin1"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_below="@id/lin1"
+            android:layout_above="@id/next_btn"
+            >
 
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+
+
+
+            <FrameLayout
+                android:layout_marginBottom="120dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_gravity="center"
-                android:background="@drawable/pin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
-        </FrameLayout>
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:background="@drawable/pin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:background="@drawable/btngrey"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/search_linear"
+                    android:layout_width="@dimen/_250sdp"
+                    android:gravity="center"
+                    android:layout_height="@dimen/_30sdp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/_10sdp">
+
+                    <TextView
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_width="@dimen/_210sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:fontFamily="@font/cairo_regular"
+                        android:hint="@string/search_other"
+                        android:textSize="@dimen/_10ssp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        app:srcCompat="@drawable/ic_baseline_search_24"
+                        android:layout_marginEnd="@dimen/_10sdp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
 
 
         <LinearLayout
@@ -114,11 +163,12 @@
                     <ImageView
                         android:layout_marginStart="10dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/pin_blue"
+                        android:background="@drawable/pin"
                         android:layout_width="14dp"
                         android:layout_height="24dp"/>
 
                     <TextView
+                        android:fontFamily="@font/cairo_regular"
                         android:singleLine="true"
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
@@ -152,6 +202,8 @@
             </LinearLayout>
 
             <TextView
+                android:visibility="gone"
+                android:fontFamily="@font/cairo_regular"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="20dp"
                 android:text="@string/additional_info"
@@ -167,9 +219,12 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/cairo_regular"
                     android:id="@+id/additional_txt"
                     android:textAlignment="viewStart"
-                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:textColor="@color/colorTextHint"
+                    android:background="@android:color/transparent"
                     android:hint="@string/floor_unit"
                     android:gravity="center_vertical"
                     android:paddingStart="10dp"
@@ -181,6 +236,8 @@
         </LinearLayout>
 
         <Button
+            android:layout_marginTop="@dimen/_15sdp"
+            android:fontFamily="@font/cairo_regular"
             android:onClick="@{()->dLocationVM.confirmLocation()}"
             android:layout_alignParentBottom="true"
             android:clickable="true"
@@ -188,13 +245,16 @@
             android:id="@+id/next_btn"
             android:gravity="center"
             android:textAllCaps="false"
-            android:text="@string/delivering_location_confirm"
+            android:text="@string/next"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorBlue"
+            android:background="@color/colorGreen2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_15sdp"/>
 
     </RelativeLayout>
 </layout>

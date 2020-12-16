@@ -17,6 +17,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:textStyle="normal"
             android:hint="@string/app_name"
             android:id="@+id/store_name"
@@ -28,6 +29,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:textSize="13sp"
             android:textStyle="normal"
             android:lineSpacingExtra="-5dp"

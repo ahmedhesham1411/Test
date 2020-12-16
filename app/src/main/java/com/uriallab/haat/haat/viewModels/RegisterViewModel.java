@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.DatePicker;
 
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -62,6 +63,7 @@ public class RegisterViewModel {
     public List<String> regionIdList = new ArrayList<>();
     public List<String> cityList = new ArrayList<>();
     public List<String> cityIdList = new ArrayList<>();
+    public ObservableInt rotation = new ObservableInt(0);
 
     public RegisterViewModel(RegisterActivity activity, String phone) {
         this.activity = activity;
@@ -75,6 +77,10 @@ public class RegisterViewModel {
         if (validate())
             registerRequest();
 
+    }
+
+    public void back() {
+        activity.finish();
     }
 
     private void registerRequest() {

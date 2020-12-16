@@ -246,6 +246,9 @@ public class MakeOrderStepTwoViewModel {
         }
     }
 
+    void ahmed(){
+        IntentClass.goToStartForResult(activity, DelivieringLocationActivity.class, 111, null);
+    }
     public void deliveringLocation(int type) {
         if (type == 1)
             IntentClass.goToStartForResult(activity, DelivieringLocationActivity.class, 111, null);
@@ -405,8 +408,8 @@ public class MakeOrderStepTwoViewModel {
             if (polyz != null) {
                 PolylineOptions lineOptions = new PolylineOptions();
                 lineOptions.addAll(polyz);
-                lineOptions.width(5);
-                lineOptions.color(ContextCompat.getColor(activity, R.color.colorMoov));
+                lineOptions.width(10);
+                lineOptions.color(ContextCompat.getColor(activity, R.color.orange2));
                 activity.mMap.addPolyline(lineOptions);
             }
 

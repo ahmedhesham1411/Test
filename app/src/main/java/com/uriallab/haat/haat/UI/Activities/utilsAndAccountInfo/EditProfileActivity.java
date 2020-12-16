@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SpinnerAdapter;
 
 import com.squareup.picasso.Picasso;
 import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.LoginSession;
+import com.uriallab.haat.haat.UI.Adapters.SpinnerAdapterCountries;
 import com.uriallab.haat.haat.Utilities.RealPathUtil;
 import com.uriallab.haat.haat.Utilities.camera.Camera;
 import com.uriallab.haat.haat.databinding.ActivityEditProfileBinding;
@@ -34,6 +36,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private EditProfileViewModel viewModel;
     private ActivityEditProfileBinding binding;
+    String[] textArray = { "+966", "+20"};
+    Integer[] imageArray = { R.drawable.saudi, R.drawable.egyptt};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,9 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        SpinnerAdapterCountries spinnerAdapterCountries = new SpinnerAdapterCountries(this, R.layout.countries_layout, textArray, imageArray);
+        binding.countrySpinner.setAdapter(spinnerAdapterCountries);
 
         if (LoginSession.getUserData(this).getResult().getUserData().getUser_GenderID() == 1)
             binding.genderSpinner.setSelection(1);
@@ -136,13 +143,17 @@ public class EditProfileActivity extends AppCompatActivity {
         binding.arrowName.setImageResource(R.drawable.edit);
         binding.arrowEmail.setImageResource(R.drawable.edit);
         //binding.arrowPhone.setImageResource(R.drawable.edit);
-        binding.arrowBirthday.setImageResource(R.drawable.edit);
+        //binding.arrowBirthday.setImageResource(R.drawable.edit);
         binding.spinnerArrow.setImageResource(R.drawable.arrow_left);
-       // binding.profileImg.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+        binding.spinnerArrow1.setImageResource(R.drawable.arrow_left);
+
+        // binding.profileImg.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
         binding.arrowName.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
         binding.arrowEmail.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
         //binding.arrowPhone.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
-        binding.arrowBirthday.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+        //binding.arrowBirthday.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
         binding.spinnerArrow.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+        binding.spinnerArrow1.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+
     }
 }

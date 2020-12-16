@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:id="@+id/upload_item"
+        android:title="@string/recieved" />
+
+    <item android:id="@+id/search_item"
+        android:title="@string/send_complaint" />
+
+</menu>

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/shape_rounded_white"
+    android:background="@color/colorDarkGrey"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minWidth="300dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/cairo_regular"
+        android:textColor="@color/colorBlack"
         android:textSize="16sp"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@drawable/shape_rounded_blue_corner_4"
         android:text="@string/payment_method"/>
 
     <TextView
+        android:fontFamily="@font/cairo_regular"
         android:rotation="180"
         android:layout_width="match_parent"
         android:layout_height="5dp"
@@ -33,6 +34,7 @@
         android:layout_height="50dp">
 
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:layout_marginEnd="20dp"
             android:layout_gravity="center_vertical"
             android:text="@string/payment_method_"
@@ -46,6 +48,7 @@
             android:layout_height="40dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/cash_id"
                 android:background="@drawable/shape_rounded_blue_right"
                 android:textColor="@color/colorWhite"
@@ -57,9 +60,10 @@
                 android:layout_height="match_parent"/>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/visa_id"
                 android:background="@drawable/shape_grey_stroke_blue_right"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorGreen2"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:text="@string/visa"
@@ -72,18 +76,19 @@
     </LinearLayout>
 
     <Button
+        android:fontFamily="@font/cairo_regular"
         android:textAllCaps="false"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:id="@+id/pay_btn"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="@string/pay"
         android:textColor="@color/colorWhite"
-        android:background="@drawable/shape_rounded_blue"
+        android:background="@drawable/shape_rounded_green_corner_4"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 

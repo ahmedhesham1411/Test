@@ -3,6 +3,7 @@ package com.uriallab.haat.haat.viewModels;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,6 +17,7 @@ import com.uriallab.haat.haat.UI.Fragments.NewJourneyFragment;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 import com.uriallab.haat.haat.Utilities.Utilities;
+import com.uriallab.hathat.FinishedJournies;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,12 +31,15 @@ import androidx.fragment.app.FragmentTransaction;
 
 import static com.uriallab.haat.haat.Utilities.GlobalVariables.ACTIVE_JOURNEY_FRAGMENT_ID;
 import static com.uriallab.haat.haat.Utilities.GlobalVariables.ACTIVE_ORDERS_FRAGMENT_TAG;
+import static com.uriallab.haat.haat.Utilities.GlobalVariables.Finished_JOURNEY_FRAGMENT_ID;
 import static com.uriallab.haat.haat.Utilities.GlobalVariables.NEW_JOURNEY_FRAGMENT_ID;
 import static com.uriallab.haat.haat.Utilities.GlobalVariables.NEW_JOURNEY_FRAGMENT_TAG;
 
 public class JourniesViewModel {
 
-    public ObservableBoolean isFinished = new ObservableBoolean(false);
+    public ObservableBoolean isNew = new ObservableBoolean(true);
+    public ObservableBoolean isFinish = new ObservableBoolean(false);
+    public ObservableBoolean isActive = new ObservableBoolean(false);
 
     private String selectedFragmentTag;
 
@@ -64,10 +69,20 @@ public class JourniesViewModel {
     public void orderTabClick(int type) {
         if (type == 1) {
             pushFragment(NEW_JOURNEY_FRAGMENT_ID);
-            isFinished.set(false);
-        } else {
+            isNew.set(true);
+            isActive.set(false);
+            isFinish.set(false);
+        } else if (type == 2){
             pushFragment(ACTIVE_JOURNEY_FRAGMENT_ID);
-            isFinished.set(true);
+            isNew.set(false);
+            isActive.set(true);
+            isFinish.set(false);
+        }
+        else if (type == 3){
+            pushFragment(Finished_JOURNEY_FRAGMENT_ID);
+            isNew.set(false);
+            isActive.set(false);
+            isFinish.set(true);
         }
     }
 
@@ -88,6 +103,10 @@ public class JourniesViewModel {
             case ACTIVE_JOURNEY_FRAGMENT_ID:
                 tag = ACTIVE_ORDERS_FRAGMENT_TAG;
                 fragment = new ActiveJourneyFragment();
+                break;
+            case Finished_JOURNEY_FRAGMENT_ID:
+                tag = ACTIVE_ORDERS_FRAGMENT_TAG;
+                fragment = new FinishedJournies();
                 break;
             default:
                 try {
@@ -134,22 +153,35 @@ public class JourniesViewModel {
                 }.getType();
                 IsActiveModel data = new Gson().fromJson(responseString, dataType);
 
-                if (data.getResult().isIsActive())
-                    fragment.binding.switchView.setChecked(true);
-                else
-                    fragment.binding.switchView.setChecked(false);
+                if (data.getResult().isIsActive()){
+                    try {
+                        fragment.binding.switchView.setChecked(true);
+                        fragment.binding.stopNotiLayout.setVisibility(View.VISIBLE);
+                        fragment.binding.openNotiLayout.setVisibility(View.GONE);
+                    }catch (Exception e){}
+
+                }
+                else{
+                    try {
+                        fragment.binding.switchView.setChecked(false);
+                        fragment.binding.openNotiLayout.setVisibility(View.VISIBLE);
+                        fragment.binding.stopNotiLayout.setVisibility(View.GONE);
+                    }catch (Exception e){}
+
+
+                }
             }
 
             @Override
             public void onStart() {
                 super.onStart();
-                Dialogs.showLoading(activity, loadingDialog);
+                //Dialogs.showLoading(activity, loadingDialog);
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                Dialogs.dismissLoading(loadingDialog);
+                //Dialogs.dismissLoading(loadingDialog);
             }
         });
     }
@@ -205,7 +237,7 @@ public class JourniesViewModel {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
                 Log.e("response", responseString);
-
+                Dialogs.dismissLoading(loadingDialog);
                 fragment.startService();
             }
 
@@ -218,7 +250,7 @@ public class JourniesViewModel {
             @Override
             public void onFinish() {
                 super.onFinish();
-                Dialogs.dismissLoading(loadingDialog);
+                //Dialogs.dismissLoading(loadingDialog);
             }
         });
     }

@@ -10,7 +10,7 @@
     </data>
 
     <LinearLayout
-        android:background="@color/colorWhite"
+        android:background="@color/colorDarkGrey"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -20,7 +20,6 @@
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -36,21 +35,21 @@
                     android:rotation="@{settingVM.rotation}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/setting"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -67,13 +66,14 @@
         </LinearLayout>
 
         <TextView
+            android:visibility="gone"
             android:text="@string/setting_"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:textColor="@color/colorBlue"
+            android:textColor="@color/colorGreen2"
             android:textAlignment="viewStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -87,6 +87,7 @@
             android:layout_height="50dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:textAlignment="viewStart"
                 android:layout_marginStart="35dp"
                 android:gravity="center_vertical"
@@ -106,49 +107,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <TextView
-                android:textAlignment="viewStart"
-                android:layout_marginStart="35dp"
-                android:gravity="center_vertical"
-                android:text="@string/copouns"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent" />
-
-            <LinearLayout
-                android:onClick="@{()->settingVM.addCoupon()}"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_rounded_stroke_blue"
-                android:gravity="center"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal"
-                android:layout_width="100dp"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
-                    android:text="@string/add_copoun"
-                    android:textColor="@color/colorBlue"
-                    android:textSize="12sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <ImageView
-                    android:id="@+id/add_coupon"
-                    android:layout_marginStart="5dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
         <LinearLayout
             android:onClick="@{()->settingVM.appLanguage()}"
@@ -159,6 +117,7 @@
             android:layout_height="50dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:textAlignment="viewStart"
                 android:layout_marginStart="35dp"
                 android:gravity="center_vertical"
@@ -187,6 +146,7 @@
             android:layout_height="50dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:textAlignment="viewStart"
                 android:layout_marginStart="35dp"
                 android:gravity="center_vertical"
@@ -215,6 +175,7 @@
             android:layout_height="50dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:textAlignment="viewStart"
                 android:layout_marginStart="35dp"
                 android:gravity="center_vertical"
@@ -242,6 +203,7 @@
             android:layout_height="50dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:textAlignment="viewStart"
                 android:layout_marginStart="35dp"
                 android:gravity="center_vertical"
@@ -269,6 +231,7 @@
             android:layout_height="50dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:textAlignment="viewStart"
                 android:layout_marginStart="35dp"
                 android:gravity="center_vertical"
@@ -287,19 +250,81 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/copouns"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:onClick="@{()->settingVM.addCoupon()}"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:layout_width="100dp"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="@string/add_copoun"
+                    android:textColor="@color/colorr"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/add_coupon"
+                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:visibility="@{settingVM.isDriver? View.GONE : View.VISIBLE}"
             android:text="@string/help"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:textStyle="bold"
             android:textSize="22sp"
-            android:textColor="@color/colorBlue"
+            android:textColor="@color/colorr"
             android:textAlignment="viewStart"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            />
 
-        <LinearLayout
+        <TextView
+            android:fontFamily="@font/cairo_regular"
+            android:visibility="gone"
+            android:text="@string/help"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/colorr"
+            android:textAlignment="viewStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+
+       <LinearLayout
             android:visibility="@{settingVM.isDriver? View.GONE : View.VISIBLE}"
             android:onClick="@{()->settingVM.howToWork()}"
             android:clickable="true"
@@ -309,6 +334,30 @@
             android:layout_height="40dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:textAlignment="viewStart"
+                android:layout_marginStart="35dp"
+                android:gravity="center_vertical"
+                android:text="@string/how_i_work_in_hat"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:visibility="gone"
+            android:onClick="@{()->settingVM.howToWork()}"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:textAlignment="viewStart"
                 android:layout_marginStart="35dp"
                 android:gravity="center_vertical"

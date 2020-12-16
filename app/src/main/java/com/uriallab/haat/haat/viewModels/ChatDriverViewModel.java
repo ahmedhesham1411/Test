@@ -2,6 +2,8 @@ package com.uriallab.haat.haat.viewModels;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
@@ -23,6 +26,8 @@ import androidx.databinding.ObservableInt;
 import androidx.lifecycle.ViewModel;
 
 import com.eugeneek.smilebar.SmileBar;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -36,6 +41,7 @@ import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Activities.ChatDriverActivity;
 import com.uriallab.haat.haat.UI.Activities.CreateInvoiceActivity;
+import com.uriallab.haat.haat.UI.Fragments.RateBottomSheet;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
@@ -79,7 +85,7 @@ public class ChatDriverViewModel extends ViewModel {
         this.activity = activity;
         this.orderId = orderId;
 
-        orderNumber.set(activity.getString(R.string.order_number) + " \n" + orderId);
+        orderNumber.set(activity.getString(R.string.order_number) + " " + orderId);
 
         if (ConfigurationFile.getCurrentLanguage(activity).equals("ar")) {
             activity.binding.backImg.setRotation(180);
@@ -214,10 +220,12 @@ public class ChatDriverViewModel extends ViewModel {
                     e.printStackTrace();
                 }
 
+                Saveimg(activity,APIModel.BASE_URL + data.getResult().getUserData().getUser_ImgUrl());
                 Picasso.get().load(APIModel.BASE_URL + data.getResult().getUserData().getUser_ImgUrl()).placeholder(R.drawable.user_img).into(activity.binding.orderImg);
                 activity.binding.driverName.setText(data.getResult().getUserData().getUser_Full_Nm());
                 activity.binding.ratesNumberVal.setText(String.valueOf(data.getResult().getUserData().getUser_Count_Rate()));
                 activity.binding.starBar.setRating(data.getResult().getUserData().getUser_Rate());
+                activity.binding.storeName.setText(data.getResult().getOrder().getOrd_Shop_Nm());
 
                 price = data.getResult().getOrder().getFinal_Amt();
 
@@ -364,7 +372,20 @@ public class ChatDriverViewModel extends ViewModel {
     }
 
     private void rate() {
-        dialog = new Dialog(activity);
+/*        View contentView = View.inflate(activity, R.layout.custom_alert_dialog_rate, null);
+        dialog.setContentView(contentView);
+
+        dialog.setOnShowListener(dialog1 -> {
+            BottomSheetDialog d = (BottomSheetDialog) dialog1;
+
+            FrameLayout bottomSheet = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+        });*/
+
+        RateBottomSheet rateBottomSheet = new RateBottomSheet(activity,userName,APIModel.BASE_URL + userImgUrl,userId);
+        rateBottomSheet.show(activity.getSupportFragmentManager(), "tag");
+
+    /*    dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_alert_dialog_rate);
         dialog.setCanceledOnTouchOutside(false);
@@ -388,7 +409,7 @@ public class ChatDriverViewModel extends ViewModel {
                 sendRate(comment_edt.getText().toString(), starBar.getRating());
             }
         });
-        dialog.show();
+        dialog.show();*/
     }
 
     public void sendOrderImg(final String img) {
@@ -567,4 +588,12 @@ public class ChatDriverViewModel extends ViewModel {
         Utilities.hideKeyboard(activity);
         activity.finish();
     }
+
+    public static void Saveimg(Context context, String url){
+        SharedPreferences pref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("imageurl", url);
+        editor.commit();
+    }
+
 }

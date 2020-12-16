@@ -11,15 +11,127 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@color/colorWhite"
+        android:background="@color/colorDarkGrey"
         android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="30dp"
             tools:context="com.uriallab.haat.haat.UI.Activities.Auth.RegisterActivity">
+
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="24dp"
+                android:elevation="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:id="@+id/frame_back"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:onClick="@{()->registerVM.back()}">
+
+                    <ImageView
+                        android:id="@+id/back_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                        android:rotation="@{registerVM.rotation}" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:id="@+id/store_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="@string/new_account"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/order_number"
+                        android:textColor="@color/colorWhite" />
+
+                    <TextView
+                        android:id="@+id/order_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-5dp"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/logo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="92dp"
+                android:src="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:id="@+id/email_txtaaa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="44dp"
+                android:text="@string/welcome"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+            <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/please_enter_info"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorTextHint2"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_txtaaa" />
+
 
             <TextView
                 android:id="@+id/register_welcome_txt"
@@ -32,22 +144,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
 
             <TextView
                 android:id="@+id/name_txt"
                 android:text="@string/name"
                 android:textColor="@color/colorBlack"
-                android:layout_marginTop="40dp"
-                app:layout_constraintTop_toBottomOf="@+id/register_welcome_txt"
+                android:layout_marginTop="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/email_txtaaa"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
             <EditText
+                android:fontFamily="@font/cairo_regular"
+                android:textSize="14sp"
                 app:fontFamily="@font/cairo_regular"
                 android:text="@={registerVM.userNameObservable}"
                 app:error="@{registerVM.userNameError}"
@@ -56,15 +172,16 @@
                 android:hint="@string/enter_full_name"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape_rounded_dark_grey"
-                app:layout_constraintTop_toBottomOf="@id/name_txt"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn1"
+                app:layout_constraintTop_toBottomOf="@id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                />
 
             <TextView
                 android:id="@+id/email_txt"
@@ -76,9 +193,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
             <EditText
+                android:fontFamily="@font/cairo_regular"
+                android:textSize="14sp"
                 android:text="@={registerVM.emailObservable}"
                 app:error="@{registerVM.emailError}"
                 android:id="@+id/email_edt"
@@ -87,11 +207,11 @@
                 android:hint="@string/enter_email"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape_rounded_dark_grey"
-                app:layout_constraintTop_toBottomOf="@id/email_txt"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn1"
+                app:layout_constraintTop_toBottomOf="@id/name_edt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="match_parent"
@@ -141,28 +261,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
             <RelativeLayout
                 android:orientation="horizontal"
                 android:id="@+id/spinner_lin_region"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape_rounded_dark_grey"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn1"
                 app:layout_constraintTop_toBottomOf="@id/region_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <Spinner
+                    android:textSize="14sp"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/region_spinner"
                     android:textAlignment="viewStart"
                     android:hint="@string/please_choose_region"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:background="@drawable/btn1"
                     android:layout_width="match_parent"
                     android:layout_height="36dp" />
 
@@ -179,6 +301,7 @@
             </RelativeLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/city_txt"
                 android:text="@string/city"
                 android:textColor="@color/colorBlack"
@@ -188,28 +311,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
             <RelativeLayout
                 android:orientation="horizontal"
                 android:id="@+id/spinner_lin_city"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape_rounded_dark_grey"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn1"
                 app:layout_constraintTop_toBottomOf="@id/city_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <Spinner
+                    android:textSize="14sp"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/city_spinner"
                     android:textAlignment="viewStart"
                     android:hint="@string/please_choose_city"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:background="@drawable/btn1"
                     android:layout_width="match_parent"
                     android:layout_height="36dp" />
 
@@ -226,6 +351,7 @@
             </RelativeLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/gender_txt"
                 android:text="@string/gender"
                 android:textColor="@color/colorBlack"
@@ -235,28 +361,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
             <RelativeLayout
                 android:orientation="horizontal"
                 android:id="@+id/spinner_lin"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape_rounded_dark_grey"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn1"
                 app:layout_constraintTop_toBottomOf="@id/gender_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <Spinner
+                    android:textSize="14sp"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/gender_spinner"
                     android:textAlignment="viewStart"
                     android:hint="@string/choose_gender"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:background="@drawable/btn1"
                     android:layout_width="match_parent"
                     android:layout_height="36dp" />
 
@@ -273,6 +401,7 @@
             </RelativeLayout>
 
             <Button
+                android:fontFamily="@font/cairo_regular"
                 android:onClick="@{()->registerVM.register()}"
                 android:textAllCaps="false"
                 android:clickable="true"
@@ -283,9 +412,9 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="50dp"
                 android:gravity="center"
-                android:text="@string/app_name_2"
+                android:text="@string/confirm"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/shape_rounded_blue"
+                android:background="@drawable/shape_rounded_green_corner_4"
                 app:layout_constraintTop_toBottomOf="@id/spinner_lin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

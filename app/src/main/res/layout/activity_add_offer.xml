@@ -14,14 +14,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite">
+        android:background="@color/colorDarkGrey"
+        >
 
         <LinearLayout
             android:layout_alignParentTop="true"
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -37,21 +37,21 @@
                     android:rotation="@{addOfferVM.rotate}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/send_offer"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -70,7 +70,8 @@
         <FrameLayout
             android:layout_below="@id/lin1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <fragment
                 android:id="@+id/map"
@@ -80,7 +81,9 @@
 
         </FrameLayout>
 
+<!--
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="gone"
             android:orientation="vertical"
             android:background="@android:color/transparent"
             android:layout_alignParentBottom="true"
@@ -97,7 +100,8 @@
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/shape_rounded_white"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_marginTop="10dp"
@@ -185,7 +189,7 @@
                         android:text=""
                         android:textSize="12sp"
                         android:gravity="center"
-                        android:background="@drawable/shape_rounded_blue"
+                        android:background="@drawable/btngreen"
                         android:layout_width="90dp"
                         android:layout_height="30dp"/>
 
@@ -202,7 +206,7 @@
                         android:text=""
                         android:textSize="12sp"
                         android:gravity="center"
-                        android:background="@drawable/shape_rounded_blue"
+                        android:background="@drawable/btngreen"
                         android:layout_width="90dp"
                         android:layout_height="30dp"/>
 
@@ -268,14 +272,17 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:id="@+id/send_offer"
                     android:textColor="@color/colorWhite"
-                    android:background="@color/colorBlue"
+                    android:background="@drawable/btngreen"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:text="@string/send_offer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"/>
+                    android:layout_height="35dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="30dp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -287,18 +294,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@drawable/circle_white"
                 android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:visibility="gone">
                 <FrameLayout
                     android:layout_gravity="center"
-                    android:background="@drawable/circle_blue"
+                    android:background="@drawable/circle_grey"
                     android:layout_width="45dp"
                     android:layout_height="45dp">
 
                     <ImageView
-                        android:background="@drawable/location"
+                        android:background="@drawable/locationicon"
                         android:layout_gravity="center"
-                        android:layout_width="16dp"
-                        android:layout_height="22dp"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                 </FrameLayout>
             </FrameLayout>
@@ -309,20 +317,19 @@
                 android:layout_marginEnd="80dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:background="@drawable/circle_white"
                 android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:visibility="gone">
                 <FrameLayout
                     android:layout_gravity="center"
-                    android:background="@drawable/circle_blue"
                     android:layout_width="45dp"
                     android:layout_height="45dp">
 
                     <ImageView
-                        android:background="@drawable/location"
+                        android:background="@drawable/locationicon"
                         android:layout_gravity="center"
-                        android:layout_width="16dp"
-                        android:layout_height="22dp"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                 </FrameLayout>
             </FrameLayout>
@@ -334,9 +341,346 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:background="@color/colorTextHint"
                 android:layout_width="1dp"
-                android:layout_height="80dp"/>
+                android:layout_height="80dp"
+                android:visibility="gone"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bottom_sheet_background"
+            android:clickable="false">
+
+            <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send_offer"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorTextHint" />
+
+
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_lock_24"/>
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"/>
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_home_24"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/point"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorBlack"/>
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:id="@+id/location_from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/point2"
+                        android:textSize="12sp"
+                        android:textColor="@color/colorTextHint2"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:id="@+id/distance_from"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorGreen2"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/point3"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorBlack"/>
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:id="@+id/location_to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/point2"
+                        android:textSize="12sp"
+                        android:textColor="@color/colorTextHint2"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:id="@+id/distance_to"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorGreen2"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/btngrey"
+                android:orientation="horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/noun_price"
+                    android:layout_marginStart="10dp"/>
+                
+                <LinearLayout
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorTextHint"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+
+
+
+                <EditText
+                    android:fontFamily="@font/cairo_regular"
+                    android:background="@null"
+                    app:addTextChangedListener="@{addOfferVM.getSearchText()}"
+                    android:id="@+id/edt_price"
+                    android:hint="@string/_10_20"
+                    android:layout_marginStart="10dp"
+                    android:textColorHint="@color/colorTextHint"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789"
+                    android:textColor="@color/colorBlack"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <Button
+                android:fontFamily="@font/cairo_regular"
+                android:id="@+id/click_send"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_rounded_green_corner_4"
+                android:text="@string/send_offer"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:onClick="@{()->addOfferVM.sendOffer()}"
+                android:clickable="true"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cancel_click"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:id="@+id/offer_sent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_100sdp"
+            android:layout_marginBottom="@dimen/_100sdp"
+            android:visibility="gone"
+            android:gravity="center"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.8"
+                android:background="@drawable/round_black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/noun_loading" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_15ssp"
+                    android:fontFamily="@font/cairo_regular"
+                    android:gravity="center"
+                    android:text="فى انتظار قبول العميل"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_16ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_15ssp"
+                    android:fontFamily="@font/cairo_regular"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:text="طلبك تم ارساله بنجاح , سوف يقوم مندوبنا بارسال عروض التوصيل بعد قليل , و عليك اختيار العرض الانسب لك , الطلب لن يبدأ حتى تقوم باختيار احد العروض "
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_12ssp" />
+
+                <Button
+                    android:id="@+id/cancel_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:background="@drawable/btn"
+                    android:fontFamily="@font/cairo_regular"
+                    android:text="@string/cancel_offer"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_14ssp" />
+
+                <Button
+                    android:id="@+id/home"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:background="@drawable/shape_rounded_green_corner_4"
+                    android:fontFamily="@font/cairo_regular"
+                    android:text="الرئيسية"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_14ssp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 </layout>

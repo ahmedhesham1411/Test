@@ -11,14 +11,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorDarkGrey">
 
         <LinearLayout
             android:layout_alignParentTop="true"
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -34,13 +34,14 @@
                     android:rotation="@{termsVM.rotation}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
@@ -48,8 +49,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/register_as_captain"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
             <FrameLayout
@@ -77,7 +78,8 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:textSize="30sp"
+                    android:fontFamily="@font/cairo_regular"
+                    android:textSize="@dimen/_16ssp"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
                     android:layout_marginTop="30dp"
@@ -87,6 +89,8 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:textSize="@dimen/_12ssp"
+                    android:fontFamily="@font/cairo_regular"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="16dp"
@@ -98,10 +102,12 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:textSize="30sp"
+                    android:fontFamily="@font/cairo_regular"
+                    android:textSize="@dimen/_16ssp"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:textAlignment="viewStart"
                     android:layout_marginTop="30dp"
                     android:layout_gravity="center"
@@ -110,12 +116,13 @@
                     android:layout_height="wrap_content"/>
 
                 <CheckBox
+                    android:buttonTint="@color/orange2"
                     android:id="@+id/check_box"
                     android:layout_marginBottom="20dp"
                     android:paddingStart="10dp"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_10ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorMoov"
+                    android:textColor="@color/orange2"
                     android:textAlignment="viewStart"
                     android:text="@string/reading"
                     android:layout_marginTop="15dp"
@@ -128,6 +135,7 @@
         </ScrollView>
 
         <Button
+            android:fontFamily="@font/cairo_regular"
             android:onClick="@{()->termsVM.nextStep()}"
             android:id="@+id/next"
             android:layout_alignParentBottom="true"
@@ -138,11 +146,14 @@
             android:text="@string/next_"
             android:layout_gravity="center_vertical"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorMoov"
+            android:background="@drawable/shape_rounded_green_corner_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="60dp"/>
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_30sdp"/>
 
     </RelativeLayout>
 

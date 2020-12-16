@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"/>
         <TextView
             android:visibility="gone"
-            android:id="@+id/distance_by_km"
+            android:id="@+id/distance_by_km1"
             android:gravity="center"
             android:textAllCaps="false"
             android:textSize="10sp"
@@ -40,14 +40,33 @@
         android:layout_marginTop="5dp"
         android:id="@+id/icon_img2"
         android:layout_gravity="center"
-        android:layout_width="32dp"
-        android:layout_height="35dp" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/homelocation"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:visibility="visible"
+        android:id="@+id/distance_by_km"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:textSize="10sp"
+        android:text="0 km"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:background="@drawable/btngreen"
+        android:textColor="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
     <FrameLayout
         android:visibility="gone"
         android:id="@+id/frame_car"
         android:layout_marginTop="5dp"
         android:layout_gravity="center"
-        android:background="@drawable/circle_white"
+        android:background="@drawable/circle_green"
         android:layout_width="35dp"
         android:layout_height="35dp">
         <ImageView

@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -29,8 +30,10 @@ import com.uriallab.haat.haat.Interfaces.FavClick;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.UI.Adapters.FavouritesAdapter;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
+import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.databinding.ActivityFavouritesBinding;
 import com.uriallab.haat.haat.viewModels.FavouritesViewModel;
+import com.uriallab.haat.haat.viewModels.MakeOrderStepTwoViewModel;
 
 import java.util.List;
 
@@ -57,6 +60,15 @@ public class FavouritesActivity extends AppCompatActivity implements OnMapReadyC
         }
 
         setMapLocation();
+
+        binding.chooseFromMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+               /* IntentClass.goToStartForResult(FavouritesActivity.this, DelivieringLocationActivity.class, 111, null);
+                finish();*/
+            }
+        });
     }
 
     public void initRecycler(List<FavModel.ResultBean.FavoritelocationsBean> favList) {

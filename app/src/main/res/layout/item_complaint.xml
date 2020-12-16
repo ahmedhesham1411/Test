@@ -1,95 +1,403 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:bind="http://schemas.android.com/apk/res-auto">
     <LinearLayout
+        android:id="@+id/main_lay"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/background_with_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/background_with_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/order_img"
-            android:layout_gravity="center"
-            bind:civ_border_width="1dp"
-            bind:civ_border_color="@color/colorBlue"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="10dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+        android:layout_marginEnd="10dp">
 
         <LinearLayout
-            android:layout_gravity="center_vertical"
-            android:paddingStart="15dp"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:id="@+id/click_to_expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+>
 
-            <TextView
-                android:paddingStart="2dp"
-                android:ellipsize="end"
-                android:maxLength="40"
-                android:maxLines="1"
-                android:textAlignment="viewStart"
-                android:id="@+id/store_name"
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/order_img"
+                android:layout_gravity="center"
+                bind:civ_border_width="1dp"
+                bind:civ_border_color="@color/colorBlue"
+                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/app_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
 
-            <TextView
-                android:layout_marginTop="5dp"
-                android:paddingStart="2dp"
-                android:ellipsize="end"
-                android:maxLength="50"
-                android:maxLines="1"
-                android:textAlignment="viewStart"
-                android:id="@+id/complaint_details"
-                android:textSize="12sp"
-                android:textColor="@color/colorTextHint"
-                android:text="@string/app_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:paddingStart="15dp"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:paddingStart="2dp"
+                    android:ellipsize="end"
+                    android:maxLength="40"
+                    android:maxLines="1"
+                    android:textAlignment="viewStart"
+                    android:id="@+id/store_name"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/app_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_marginTop="5dp"
+                    android:paddingStart="2dp"
+                    android:ellipsize="end"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:textAlignment="viewStart"
+                    android:id="@+id/complaint_details"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorTextHint"
+                    android:text="@string/app_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_8ssp"
+                    android:text="رقم الطلب"
+                    android:textColor="@color/colorGreen2"/>
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:id="@+id/complaint_numer"
+                    android:textSize="@dimen/_8ssp"
+                    android:text="515"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="center"
+                android:paddingStart="10dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+
+
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center"
-            android:layout_marginEnd="15dp"
-            android:layout_gravity="center"
-            android:paddingStart="10dp"
-            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/colorTextHint"
+            android:id="@+id/line"/>
+
+        <RelativeLayout
+            android:id="@+id/linee"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            >
 
             <TextView
-                android:maxLength="6"
-                android:maxLines="1"
-                android:id="@+id/complaint_numer"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp"
-                android:text="515"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:layout_alignParentStart="true"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@drawable/shape_rounded_green_corner_4"
                 android:id="@+id/complaint_status"
-                android:layout_marginTop="5dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/_10ssp"
                 android:text="حالة الشكوى"
+                android:textColor="@color/colorWhite"
+                android:gravity="center"/>
+
+            <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                bind:srcCompat="@drawable/eeeee"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/expanded"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/shape_rounded_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/profile_imgggg"
+                        bind:civ_border_width="1dp"
+                        bind:civ_border_color="@color/colorTextHint"
+                        android:layout_marginStart="10dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <TextView
+                        android:text="ahmed"
+                        android:fontFamily="@font/cairo_regular"
+                        android:id="@+id/user_name"
+                        android:textSize="@dimen/_8ssp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="2dp"
+                        android:maxLines="1"
+                        android:textAlignment="viewStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="75dp"
+                        android:paddingStart="2dp"
+                        android:maxLines="1"
+                        android:textAlignment="viewStart"
+                        android:text="@string/reason"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:id="@+id/reason_id"
+                        android:textSize="@dimen/_8ssp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="75dp"
+                        android:paddingStart="2dp"
+                        android:maxLines="1"
+                        android:textColor="@color/colorTextHint"
+                        android:textAlignment="viewStart"
+                        android:text="@string/late"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:visibility="gone"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/colorTextHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="75dp"
+                        android:paddingStart="2dp"
+                        android:maxLines="1"
+                        android:textAlignment="viewStart"
+                        android:text="@string/notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:id="@+id/notes_id"
+                        android:textSize="@dimen/_8ssp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="75dp"
+                        android:paddingStart="2dp"
+                        android:maxLines="1"
+                        android:textColor="@color/colorTextHint"
+                        android:textAlignment="viewStart"
+                        android:text="@string/not_exist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/colorTextHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <LinearLayout
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="75dp"
+                        android:paddingStart="2dp"
+                        android:maxLines="1"
+                        android:textAlignment="viewStart"
+                        android:text="@string/attachment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:id="@+id/no_attachment"
+                        android:textSize="@dimen/_8ssp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="75dp"
+                        android:paddingStart="2dp"
+                        android:maxLines="1"
+                        android:textColor="@color/colorTextHint"
+                        android:textAlignment="viewStart"
+                        android:text="@string/not_exist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:id="@+id/attach_img"
+                        android:visibility="gone"
+                        android:layout_marginStart="10dp"
+                        bind:riv_corner_radius="8dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/aaaaa"
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:background="@drawable/shape_rounded_green_corner_4"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/colorWhite"
+                    android:gravity="center"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/isss"
+                    android:orientation="horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/rade"
+                        android:fontFamily="@font/cairo_regular"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:text="@string/accepted"
+                        android:textSize="@dimen/_10ssp"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:background="@drawable/shape_rounded_green_corner_4"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginStart="30dp"/>
+
+
+                    <TextView
+                        android:id="@+id/msh_rade"
+                        android:fontFamily="@font/cairo_regular"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:text="@string/unacceptable"
+                        android:gravity="center"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="@color/colorBlack"
+                        android:background="@drawable/btngrey"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:visibility="gone"
+                android:text="@string/we_aplogize"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
+
 
     </LinearLayout>
 </layout>

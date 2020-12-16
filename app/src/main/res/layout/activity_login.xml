@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -8,208 +10,282 @@
     </data>
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:background="@color/colorWhite"
+        android:background="@color/colorDarkGrey"
         android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context="com.uriallab.haat.haat.UI.Activities.Auth.LoginActivity">
 
-            <ImageView
+
+            <!--  <ImageView
+                  android:id="@+id/logo"
+                  android:layout_marginTop="100dp"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:background="@drawable/logo"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  />
+  -->
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/logo"
-                android:layout_marginTop="100dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:src="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@drawable/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/email_txt"
-                android:text="@string/phone"
-                android:textColor="@color/colorBlack"
-                android:layout_marginTop="80dp"
-                app:layout_constraintTop_toBottomOf="@+id/logo"
-                android:layout_marginStart="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:fontFamily="@font/cairo_regular"
+                android:text="@string/welcome"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:fontFamily="@font/cairo_regular"
+                android:text="@string/enter_mob"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorTextHint"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_txt" />
 
             <LinearLayout
                 android:id="@+id/lin_phone"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/email_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="350dp"
+                android:layout_marginBottom="135dp"
+                android:gravity="center_vertical"
+                android:layoutDirection="ltr"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/skip_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layoutDirection="ltr"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_marginEnd="20dp"
-                    app:riv_corner_radius="5dp"
-                    app:layout_constraintTop_toBottomOf="@id/email_txt"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:id="@+id/flag_img"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/sa"
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"/>
+                <LinearLayout
+                    android:layout_width="@dimen/_65sdp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:text="966+"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/email_txt"
-                    app:layout_constraintEnd_toStartOf="@id/flag_img"
-                    android:id="@+id/code_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/flag_img"
+                        android:layout_width="25dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/sa"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/email_txt"
+                        app:riv_corner_radius="5dp" />
+
+                    <TextView
+                        android:id="@+id/code_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/cairo_regular"
+                        android:text="966+"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/flag_img"
+                        app:layout_constraintTop_toBottomOf="@id/email_txt" />
+
+                </LinearLayout>
+
 
                 <EditText
-                    android:text="@={loginVM.phoneObservable}"
-                    app:error="@{loginVM.phoneObservableError}"
                     android:id="@+id/email_edt"
-                    android:inputType="numberDecimal"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="1"
+                    android:textAlignment="textStart"
+                    android:background="@drawable/btn1"
                     android:digits="0123456789"
-                    android:textAlignment="viewStart"
-                    android:maxLength="9"
+                    android:fontFamily="@font/cairo_regular"
                     android:hint="@string/enter_phone_number"
+                    android:inputType="numberDecimal"
+                    android:maxLength="9"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:background="@drawable/shape_rounded_dark_grey"
-                    app:layout_constraintTop_toBottomOf="@id/email_txt"
+                    android:text="@={loginVM.phoneObservable}"
+                    android:textSize="@dimen/_10ssp"
+                    app:error="@{loginVM.phoneObservableError}"
                     app:layout_constraintEnd_toStartOf="@id/code_num"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="40dp" />
+                    app:layout_constraintTop_toBottomOf="@id/email_txt" />
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lin_phone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cairo_regular"
+                    android:text="@string/by_signing_up"
+                    android:textColor="@color/colorTextHint"
+                    android:textSize="@dimen/_10ssp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/orange"
+                    android:editable="false"
+                    android:fontFamily="@font/cairo_regular"
+                    android:onClick="@{()->loginVM.policyUSe()}"
+                    android:text="@string/privacy"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_10ssp" />
+            </LinearLayout>
+
             <Button
-                android:onClick="@{()->loginVM.login()}"
-                android:textAllCaps="false"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:id="@+id/login_btn"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="30dp"
-                android:gravity="center"
-                android:text="@string/confirm"
-                android:textColor="@color/colorWhite"
-                android:background="@drawable/shape_rounded_blue"
-                app:layout_constraintTop_toBottomOf="@id/lin_phone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-
-
-            <Button
-                android:onClick="@{()->loginVM.visitor()}"
-                android:textAllCaps="false"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:background="@drawable/shape_rounded_green_corner_4"
                 android:clickable="true"
+                android:fontFamily="@font/cairo_regular"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:id="@+id/skip_btn"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="@string/visitor"
+                android:onClick="@{()->loginVM.login()}"
+                android:text="@string/next"
+                android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/shape_rounded_moov_12"
-                app:layout_constraintTop_toBottomOf="@id/login_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
+            <TextView
+                android:id="@+id/skip_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:clickable="true"
+                android:fontFamily="@font/cairo_regular"
+                android:gravity="center"
+                android:onClick="@{()->loginVM.visitor()}"
+                android:text="@string/visitor"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_btn" />
 
             <TextView
                 android:id="@+id/hint_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="109dp"
+                android:layout_marginBottom="135dp"
                 android:text="@string/to_use_this_app_u_accept"
                 android:textColor="@color/colorText"
                 android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@id/skip_btn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skip_btn" />
 
             <LinearLayout
                 android:id="@+id/lin_privacy"
-                android:gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/hint_txt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="111dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
                 <TextView
-                    android:onClick="@{()->loginVM.policyUSe()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="3dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:onClick="@{()->loginVM.policyUSe()}"
                     android:text="@string/policy"
                     android:textColor="@color/colorBlue"
-                    app:layout_constraintTop_toBottomOf="@+id/login_btn"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-               <View
-                   android:layout_width="0dp"
-                   android:layout_weight=".5"
-                   android:layout_height="1dp"/>
-
-                <TextView
-                    android:onClick="@{()->loginVM.privacyPolicy()}"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="3dp"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:text="@string/privacy"
-                    android:textColor="@color/colorBlue"
-                    app:layout_constraintTop_toBottomOf="@+id/login_btn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    app:layout_constraintTop_toBottomOf="@+id/login_btn" />
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_weight=".5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="3dp"
+                    android:onClick="@{()->loginVM.privacyPolicy()}"
+                    android:text="@string/privacy"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 </layout>

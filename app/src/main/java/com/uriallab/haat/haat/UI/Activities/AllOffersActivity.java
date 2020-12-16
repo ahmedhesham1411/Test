@@ -11,11 +11,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.azoft.carousellayoutmanager.CarouselLayoutManager;
+import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
+import com.azoft.carousellayoutmanager.CenterScrollListener;
 import com.bumptech.glide.Glide;
 import com.uriallab.haat.haat.DataModels.OffersModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Adapters.OffersAdapter;
+import com.uriallab.haat.haat.UI.Adapters.OffersAdapterPop;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ActivityAllOffersBinding;
@@ -48,7 +52,7 @@ public class AllOffersActivity extends AppCompatActivity {
 
         orderId = bundle.getString("orderId");
 
-        Glide.with(this).load(R.drawable.new_order_sent).into(binding.loadingImg);
+        //Glide.with(this).load(R.drawable.new_order_sent).into(binding.loadingImg);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("RefreshOffers"));
@@ -90,5 +94,21 @@ public class AllOffersActivity extends AppCompatActivity {
         binding.recyclerOffers.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerOffers.setAdapter(reviewsAdapter);
         Utilities.runAnimation(binding.recyclerOffers, 1);
+    }
+
+
+    public void initRecyclerPop(List<OffersModel.ResultBean.OffersBean> itemsBeanList) {
+
+        final CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.VERTICAL);
+        layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
+        binding.recyclerOffersPop.addOnScrollListener(new CenterScrollListener());
+
+        OffersAdapterPop reviewsAdapter = new OffersAdapterPop(this, itemsBeanList);
+        binding.recyclerOffersPop.smoothScrollToPosition(reviewsAdapter.getItemCount() - 2);
+        layoutManager.setMaxVisibleItems(2);
+
+        binding.recyclerOffersPop.setLayoutManager(layoutManager);
+        binding.recyclerOffersPop.setAdapter(reviewsAdapter);
+        //Utilities.runAnimation(binding.recyclerOffersPop, 1);
     }
 }

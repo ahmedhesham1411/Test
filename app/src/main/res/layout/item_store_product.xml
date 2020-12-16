@@ -1,17 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <LinearLayout
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:padding="5dp"
-        android:background="@drawable/shape_rounded_stroke_blue"
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="@dimen/_200sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_height="@dimen/_100sdp">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    app:riv_corner_radius="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/united_state"
+                    android:scaleType="fitXY"
+                    />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:src="@color/colorRed2"
+                        app:riv_corner_radius="@dimen/_5sdp"
+                        android:scaleType="fitXY"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        app:srcCompat="@drawable/ic_baseline_delete_24"
+                        android:layout_gravity="center"/>
+
+                </FrameLayout>
+
+            </RelativeLayout>
+        </FrameLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:orientation="vertical"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -81,11 +120,13 @@
         </LinearLayout>
 
         <View
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="1dp"/>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_marginEnd="7dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -112,5 +153,5 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

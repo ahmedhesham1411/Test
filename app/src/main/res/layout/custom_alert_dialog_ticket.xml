@@ -8,13 +8,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
-        android:background="@drawable/shape_rounded_top_blue"
         android:layout_width="match_parent"
         android:layout_height="60dp">
 
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:layout_centerInParent="true"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorBlack"
             android:textSize="16sp"
             android:gravity="center"
             android:layout_width="wrap_content"
@@ -22,6 +22,7 @@
             android:text="@string/add_new_ticket"/>
 
         <ImageView
+            android:tint="#ec6464"
             android:id="@+id/close_img"
             android:background="@drawable/close"
             android:layout_marginStart="15dp"
@@ -56,9 +57,9 @@
             android:layout_height="40dp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/ask_id"
-                android:background="@drawable/shape_rounded_blue_right"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:text="@string/ask"
@@ -67,9 +68,9 @@
                 android:layout_height="match_parent"/>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/complain_id"
-                android:background="@drawable/shape_grey_stroke_blue"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorBlack"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:text="@string/complaint"
@@ -78,9 +79,9 @@
                 android:layout_height="match_parent"/>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/suggestion_id"
-                android:background="@drawable/shape_grey_stroke_blue_right"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorBlack"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:text="@string/suggestion"
@@ -93,6 +94,7 @@
     </LinearLayout>
 
     <TextView
+        android:fontFamily="@font/cairo_regular"
         android:text="@string/message_content"
         android:textAlignment="viewStart"
         android:paddingStart="8dp"
@@ -113,7 +115,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/shape_rounded_white_stoke_blue"
+        android:background="@drawable/btn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -124,7 +126,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/shape_rounded_white_stoke_blue"
+        android:background="@drawable/btn1"
         android:layout_width="match_parent"
         android:layout_height="50dp" >
 
@@ -138,7 +140,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:layout_marginStart="2dp"
-            android:background="@drawable/shape_rounded_moov_left"
+            android:background="@drawable/shape_rounded_green_corner_4"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"/>

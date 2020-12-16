@@ -8,6 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+        android:fontFamily="@font/cairo_regular"
         android:id="@+id/alert_text"
         android:textColor="@color/colorBlack"
         android:textSize="16sp"
@@ -20,7 +21,6 @@
     <View
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:background="@color/colorText"
         android:layout_height="1dp"/>
 
     <LinearLayout
@@ -35,33 +35,37 @@
             android:layout_height="50dp">
 
             <TextView
+                android:background="@drawable/btn"
+                android:fontFamily="@font/cairo_regular"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:id="@+id/no_id"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:text="@string/no"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"/>
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_20sdp"/>
 
-            <View
-                android:layout_width="1dp"
-                android:background="@color/colorText"
-                android:layout_height="match_parent"/>
+
 
             <TextView
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:background="@drawable/shape_rounded_green_corner_4"
+                android:fontFamily="@font/cairo_regular"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:id="@+id/yes_id"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:text="@string/yes"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"/>
+                android:layout_height="@dimen/_35sdp"/>
 
         </LinearLayout>
 

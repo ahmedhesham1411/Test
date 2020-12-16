@@ -48,24 +48,35 @@ public class FinishedOrderAdapter extends RecyclerView.Adapter<FinishedOrderAdap
             e.printStackTrace();
         }
 
-        holder.binding.orderStateLin.setVisibility(View.GONE);
+        holder.binding.orderStateLin.setVisibility(View.VISIBLE);
         holder.binding.orderFinishedStateImg.setVisibility(View.VISIBLE);
 
         holder.binding.orderNumber.setText(String.valueOf(incomingList.get(position).getOrderUID()));
         holder.binding.storeNameTxt.setText(incomingList.get(position).getOrd_Shop_Nm());
+        //holder.binding.orderStateTxt.setText(incomingList.get(position).getOrd_Dtls());
 
         if (incomingList.get(position).getOrd_Client_StatusID() == 4) {
             holder.binding.orderFinishedStateImg.setImageResource(R.drawable.done);
-            holder.binding.orderFinishedStateImg.setColorFilter(activity.getResources().getColor(R.color.colorGreen), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderFinishedStateImg.setVisibility(View.GONE);
 
-            holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorGreen));
-            holder.binding.orderDetilsTxt.setText(activity.getString(R.string.done));
+            //holder.binding.orderFinishedStateImg.setColorFilter(activity.getResources().getColor(R.color.colorGreen2), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderDetilsTxt.setText(incomingList.get(position).getOrd_Dtls());
+            holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorTextHint));
+            holder.binding.orderStateTxt.setTextColor(activity.getResources().getColor(R.color.colorGreen2));
+
+            //holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorGreen));
+            holder.binding.orderStateTxt.setText(activity.getString(R.string.done));
+            holder.binding.orderStateArrow.setImageResource(R.drawable.arrow_left);
+            holder.binding.orderStateArrow1.setVisibility(View.VISIBLE);
+            //holder.binding.orderStateTxt.setText(incomingList.get(position).getOrd_Dtls());
         } else {
-            holder.binding.orderFinishedStateImg.setImageResource(R.drawable.canceled);
-            holder.binding.orderFinishedStateImg.setColorFilter(activity.getResources().getColor(R.color.colorRed), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorTextHint));
+            //holder.binding.orderFinishedStateImg.setImageResource(R.drawable.canceled);
+            //holder.binding.orderFinishedStateImg.setColorFilter(activity.getResources().getColor(R.color.colorRed), PorterDuff.Mode.SRC_ATOP);
 
-            holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorRed));
+            //holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorRed));
             holder.binding.orderDetilsTxt.setText(activity.getString(R.string.cancelled));
+            holder.binding.orderStateArrow.setImageResource(R.drawable.cancel);
         }
 
     }

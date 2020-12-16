@@ -53,10 +53,10 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_make_order_first_step);
 
-        binding.couponImg.setImageResource(R.drawable.coupon);
+       /* binding.couponImg.setImageResource(R.drawable.coupon);
         binding.addCoupon.setImageResource(R.drawable.coupon);
         binding.couponImg.setColorFilter(getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
-        binding.addCoupon.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+        binding.addCoupon.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);*/
 
         Bundle bundle = getIntent().getBundleExtra("data");
 
@@ -66,6 +66,7 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
             shopImg = bundle.getString("shopImg");
             lat = bundle.getDouble("lat");
             lng = bundle.getDouble("lng");
+
 
             Gson gson = new Gson();
             StoreProductsModel storeProductsModel = gson.fromJson(bundle.getString("myjson"), StoreProductsModel.class);
@@ -80,7 +81,10 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
                 }
                 selectedProducts.set(temp);
             } else
-                binding.recyclerProducts.setVisibility(View.GONE);
+                binding.recyclerProducts.setVisibility(View.VISIBLE);
+
+            //binding.recyclerProducts.setVisibility(View.GONE);
+
         }
 
         viewModel = new MakeOrderFirstStepViewModel(this, lat, lng, storeName, shopImg, isService);
@@ -106,7 +110,9 @@ public class MakeOrderFirstStepActivity extends AppCompatActivity implements Del
 
     private void initRecyclerProducts(List<StoreProductsModel.ProductBean> productBeanList) {
         StoreProductsAdapter productsAdapter = new StoreProductsAdapter(this, productBeanList, selectedProducts);
-        binding.recyclerProducts.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        binding.recyclerProducts.setLayoutManager(layoutManager);
         binding.recyclerProducts.setAdapter(productsAdapter);
     }
 

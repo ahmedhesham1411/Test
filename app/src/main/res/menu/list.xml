@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/store_bar"
+        android:icon="@drawable/store"
+        android:title="@string/stores"
+        android:checked="true"
+        android:iconTint="@color/colorGreen2"/>
+
+    <item
+        android:id="@+id/notifications_bar"
+        android:icon="@drawable/bell"
+        android:title="@string/alerts"
+        android:iconTint="@color/colorGreen2"/>
+
+    <item
+        android:id="@+id/orders_bar"
+        android:icon="@drawable/noun_orde"
+        android:title="@string/orders"
+        android:iconTint="@color/colorGreen2"/>
+
+    <item
+        android:id="@+id/journey_bar"
+        android:icon="@drawable/noun_delivery"
+        android:title="@string/journey"
+        android:iconTint="@color/colorGreen2"/>
+
+    <item
+        android:id="@+id/more_bar"
+        android:icon="@drawable/morenoun"
+        android:title="@string/me"
+        android:iconTint="@color/colorGreen2"/>
+</menu>

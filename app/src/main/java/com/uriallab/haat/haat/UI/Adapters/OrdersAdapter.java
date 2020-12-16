@@ -29,7 +29,7 @@ import java.util.List;
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder> {
 
     private Activity activity;
-    private List<OrdersModel.ResultBean.OrdersBean> incomingList;
+    private List<OrdersModel.ResultBean.OrdersBean> incomingList,incomingList2;
 
     public OrdersAdapter(Activity activity, List<OrdersModel.ResultBean.OrdersBean> incomingList) {
         this.activity = activity;
@@ -47,14 +47,17 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
     public void onBindViewHolder(final OrdersViewHolder holder, final int position) {
 
         if (incomingList.get(position).getOrd_Client_StatusID() == 2) {
-            holder.binding.mainLin.setBackgroundResource(R.drawable.shape_rounded_moov);
+            holder.binding.mainLin.setBackgroundResource(R.drawable.shape_orange);
 
             holder.binding.storeNameTxt.setTextColor(activity.getResources().getColor(R.color.colorWhite));
             holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorWhite));
             holder.binding.orderNumber.setTextColor(activity.getResources().getColor(R.color.colorWhite));
             holder.binding.orderNum.setTextColor(activity.getResources().getColor(R.color.colorWhite));
+            holder.binding.orderStateArrow.setColorFilter(activity.getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+
         } else
             holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorTextHint));
+        holder.binding.orderStateArrow.setColorFilter(activity.getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
 
 
         try {
@@ -66,6 +69,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
 
 
         holder.binding.orderStateArrow.setImageResource(R.drawable.arrow_left);
+        holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorTextHint));
 
         if (ConfigurationFile.getCurrentLanguage(activity).equals("en"))
             holder.binding.orderStateArrow.setRotation(180);
@@ -75,28 +79,35 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
         holder.binding.orderDetilsTxt.setText(incomingList.get(position).getOrd_Dtls());
 
         if (incomingList.get(position).getOrd_Client_StatusID() == 1) {
+            holder.binding.orderStateImg.setVisibility(View.VISIBLE);
             holder.binding.orderStateImg.setImageResource(R.drawable.new_order);
 
-            holder.binding.orderStateImg.setColorFilter(activity.getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
-            holder.binding.orderStateArrow.setColorFilter(activity.getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderStateImg.setColorFilter(activity.getResources().getColor(R.color.orange2), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderStateArrow.setColorFilter(activity.getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
 
-            holder.binding.orderStateTxt.setTextColor(activity.getResources().getColor(R.color.colorBlue));
+            holder.binding.orderStateTxt.setTextColor(activity.getResources().getColor(R.color.colorTextHint));
             holder.binding.orderStateTxt.setText(activity.getString(R.string.new_order));
         } else if (incomingList.get(position).getOrd_Client_StatusID() == 2) {
+            holder.binding.orderStateImg.setVisibility(View.VISIBLE);
             holder.binding.orderStateImg.setImageResource(R.drawable.new_offer);
+            holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorTextHint));
 
-            holder.binding.orderStateImg.setColorFilter(activity.getResources().getColor(R.color.colorOrange), PorterDuff.Mode.SRC_ATOP);
-            holder.binding.orderStateArrow.setColorFilter(activity.getResources().getColor(R.color.colorOrange), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderStateImg.setColorFilter(activity.getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderStateArrow.setColorFilter(activity.getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorWhite));
 
-            holder.binding.orderStateTxt.setTextColor(activity.getResources().getColor(R.color.colorOrange));
+            holder.binding.orderStateTxt.setTextColor(activity.getResources().getColor(R.color.colorWhite));
             holder.binding.orderStateTxt.setText(activity.getString(R.string.new_offer));
         } else {
+            holder.binding.orderStateImg.setVisibility(View.VISIBLE);
             holder.binding.orderStateImg.setImageResource(R.drawable.delivering);
+            holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorTextHint));
+            holder.binding.orderDetilsTxt.setTextColor(activity.getResources().getColor(R.color.colorTextHint));
 
-            holder.binding.orderStateImg.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
-            holder.binding.orderStateArrow.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderStateImg.setColorFilter(activity.getResources().getColor(R.color.orange2), PorterDuff.Mode.SRC_ATOP);
+            holder.binding.orderStateArrow.setColorFilter(activity.getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
 
-            holder.binding.orderStateTxt.setTextColor(activity.getResources().getColor(R.color.colorMoov));
+            holder.binding.orderStateTxt.setTextColor(activity.getResources().getColor(R.color.colorTextHint));
             holder.binding.orderStateTxt.setText(activity.getString(R.string.delivering));
         }
 

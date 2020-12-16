@@ -12,6 +12,7 @@ import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 
+import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 import com.uriallab.haat.haat.Utilities.GPSTracker;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
@@ -160,7 +161,7 @@ public class TrackingDelegate extends Service {
         URI uri;
         try {
             // Connect to local host
-            uri = new URI("ws://176.9.164.57:898/driver");
+            uri = new URI(APIModel.BASE_URL_SOCKET + "driver");
         } catch (URISyntaxException e) {
             Log.e("WebSocket", "URISyntaxException");
             e.printStackTrace();
@@ -216,7 +217,7 @@ public class TrackingDelegate extends Service {
             }
         };
         webSocketClient.setConnectTimeout(10000);
-        webSocketClient.setReadTimeout(90000);
+        webSocketClient.setReadTimeout(900000);
         webSocketClient.enableAutomaticReconnection(5000);
         webSocketClient.connect();
     }
@@ -247,7 +248,7 @@ public class TrackingDelegate extends Service {
         URI uri;
         try {
             // Connect to local host
-            uri = new URI("ws://176.9.164.57:898/updateDriverLocation");
+            uri = new URI(APIModel.BASE_URL_SOCKET + "updateDriverLocation");
         } catch (URISyntaxException e) {
             Log.e("WebSocket", "URISyntaxException");
             e.printStackTrace();

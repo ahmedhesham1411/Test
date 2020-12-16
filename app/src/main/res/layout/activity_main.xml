@@ -8,7 +8,10 @@
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
+
+
         <FrameLayout
+            android:visibility="visible"
             android:layout_alignParentTop="true"
             android:layout_above="@+id/bottom"
             android:id="@+id/container"
@@ -25,6 +28,7 @@
             android:layout_height="13dp"/>
 
         <LinearLayout
+            android:visibility="visible"
             android:id="@+id/bottom"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -70,7 +74,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/notification" />
+                    android:background="@drawable/bell" />
                 <TextView
                     android:layout_marginTop="1dp"
                     android:textColor="@color/colorTextHint"
@@ -95,7 +99,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/orders" />
+                    android:background="@drawable/noun_orde" />
                 <TextView
                     android:layout_marginTop="1dp"
                     android:textColor="@color/colorTextHint"
@@ -109,7 +113,33 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
+                android:id="@+id/my_trips"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+                <ImageView
+                    android:id="@+id/trips_img"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/noun_delivery" />
+                <TextView
+                    android:layout_marginTop="1dp"
+                    android:textColor="@color/colorTextHint"
+                    android:id="@+id/trips_txt"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/shipping"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="visible"
                 android:id="@+id/my_journey"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -121,7 +151,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/journey_icon" />
+                    android:background="@drawable/noun_delivery" />
                 <TextView
                     android:layout_marginTop="1dp"
                     android:textColor="@color/colorTextHint"
@@ -146,7 +176,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/profile" />
+                    android:background="@drawable/morenoun" />
                 <TextView
                     android:layout_marginTop="1dp"
                     android:textColor="@color/colorTextHint"
@@ -160,5 +190,85 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+     <!--   <FrameLayout
+            android:id="@+id/frame_fragment_containers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_navigation"/>-->
+
+       <!-- <com.ss.bottomnavigation.BottomNavigation
+            android:background="@color/colorGreen2"
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            app:mode="phone"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            app:itemIconTint="@color/colorWhite"
+            app:itemTextColor="@color/white">
+            <com.ss.bottomnavigation.TabItem
+                android:backgroundTint="@color/white"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/tab_home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:tab_text="@string/stores"
+                app:tab_icon="@drawable/store"
+                app:tab_text_color="#FFFFFF"
+                />
+            <com.ss.bottomnavigation.TabItem
+                android:backgroundTint="@color/white"
+                android:layout_gravity="center_vertical"
+                app:tab_text_color="#FFFFFF"
+                android:id="@+id/tab_images"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:tab_text="@string/notifications"
+                app:tab_icon="@drawable/notification"
+                />
+            <com.ss.bottomnavigation.TabItem
+                android:layout_gravity="center_vertical"
+                app:tab_text_color="#FFFFFF"
+                android:id="@+id/tab_camera"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:tab_text="@string/orders"
+                app:tab_icon="@drawable/orders"
+                />
+            <com.ss.bottomnavigation.TabItem
+                android:visibility="gone"
+                app:tab_text_color="#FFFFFF"
+                android:id="@+id/tab_products"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:tab_text="@string/journey"
+                app:tab_icon="@drawable/journey_icon"
+                />
+            <com.ss.bottomnavigation.TabItem
+                app:tab_text_color="#FFFFFF"
+                android:id="@+id/tab_more"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:tab_text="@string/more"
+                app:tab_icon="@drawable/profile"
+                />
+        </com.ss.bottomnavigation.BottomNavigation>-->
     </RelativeLayout>
 </layout>

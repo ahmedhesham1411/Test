@@ -56,6 +56,7 @@ public class ActiveOrdersViewModel {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
                 Log.e("response", responseString);
+                Dialogs.dismissLoading(loadingDialog);
 
                 Type dataType = new TypeToken<OrdersModel>() {
                 }.getType();
@@ -76,7 +77,7 @@ public class ActiveOrdersViewModel {
             @Override
             public void onFinish() {
                 super.onFinish();
-                Dialogs.dismissLoading(loadingDialog);
+                //Dialogs.dismissLoading(loadingDialog);
             }
         });
     }

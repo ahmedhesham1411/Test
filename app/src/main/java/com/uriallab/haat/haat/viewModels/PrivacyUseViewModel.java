@@ -2,6 +2,8 @@ package com.uriallab.haat.haat.viewModels;
 
 import android.app.Activity;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -10,18 +12,27 @@ import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.DataModels.TermsModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
+import com.uriallab.haat.haat.UI.Adapters.Policy_adapter;
+import com.uriallab.haat.haat.UI.Adapters.PrivacyAdapter;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
 
 public class PrivacyUseViewModel {
 
     public ObservableField<String> textObservable = new ObservableField<>();
     public ObservableField<String> titleObservable = new ObservableField<>();
+    List<String> strings = new ArrayList<String>();
 
     public ObservableInt rotation = new ObservableInt(0);
 
@@ -29,13 +40,20 @@ public class PrivacyUseViewModel {
 
     public PrivacyUseViewModel(Activity activity, boolean isPolicyUse) {
         this.activity = activity;
+        RecyclerView recyclerView = activity.findViewById(R.id.rec_policy);
+        TextView textView = activity.findViewById(R.id.det_pol);
 
         if (isPolicyUse) {
             termsAndPrivacy("Setting/GetTerms");
             titleObservable.set(activity.getString(R.string.policy));
+            recyclerView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+
         } else {
             termsAndPrivacy("Setting/GetPolicies");
             titleObservable.set(activity.getString(R.string.privacy));
+            recyclerView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
         }
 
         if (ConfigurationFile.getCurrentLanguage(activity).equals("ar")) {
@@ -70,7 +88,23 @@ public class PrivacyUseViewModel {
                 TermsModel data = new Gson().fromJson(responseString, dataType);
 
                 textObservable.set(data.getResult().getItmes());
+                String aa = data.getResult().getItmes();
 
+                strings.add(aa);
+                initRecycler(strings);
+
+            }
+
+            void initRecycler(List<String> strings){
+                TextView textView = activity.findViewById(R.id.det_pol);
+                textView.setText(strings.get(0));
+
+
+               RecyclerView recyclerView = activity.findViewById(R.id.rec_policy);
+                PrivacyAdapter policy_adapter = new PrivacyAdapter(activity,strings,"policy");
+                recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(policy_adapter);
             }
 
             @Override

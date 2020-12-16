@@ -33,11 +33,14 @@ public class ComplaintDetailsActivity extends AppCompatActivity {
         binding.complaintId.setText(itemsBean.getComplaintUID()+"");
         binding.complaintDetails.setText(itemsBean.getComplaint_Desc());
 
-        if (!itemsBean.getComplaint_ImgUrl().equals("error")) {
-            Picasso.get().load(APIModel.BASE_URL + itemsBean.getComplaint_ImgUrl()).into(binding.attachImg);
-            binding.noAttachment.setVisibility(View.GONE);
-            binding.attachImg.setVisibility(View.VISIBLE);
-        }
+        try {
+            if (!itemsBean.getComplaint_ImgUrl().equals("error")) {
+                Picasso.get().load(APIModel.BASE_URL + itemsBean.getComplaint_ImgUrl()).into(binding.attachImg);
+                binding.noAttachment.setVisibility(View.GONE);
+                binding.attachImg.setVisibility(View.VISIBLE);
+            }
+        }catch (Exception e){}
+
 
         if (ConfigurationFile.getCurrentLanguage(this).equals("ar"))
             binding.reasonId.setText(itemsBean.getReason_Ar_Nm());

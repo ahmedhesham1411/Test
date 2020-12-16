@@ -12,13 +12,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
 
         <LinearLayout
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,21 +26,91 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <View
-                android:layout_width="50dp"
+                android:layout_width="20dp"
                 android:layout_height="1dp"/>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/journey"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:background="@drawable/btn"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/stop_noti_layout"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/notification"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stop_not"
+                    android:textColor="@color/colorWhite"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:background="@drawable/btngreen"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/open_noti_layout"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/notification"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/open_not"
+                    android:textColor="@color/colorWhite"/>
+
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="35dp"
+                android:text="@string/stop_not"
+                android:textSize="12sp"
+                android:background="@drawable/btn"
+                android:textColor="@color/colorWhite"
+                android:drawableStart="@drawable/notification"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:visibility="gone"/>
+
             <Switch
+                android:visibility="gone"
                 android:theme="@style/SCBSwitch"
                 android:id="@+id/switch_view"
                 android:layout_marginEnd="15dp"
@@ -50,34 +120,249 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:background="@color/colorWhite"
             android:paddingEnd="20dp"
             android:paddingStart="20dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:gravity="center">
 
-            <TextView
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
                 android:onClick="@{()->ordersVM.orderTabClick(1)}"
-                android:background="@{ordersVM.isFinished? @drawable/shape_white : @drawable/shape_rounded_blue_corner_4}"
-                android:id="@+id/active_orders"
+                android:background="@{ordersVM.isNew?  @drawable/btngreen : @drawable/btn1}"
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="."
+                        android:textColor="@{ordersVM.isNew?  @color/colorWhite : @color/colorGreen2}"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:textColor="@{ordersVM.isNew?  @color/colorWhite : @color/colorBlack}"
+                        android:id="@+id/new_orders"
+                        android:textSize="14sp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:text="@string/new_orders"
+                        android:layout_marginEnd="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:paddingTop="10dp"
+                        android:onClick="@{()->ordersVM.orderTabClick(1)}"
+                        />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+
+                    android:paddingStart="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/orderswww"
+                    android:layout_gravity="center"
+                    android:textSize="10sp"
+                    android:onClick="@{()->ordersVM.orderTabClick(1)}"
+                    android:textColor="@{ordersVM.isNew?  @color/colorWhite : @color/colorTextHint}"
+                    />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGreen2"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:onClick="@{()->ordersVM.orderTabClick(2)}"
+                android:background="@{ordersVM.isActive?  @drawable/btnorange : @drawable/btn1}">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="."
+                        android:textColor="@{ordersVM.isActive?  @color/colorWhite : @color/orange}"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+
+                        android:onClick="@{()->ordersVM.orderTabClick(2)}"
+                        android:id="@+id/active_orders"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:text="@string/active"
+                        android:layout_marginEnd="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:paddingTop="10dp"
+                        android:textSize="14sp"
+                        android:textColor="@{ordersVM.isActive?  @color/colorWhite : @color/colorBlack}" />
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+
+                    android:onClick="@{()->ordersVM.orderTabClick(2)}"
+                    android:paddingStart="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/orderswww"
+                    android:layout_gravity="center"
+                    android:textSize="10sp"
+                    android:textColor="@{ordersVM.isActive?  @color/colorWhite : @color/colorTextHint}" />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/orange"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:onClick="@{()->ordersVM.orderTabClick(3)}"
+                android:background="@{ordersVM.isFinish?  @drawable/btngreenn : @drawable/btn1}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="."
+                        android:textColor="@{ordersVM.isFinish?  @color/colorWhite : @color/colorGreen}"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:textColor="@{ordersVM.isFinish?  @color/colorWhite : @color/colorBlack}"
+                        android:onClick="@{()->ordersVM.orderTabClick(3)}"
+                        android:id="@+id/finished_orders"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:paddingTop="10dp"
+                        android:textSize="14sp"
+                        android:text="@string/finished"
+                        android:layout_marginEnd="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:onClick="@{()->ordersVM.orderTabClick(3)}"
+                    android:textColor="@{ordersVM.isFinish?  @color/colorWhite : @color/colorTextHint}"
+                    android:paddingStart="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/orderswww"
+                    android:layout_gravity="center"
+                    android:textSize="10sp"
+                    />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGreen"/>
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+          <!--  <TextView
+                android:onClick="@{()->ordersVM.orderTabClick(1)}"
+                android:background="@{ordersVM.isNew? @drawable/shape_white : @drawable/shape_rounded_blue_corner_4}"
+                android:id="@+id/new_orders"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
                 android:text="@string/waiting_order"
-                android:textColor="@{ordersVM.isFinished? @color/colorBlack : @color/colorWhite}"
+                android:textColor="@{ordersVM.isNew? @color/colorBlack : @color/colorWhite}"
                 android:layout_marginEnd="5dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="30dp" />
+                android:layout_height="30dp" />-->
 
-            <TextView
+         <!--   <TextView
                 android:onClick="@{()->ordersVM.orderTabClick(2)}"
-                android:background="@{ordersVM.isFinished? @drawable/shape_rounded_blue_corner_4 : @drawable/shape_white}"
-                android:id="@+id/finished_orders"
-                android:textColor="@{ordersVM.isFinished? @color/colorWhite : @color/colorBlack}"
+                android:background="@{ordersVM.isNew? @drawable/shape_rounded_blue_corner_4 : @drawable/shape_white}"
+                android:id="@+id/active_orders"
+                android:textColor="@{ordersVM.isNew? @color/colorWhite : @color/colorBlack}"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
@@ -87,8 +372,24 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="30dp" />
+-->
+        <!--    <TextView
+                android:onClick="@{()->ordersVM.orderTabClick(3)}"
+                android:background="@{ordersVM.isNew? @drawable/shape_rounded_blue_corner_4 : @drawable/shape_white}"
+                android:id="@+id/finished_orders"
+                android:textColor="@{ordersVM.isNew? @color/colorWhite : @color/colorBlack}"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/finished_orders"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp" />
+-->
 
-        </LinearLayout>
+
 
         <View
             android:rotation="180"

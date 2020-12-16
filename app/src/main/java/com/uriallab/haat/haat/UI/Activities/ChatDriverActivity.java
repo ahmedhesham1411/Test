@@ -15,8 +15,11 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -28,6 +31,7 @@ import com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity;
 import com.oppwa.mobile.connect.exception.PaymentError;
 import com.oppwa.mobile.connect.provider.Transaction;
 import com.oppwa.mobile.connect.provider.TransactionType;
+import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.DataModels.ChatModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
@@ -59,11 +63,12 @@ import static com.uriallab.haat.haat.Utilities.camera.Camera.GALLERY_REQUEST;
 import static com.uriallab.haat.haat.Utilities.camera.Camera.GALLERY_REQUEST3;
 import static com.uriallab.haat.haat.Utilities.camera.Camera.currentPhotoPath;
 
-public class ChatDriverActivity extends AppCompatActivity {
+public class ChatDriverActivity extends AppCompatActivity  implements PopupMenu.OnMenuItemClickListener{
 
     public ActivityChatDriverBinding binding;
 
     private String orderId;
+    ImageView menu;
 
     private List<Bitmap> imageList = new ArrayList<>();
 
@@ -117,6 +122,17 @@ public class ChatDriverActivity extends AppCompatActivity {
                         break;
                 }
                 return false;
+            }
+        });
+
+        menu = findViewById(R.id.menu);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(ChatDriverActivity.this, v);
+                popup.setOnMenuItemClickListener(ChatDriverActivity.this);
+                popup.inflate(R.menu.menu2);
+                popup.show();
             }
         });
     }
@@ -454,7 +470,7 @@ public class ChatDriverActivity extends AppCompatActivity {
         URI uri;
         try {
             // Connect to local host
-            uri = new URI("ws://176.9.164.57:898/typing");
+            uri = new URI(APIModel.BASE_URL_SOCKET + "typing");
         } catch (URISyntaxException e) {
             Log.e("WebSockettyping", "URISyntaxException");
             e.printStackTrace();
@@ -528,7 +544,7 @@ public class ChatDriverActivity extends AppCompatActivity {
             }
         };
         webSocketClient.setConnectTimeout(10000);
-        webSocketClient.setReadTimeout(90000);
+        webSocketClient.setReadTimeout(900000);
         webSocketClient.enableAutomaticReconnection(5000);
         webSocketClient.connect();
     }
@@ -551,5 +567,16 @@ public class ChatDriverActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search_item:
+                viewModel.sendReport();
+                return true;
+            default:
+                return false;
+        }
     }
 }

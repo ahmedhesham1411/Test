@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/advertiser_products_bottom_sheettt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_background"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<!--
+    android:layout_height="@dimen/_360sdp"
+-->
+
+    <ScrollView
+        android:background="@drawable/bottom_sheet_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="true">
+    <LinearLayout
+        android:background="@drawable/bottom_sheet_background"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_360sdp"
+      >
+
+
+        <TextView
+            android:fontFamily="@font/cairo_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_method"
+            android:layout_marginStart="30dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:fontFamily="@font/cairo_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose"
+            android:layout_marginStart="30dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorTextHint"/>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/first_lin"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <RelativeLayout
+                    android:id="@+id/line_stc"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    >
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btnborder"
+                        android:visibility="gone"/>
+
+
+                    <ImageView
+                        android:id="@+id/img_stc1"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/ic_baseline_check_circle_24"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+
+                    <ImageView
+                        android:id="@+id/img_stc"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/ic_baseline_radio_button_unchecked_24"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/btnborder"
+                         />
+
+
+                        <ImageView
+                            android:layout_marginStart="10dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/stc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:id="@+id/wee"/>
+
+                        <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:text="STC PAY"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@id/wee"
+                            android:layout_marginStart="15dp"/>
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:background="@color/colorBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/line_visa"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp">
+
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/img_visa1"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/ic_baseline_check_circle_24"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        />
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/img_visa"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/ic_baseline_radio_button_unchecked_24"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/btnborder"
+                           />
+
+
+                        <ImageView
+                            android:layout_marginStart="10dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/visa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ee"/>
+
+                        <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:text="@string/visa"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@id/ee"
+                            android:layout_marginStart="15dp"/>
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/line_master"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp">
+
+
+                    <ImageView
+                        android:visibility="gone"
+
+                        android:id="@+id/img_master1"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/ic_baseline_check_circle_24"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        />
+
+                    <ImageView
+                        android:visibility="gone"
+
+                        android:id="@+id/img_master"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/ic_baseline_radio_button_unchecked_24"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/btnborder"
+                        />
+
+
+                        <ImageView
+                            android:layout_marginStart="10dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/mastercard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/eee"/>
+
+                        <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:text="@string/master"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@id/eee"
+                            android:layout_marginStart="15dp"/>
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/line_mada"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp">
+
+
+                    <ImageView
+                        android:visibility="gone"
+
+                        android:id="@+id/img_mada1"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/ic_baseline_check_circle_24"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        />
+
+                    <ImageView
+                        android:visibility="gone"
+
+                        android:id="@+id/img_mada"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/ic_baseline_radio_button_unchecked_24"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        >
+
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/btnborder"
+                           />
+
+                        <ImageView
+                            android:layout_marginStart="10dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/mada_logo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/eeee"/>
+
+                        <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:text="@string/mada"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@id/eeee"
+                            android:layout_marginStart="15dp"/>
+
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/lin_payment"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:layout_below="@id/second_lin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:id="@+id/phone_qr_lin"
+                    android:orientation="vertical"
+                    android:layout_below="@id/second_lin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/line_1"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp">
+
+                        <TextView
+                            android:fontFamily="@font/cairo_regular"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:id="@+id/active_orders"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:text="@string/phone"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:visibility="gone"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:id="@+id/finished_orders"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:text="@string/qr_code"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        >
+
+                        <ImageView
+                            android:background="@drawable/phone"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:visibility="gone"/>
+
+                        <EditText
+                            android:id="@+id/phone"
+                            android:inputType="phone"
+                            android:layout_margin="1dp"
+                            android:textStyle="bold"
+                            android:textAlignment="viewStart"
+                            android:hint="@string/phone"
+                            android:background="@drawable/btngrey"
+                            android:paddingEnd="5dp"
+                            android:paddingStart="10dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@id/second_lin"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginStart="@dimen/_15sdp"
+                android:fontFamily="@font/cairo_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/card_number"
+                android:textColor="@color/colorTextHint2"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:minHeight="40dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btngrey"
+                android:layout_marginTop="5dp">
+
+                <ImageView
+                    android:id="@+id/card_payment_type"
+                    android:background="@drawable/mada"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"
+                    />
+
+                <View
+                    android:layout_marginStart="10dp"
+                    android:layout_width="1dp"
+                    android:background="@color/colorBlack"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+
+                <EditText
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:id="@+id/userNameEt"
+                    android:background="@color/colorDarkGrey"
+                    android:textColor="@color/colorBlack"
+                    android:hint="@string/card_number"
+                    android:paddingEnd="5dp"
+                    android:focusable="true"
+                    android:paddingStart="10dp"
+                    android:textAlignment="viewStart"
+                    android:inputType="phone"
+                    android:textSize="13.5sp"
+                    android:maxLines="1"
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="RtlCompat" />
+
+
+                <!--
+                                        <com.google.android.material.textfield.TextInputLayout
+                                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                            app:boxBackgroundColor="@color/colorWhite"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginStart="5dp">
+
+                                            <com.google.android.material.textfield.TextInputEditText
+                                                android:id="@+id/userNameEt"
+                                                android:background="@color/colorDarkGrey"
+                                                android:textColor="@color/colorBlack"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:hint="@string/card_number"
+                                                android:paddingEnd="5dp"
+                                                android:focusable="true"
+                                                android:paddingStart="5dp"
+                                                android:textAlignment="viewStart"
+                                                android:text="@={paymentGateVM.cardNumber}"
+                                                android:inputType="phone"
+                                                android:textSize="13.5sp"
+                                                android:maxLines="1" />
+
+                                        </com.google.android.material.textfield.TextInputLayout>
+                -->
+
+
+                <ImageView
+                    android:onClick="@{()->paymentGateVM.onScanPress()}"
+                    android:background="@drawable/scan_camera_2"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="gone"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/colorBlack"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/colorBlack"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_marginStart="@dimen/_15sdp"
+                android:fontFamily="@font/cairo_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="@string/expired_date"
+                android:textColor="@color/colorTextHint2"
+                android:layout_marginTop="15dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:minHeight="40dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn1"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_20sdp">
+
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"/>
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/colorBlack"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+
+                <EditText
+                    android:fontFamily="@font/cairo_regular"
+                    android:background="@drawable/btngrey"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:hint="@string/expire_month"
+                    android:paddingEnd="5dp"
+                    android:id="@+id/expiry_month"
+                    android:paddingStart="10dp"
+                    android:textAlignment="viewStart"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:textSize="13.5sp"
+                    android:digits="0123456789"
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"/>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/colorBlack"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:fontFamily="@font/cairo_regular"
+                    android:background="@drawable/btngrey"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:hint="@string/expire_year"
+                    android:paddingEnd="5dp"
+                    android:paddingStart="10dp"
+                    android:id="@+id/expiry_year"
+                    android:textAlignment="viewStart"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:textSize="13.5sp"
+                    android:digits="0123456789"
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"/>
+
+                <!--
+                                        <com.google.android.material.textfield.TextInputLayout
+                                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                            app:boxBackgroundColor="@color/colorWhite"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginStart="5dp"
+                                            android:background="@drawable/btngrey"
+                                            >
+
+                                            <com.google.android.material.textfield.TextInputEditText
+                                                android:background="@drawable/btngrey"
+                                                android:textColor="@color/colorBlack"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:hint="@string/expire_year"
+                                                android:paddingEnd="5dp"
+                                                android:paddingStart="10dp"
+                                                android:id="@+id/expiry_year"
+                                                android:textAlignment="viewStart"
+                                                android:text="@={paymentGateVM.expiryYear}"
+                                                android:inputType="number"
+                                                android:maxLength="2"
+                                                android:textSize="13.5sp"
+                                                android:digits="0123456789"
+                                                android:maxLines="1" />
+
+                                        </com.google.android.material.textfield.TextInputLayout>
+                -->
+
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/colorBlack"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"/>
+
+
+                <EditText
+                    android:fontFamily="@font/cairo_regular"
+                    android:background="@drawable/btngrey"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:hint="@string/password_code"
+                    android:paddingEnd="5dp"
+                    android:textSize="13sp"
+                    android:id="@+id/cvv"
+                    android:paddingStart="10dp"
+                    android:textAlignment="viewStart"
+                    android:inputType="numberPassword"
+                    android:maxLength="3"
+                    android:digits="0123456789"
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"/>
+
+
+                <!--
+                                        <RelativeLayout
+                                            android:layout_marginStart="5dp"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_height="wrap_content"
+                                            >
+
+                                            <com.google.android.material.textfield.TextInputLayout
+                                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                                app:boxBackgroundColor="@color/colorWhite"
+                                                android:layout_width="match_parent"
+                                                android:layout_marginEnd="4dp"
+                                                android:layout_marginStart="-1dp"
+                                                android:layout_height="wrap_content"
+                                                android:background="@drawable/btngrey"
+                                                >
+
+                                                <com.google.android.material.textfield.TextInputEditText
+                                                    android:background="@drawable/btngrey"
+                                                    android:textColor="@color/colorBlack"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:hint="@string/password_code"
+                                                    android:paddingEnd="5dp"
+                                                    android:textSize="13sp"
+                                                    android:id="@+id/cvv"
+                                                    android:paddingStart="10dp"
+                                                    android:textAlignment="viewStart"
+                                                    android:text="@={paymentGateVM.passwordCode}"
+                                                    android:inputType="numberPassword"
+                                                    android:maxLength="3"
+                                                    android:digits="0123456789"
+                                                    android:maxLines="1" />
+
+                                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                                            <FrameLayout
+                                                android:layout_marginTop="4dp"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_centerVertical="true"
+                                                android:layout_width="35dp"
+                                                android:layout_height="35dp"
+                                                android:visibility="gone">
+                                                <ImageView
+                                                    android:layout_gravity="center"
+                                                    android:onClick="@{()->paymentGateVM.securityCode()}"
+                                                    android:background="@drawable/info_icon"
+                                                    android:layout_width="24dp"
+                                                    android:layout_height="24dp"/>
+                                            </FrameLayout>
+
+                                        </RelativeLayout>
+                -->
+
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"/>
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/colorBlack"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/colorBlack"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_marginStart="@dimen/_15sdp"
+                android:fontFamily="@font/cairo_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/card_name"
+                android:layout_marginTop="15dp"
+                android:textSize="14sp"
+                android:textColor="@color/colorTextHint2"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minHeight="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:background="@drawable/person_2"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+                <View
+                    android:layout_marginStart="10dp"
+                    android:layout_width="1dp"
+                    android:background="@color/colorBlack"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+
+                <EditText
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:fontFamily="@font/cairo_regular"
+                    android:background="@drawable/btngrey"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:hint="@string/card_name"
+                    android:paddingEnd="5dp"
+                    android:textSize="13.5sp"
+                    android:id="@+id/holder_name"
+                    android:paddingStart="5dp"
+                    android:textAlignment="viewStart"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"/>
+
+
+                <!--
+                                        <com.google.android.material.textfield.TextInputLayout
+                                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                            app:boxBackgroundColor="@color/colorWhite"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:layout_marginBottom="1dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginStart="5dp">
+
+                                            <com.google.android.material.textfield.TextInputEditText
+                                                android:background="@drawable/btngrey"
+                                                android:textColor="@color/colorBlack"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:hint="@string/card_name"
+                                                android:paddingEnd="5dp"
+                                                android:textSize="13.5sp"
+                                                android:id="@+id/holder_name"
+                                                android:paddingStart="5dp"
+                                                android:textAlignment="viewStart"
+                                                android:text="@={paymentGateVM.cardName}"
+                                                android:inputType="text"
+                                                android:maxLines="1"
+                                                />
+
+                                        </com.google.android.material.textfield.TextInputLayout>
+                -->
+
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/colorBlack"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_alignParentBottom="true"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/btn3"
+                android:id="@+id/relative_layout_click"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:textSize="17sp"
+                        android:textColor="@color/colorWhite"
+                        android:text="@string/pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginStart="15dp"
+                        android:textSize="17sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+    </LinearLayout>
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

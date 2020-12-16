@@ -42,7 +42,7 @@ public class StoreProductsAdapter extends RecyclerView.Adapter<StoreProductsAdap
 
         holder.binding.name.setText(incomingList.get(position).getName());
         holder.binding.quantity.setText(incomingList.get(position).getQuantity() + "");
-        holder.binding.productPrice.setText(( incomingList.get(position).getPrice() * incomingList.get(position).getQuantity() ) + "");
+        holder.binding.productPrice.setText(( incomingList.get(position).getPrice())+ "");
 
         holder.binding.increaseQuant.setOnClickListener(v -> {
             int quant = incomingList.get(position).getQuantity() + 1;

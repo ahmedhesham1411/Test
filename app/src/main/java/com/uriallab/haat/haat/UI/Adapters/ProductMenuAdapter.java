@@ -2,6 +2,7 @@ package com.uriallab.haat.haat.UI.Adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
@@ -50,15 +51,19 @@ public class ProductMenuAdapter extends RecyclerView.Adapter<ProductMenuAdapter.
         }
 
         if (incomingList.get(position).isSelected()) {
-            holder.binding.menuLin.setBackgroundResource(R.drawable.shape_rounded_blue_corner_4);
+            //holder.binding.menuLin.setBackgroundResource(R.drawable.shape_rounded_blue_corner_4);
+            holder.binding.lineBack.setVisibility(View.VISIBLE);
         } else {
-            holder.binding.menuLin.setBackgroundResource(R.drawable.shape_rounded_moov);
+            //holder.binding.menuLin.setBackgroundResource(R.drawable.shape_rounded_moov);
+            holder.binding.lineBack.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v -> {
             MenuId = incomingList.get(position).getId();
 
-            menuClick.menuClick(incomingList.get(position).getId());
+            try {
+                menuClick.menuClick(incomingList.get(position).getId());
+            }catch (Exception e){}
 
             notifyDataSetChanged();
         });

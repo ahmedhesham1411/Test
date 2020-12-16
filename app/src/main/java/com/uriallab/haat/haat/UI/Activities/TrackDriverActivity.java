@@ -40,6 +40,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.databinding.ActivityTrackDriverBinding;
 import com.uriallab.haat.haat.viewModels.TrackDriverViewModel;
@@ -177,7 +178,7 @@ public class TrackDriverActivity extends AppCompatActivity implements OnMapReady
             URI uri;
             try {
                 // Connect to local host
-                uri = new URI("ws://176.9.164.57:898/client");// TODO: 7/26/2020
+                uri = new URI(APIModel.BASE_URL_SOCKET + "client");// TODO: 7/26/2020
             } catch (URISyntaxException e) {
                 e.printStackTrace();
                 return;
@@ -284,7 +285,7 @@ public class TrackDriverActivity extends AppCompatActivity implements OnMapReady
                 }
             };
             webSocketClient.setConnectTimeout(10000);
-            webSocketClient.setReadTimeout(60000);
+            webSocketClient.setReadTimeout(900000);
             webSocketClient.enableAutomaticReconnection(5000);
             webSocketClient.connect();
         } catch (Exception e) {
@@ -401,7 +402,7 @@ public class TrackDriverActivity extends AppCompatActivity implements OnMapReady
 
         title_lin.setVisibility(View.GONE);
         if (isHome)
-            icon_img.setImageResource(R.drawable.haat_home_2);
+            icon_img.setImageResource(R.drawable.homelocation);
         else
             icon_img.setImageResource(R.drawable.haat_store_2);
 

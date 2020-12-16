@@ -102,6 +102,8 @@ public class SendReportBottomSheet extends BottomSheetDialogFragment implements 
         ImageView addCoupon = dialog.findViewById(R.id.add_coupon);
         LinearLayout attachmentLin = dialog.findViewById(R.id.attachment_lin);
 
+
+
         attachmentLin.setOnClickListener(view -> {
             if (Build.VERSION.SDK_INT >= 23) {
                 if (ActivityCompat.checkSelfPermission(activity,
@@ -126,7 +128,7 @@ public class SendReportBottomSheet extends BottomSheetDialogFragment implements 
         recyclerAttachment = dialog.findViewById(R.id.recycler_attachment);
 
         addCoupon.setImageResource(R.drawable.coupon);
-        addCoupon.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
+        addCoupon.setColorFilter(getResources().getColor(R.color.orange), PorterDuff.Mode.SRC_ATOP);
 
         sendComplaint.setOnClickListener(new View.OnClickListener() {
             @Override

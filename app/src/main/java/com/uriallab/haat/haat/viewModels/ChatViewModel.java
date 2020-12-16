@@ -2,6 +2,8 @@ package com.uriallab.haat.haat.viewModels;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,12 +13,16 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -24,6 +30,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.eugeneek.smilebar.SmileBar;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -38,6 +45,7 @@ import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Activities.ChatActivity;
 import com.uriallab.haat.haat.UI.Activities.PaymentGateActivity;
 import com.uriallab.haat.haat.UI.Activities.TrackDriverActivity;
+import com.uriallab.haat.haat.UI.Fragments.RateBottomSheet;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.IntentClass;
 import com.uriallab.haat.haat.Utilities.LoadingDialog;
@@ -61,13 +69,16 @@ import retrofit2.Response;
 
 public class ChatViewModel extends ViewModel {
 
+    BottomSheetBehavior<RelativeLayout> bottomSheetBehavior = null;
     public ObservableBoolean isTracking = new ObservableBoolean(true);
 
     public ObservableBoolean isRecieved = new ObservableBoolean(false);
+    public ObservableBoolean isPaid = new ObservableBoolean(false);
 
     public ObservableField<String> messageObservable = new ObservableField<>("");
 
     public ObservableField<String> orderNumber = new ObservableField<>();
+    public ObservableField<String> storeNamee = new ObservableField<>();
 
     private String orderId, chatId, phoneNumber, userName, checkoutId, userImgUrl;
 
@@ -79,6 +90,8 @@ public class ChatViewModel extends ViewModel {
 
     private Dialog dialog;
 
+    AlertDialog alertDialog;
+
     public String userId;
 
     private LatLng clientLatLng, storeLatLng, driverLatLng;
@@ -87,7 +100,7 @@ public class ChatViewModel extends ViewModel {
         this.activity = activity;
         this.orderId = orderId;
 
-        orderNumber.set(activity.getString(R.string.order_number) + " \n" + orderId);
+        orderNumber.set(activity.getString(R.string.order_number) + orderId);
 
         if (ConfigurationFile.getCurrentLanguage(activity).equals("ar")) {
             activity.binding.backImg.setRotation(180);
@@ -145,7 +158,7 @@ public class ChatViewModel extends ViewModel {
                 //Dialogs.dismissLoading(loadingDialog);
                 if (response.code() == 200) {
                     Log.e("response", response.body().getResult().getMessage());
-                    getChat(false);
+                    getChat(true);
                 } else {
                     try {
                         Log.e("response", response.code() + " " + response.errorBody().string());
@@ -225,10 +238,19 @@ public class ChatViewModel extends ViewModel {
                         !data.getResult().getOrder().isOrd_Payment_Status())
                     isRecieved.set(true);
 
+                if (data.getResult().getOrder().isOrd_Payment_Status()){
+                    isPaid.set(true);
+                }else if (!data.getResult().getOrder().isOrd_Payment_Status()){
+                    isPaid.set(false);
+                }
+                String imageurl = APIModel.BASE_URL + data.getResult().getUserData().getUser_ImgUrl();
+                SaveImage(activity,imageurl);
+
                 Picasso.get().load(APIModel.BASE_URL + data.getResult().getUserData().getUser_ImgUrl()).placeholder(R.drawable.user_img).into(activity.binding.orderImg);
                 activity.binding.driverName.setText(data.getResult().getUserData().getUser_Full_Nm());
                 activity.binding.ratesNumberVal.setText(String.valueOf(data.getResult().getUserData().getUser_Count_Rate()));
                 activity.binding.starBar.setRating(data.getResult().getUserData().getUser_Rate());
+                activity.binding.storeName.setText(data.getResult().getOrder().getOrd_Shop_Nm());
 
                 price = data.getResult().getOrder().getFinal_Amt();
 
@@ -322,15 +344,18 @@ public class ChatViewModel extends ViewModel {
     }
 
     public void rate() {
-        dialog = new Dialog(activity);
+
+        /*dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_alert_dialog_rate);
         dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
         TextView user_name = dialog.findViewById(R.id.user_name);
         final SmileBar starBar = dialog.findViewById(R.id.starBar);
         final EditText comment_edt = dialog.findViewById(R.id.comment_edt);
         Button rate_btn = dialog.findViewById(R.id.rate_btn);
+        Button not_now_btn = dialog.findViewById(R.id.not_now_btn);
         CircleImageView userImg = dialog.findViewById(R.id.user_img);
 
         if (ConfigurationFile.getCurrentLanguage(activity).equals("ar"))
@@ -346,9 +371,49 @@ public class ChatViewModel extends ViewModel {
                 sendRate(comment_edt.getText().toString(), starBar.getRating());
             }
         });
-        dialog.show();
-    }
 
+        not_now_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                activity.finish();
+
+            }
+        });
+        dialog.show();*/
+    /*    TextView user_name = dialog.findViewById(R.id.user_name);
+        final SmileBar starBar = dialog.findViewById(R.id.starBar);
+        final EditText comment_edt = dialog.findViewById(R.id.comment_edt);
+        Button rate_btn = dialog.findViewById(R.id.rate_btn);
+        Button not_now_btn = dialog.findViewById(R.id.not_now_btn);
+        CircleImageView userImg = dialog.findViewById(R.id.user_img);
+*/
+    /*    if (ConfigurationFile.getCurrentLanguage(activity).equals("ar"))
+            starBar.setRotationY(180);*/
+
+//        user_name.setText(userName);
+
+       // Picasso.get().load(APIModel.BASE_URL + userImgUrl).placeholder(R.drawable.profile).into(userImg);
+
+       /* rate_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendRate(comment_edt.getText().toString(), starBar.getRating());
+            }
+        });
+
+        not_now_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                activity.finish();
+
+            }
+        });*/
+        RateBottomSheet rateBottomSheet = new RateBottomSheet(activity,userName,APIModel.BASE_URL + userImgUrl,userId);
+        rateBottomSheet.show(activity.getSupportFragmentManager(), "tag");
+
+    }
     private void isCash() {
         dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -373,7 +438,7 @@ public class ChatViewModel extends ViewModel {
                 paymentType = 1;
 
                 cashId.setTextColor(activity.getResources().getColor(R.color.colorWhite));
-                visaId.setTextColor(activity.getResources().getColor(R.color.colorBlue));
+                visaId.setTextColor(activity.getResources().getColor(R.color.colorGreen2));
 
                 if (ConfigurationFile.getCurrentLanguage(activity).equals("ar")) {
                     cashId.setBackgroundResource(R.drawable.shape_rounded_blue_left);
@@ -392,7 +457,7 @@ public class ChatViewModel extends ViewModel {
                 paymentType = 2;
 
                 visaId.setTextColor(activity.getResources().getColor(R.color.colorWhite));
-                cashId.setTextColor(activity.getResources().getColor(R.color.colorBlue));
+                cashId.setTextColor(activity.getResources().getColor(R.color.colorGreen2));
 
                 if (ConfigurationFile.getCurrentLanguage(activity).equals("ar")) {
                     cashId.setBackgroundResource(R.drawable.shape_grey_stroke_blue_right);
@@ -418,7 +483,8 @@ public class ChatViewModel extends ViewModel {
                     bundle.putDouble("money", price);
                     bundle.putString("orderID", orderId);
                     bundle.putInt("type", 1);
-                    IntentClass.goToStartForResult(activity, PaymentGateActivity.class,103, bundle);
+                    activity.pay(price,orderId,1);
+                    //IntentClass.goToStartForResult(activity, PaymentGateActivity.class,103, bundle);
                 }
 
             }
@@ -597,4 +663,14 @@ public class ChatViewModel extends ViewModel {
         Utilities.hideKeyboard(activity);
         activity.finish();
     }
+
+    public static void SaveImage(Context context, String url_image){
+        SharedPreferences pref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("imageurl", url_image);
+        editor.commit();
+    }
+
+
 }
+

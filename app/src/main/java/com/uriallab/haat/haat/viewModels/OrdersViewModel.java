@@ -1,12 +1,18 @@
 package com.uriallab.haat.haat.viewModels;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.UI.Fragments.ActiveOrdersFragment;
 import com.uriallab.haat.haat.UI.Fragments.FinishedOrdersFragment;
+import com.uriallab.haat.haat.UI.Fragments.NewOrdersFragment;
+import com.uriallab.haat.haat.databinding.ActivityMainBinding;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.fragment.app.Fragment;
@@ -17,11 +23,23 @@ import static com.uriallab.haat.haat.Utilities.GlobalVariables.ACTIVE_ORDERS_FRA
 import static com.uriallab.haat.haat.Utilities.GlobalVariables.ACTIVE_ORDERS_FRAGMENT_TAG;
 import static com.uriallab.haat.haat.Utilities.GlobalVariables.FINISHED_ORDERS_FRAGMENT_ID;
 import static com.uriallab.haat.haat.Utilities.GlobalVariables.FINISHED_ORDERS_FRAGMENT_TAG;
+import static com.uriallab.haat.haat.Utilities.GlobalVariables.NEW_ORDERS_FRAGMENT_ID;
+import static com.uriallab.haat.haat.Utilities.GlobalVariables.NEW_ORDERS_FRAGMENT_TAG;
 
 public class OrdersViewModel {
 
     public ObservableBoolean isFinished = new ObservableBoolean(false);
+    public ObservableBoolean bbbbbb = new ObservableBoolean(false);
+    public ObservableBoolean aaaaa = new ObservableBoolean(true);
+    public ObservableBoolean ccccc = new ObservableBoolean(false);
 
+    public Boolean a,bbb,c = false;
+    //public ObservableBoolean isFinished1 = new ObservableBoolean(false);
+
+    ActivityMainBinding activityMainBinding;
+
+    TextView textView;
+    private int id;
     private String selectedFragmentTag;
 
     private Activity activity;
@@ -31,6 +49,8 @@ public class OrdersViewModel {
         this.activity = activity;
         this.fragmentManager = fragmentManager;
 
+
+        textView = activity.findViewById(R.id.finished_orders);
         fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
@@ -43,17 +63,35 @@ public class OrdersViewModel {
         pushFragment(ACTIVE_ORDERS_FRAGMENT_ID);
     }
 
+    @SuppressLint("ResourceAsColor")
     public void orderTabClick(int type) {
         if (type == 1) {
             pushFragment(ACTIVE_ORDERS_FRAGMENT_ID);
-            isFinished.set(false);
-        } else {
+            aaaaa.set(true);
+            bbbbbb.set(false);
+            ccccc.set(false);
+
+            //isFinished.set(false);
+
+        } else if (type == 2){
+            bbbbbb.set(true);
+            aaaaa.set(false);
+            ccccc.set(false);
             pushFragment(FINISHED_ORDERS_FRAGMENT_ID);
-            isFinished.set(true);
+            //isFinished.set(true);
+
         }
+        else if (type == 3){
+            pushFragment(NEW_ORDERS_FRAGMENT_ID);
+            aaaaa.set(false);
+            bbbbbb.set(false);
+            ccccc.set(true);
+            //isFinished.set(false);
+        }
+
     }
 
-    private void pushFragment(int fragmentId) {
+    public void pushFragment(int fragmentId) {
         String tag;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //        if (!isFinished.get())
@@ -70,6 +108,7 @@ public class OrdersViewModel {
                 tag = ACTIVE_ORDERS_FRAGMENT_TAG;
                 fragment = new ActiveOrdersFragment();
 
+
                 int count = fragmentManager.getBackStackEntryCount();
                 for (int i = 0; i < count; ++i)
                     fragmentManager.popBackStackImmediate();
@@ -77,6 +116,11 @@ public class OrdersViewModel {
             case FINISHED_ORDERS_FRAGMENT_ID:
                 tag = FINISHED_ORDERS_FRAGMENT_TAG;
                 fragment = new FinishedOrdersFragment();
+
+                break;
+            case NEW_ORDERS_FRAGMENT_ID:
+                tag = NEW_ORDERS_FRAGMENT_TAG;
+                fragment = new NewOrdersFragment();
                 break;
             default:
                 try {
@@ -94,5 +138,18 @@ public class OrdersViewModel {
 
     public void back() {
         activity.onBackPressed();
+    }
+
+    public static Integer GetMainId(Context context){
+        SharedPreferences pref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        return pref.getInt("Main_id",1);
+    }
+
+    public int SetId(int a){
+        id = a;
+        return 0;
+    }
+
+    public void b_is_active(){
     }
 }

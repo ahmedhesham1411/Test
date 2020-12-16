@@ -8,6 +8,7 @@ import com.squareup.picasso.Picasso;
 import com.uriallab.haat.haat.DataModels.StoreDetailsModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
+import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.ItemReviewsBinding;
 
 import java.util.List;
@@ -45,6 +46,11 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
         holder.binding.userName.setText(incomingList.get(position).getAuthor_name());
 
         holder.binding.commentTxt.setText(incomingList.get(position).getText());
+
+        String timeTxt = incomingList.get(position).getRelative_time_description() + " " + incomingList.get(position).getTime();
+        String aaa = Utilities.getTimeAgo(activity, timeTxt);
+
+        holder.binding.timeTxt.setText(String.valueOf(incomingList.get(position).getTime()));
 
         holder.binding.starBar.setRating(incomingList.get(position).getRating());
 

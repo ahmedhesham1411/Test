@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/advertiser_products_bottom_sheet"
+<LinearLayout
+    android:id="@+id/advertiser_products_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -17,8 +18,11 @@
         android:layout_marginTop="-10dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
         <TextView
+            android:fontFamily="@font/cairo_regular"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:textAlignment="viewStart"
             android:paddingStart="15dp"
@@ -37,20 +41,22 @@
             app:layout_constraintStart_toStartOf="parent"
             android:textAlignment="viewStart"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:orientation="horizontal"
             android:id="@+id/spinner_lin"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/shape_rounded_dark_grey"
             app:layout_constraintTop_toBottomOf="@id/gender_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
             android:layout_height="40dp">
+
             <Spinner
                 android:layout_gravity="center_vertical"
                 android:id="@+id/complaint_spinner"
@@ -59,7 +65,8 @@
                 android:paddingEnd="8dp"
                 android:background="@drawable/shape_rounded_dark_grey"
                 android:layout_width="match_parent"
-                android:layout_height="36dp" />
+                android:layout_height="36dp"
+                />
 
             <ImageView
                 android:layout_centerVertical="true"
@@ -74,6 +81,7 @@
         </RelativeLayout>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/birthday_txt"
             android:text="@string/complaint_details"
             android:textColor="@color/colorBlack"
@@ -86,17 +94,21 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:fontFamily="@font/cairo_regular"
+            android:textSize="14sp"
+            android:paddingTop="10dp"
             app:fontFamily="@font/cairo_regular"
             android:id="@+id/details_edt"
             android:textAlignment="viewStart"
             android:hint="@string/enter_complaint_details"
+            android:textColorHint="@color/colorBlack"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:gravity="start|top"
             android:minHeight="100dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/shape_rounded_dark_grey"
             app:layout_constraintTop_toBottomOf="@id/birthday_txt"
             app:layout_constraintEnd_toEndOf="parent"
@@ -105,9 +117,10 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:fontFamily="@font/cairo_regular"
             android:text="@string/add_attachment"
             android:textColor="@color/colorBlack"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:layout_marginStart="20dp"
             android:textAlignment="viewStart"
             android:layout_width="wrap_content"
@@ -123,7 +136,7 @@
 
             <LinearLayout
                 android:id="@+id/attachment_lin"
-                android:background="@drawable/shape_rounded_white_stroke"
+                android:background="@drawable/shape_rounded_orange_troke"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_width="80dp"
@@ -132,10 +145,12 @@
                 <ImageView
                     android:id="@+id/add_coupon"
                     android:background="@drawable/coupon"
+                    android:backgroundTint="@color/orange"
                     android:layout_width="24dp"
                     android:layout_height="24dp"/>
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:textSize="13sp"
                     android:text="@string/add_img"
                     android:layout_width="wrap_content"
@@ -159,6 +174,7 @@
             android:layout_height="50dp"/>
 
         <Button
+            android:fontFamily="@font/cairo_regular"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:id="@+id/send_complaint"
@@ -166,11 +182,14 @@
             android:textAllCaps="false"
             android:text="@string/send_complaint"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorBlue"
+            android:background="@drawable/shape_rounded_green_corner_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
 

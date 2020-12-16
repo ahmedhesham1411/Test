@@ -9,6 +9,7 @@ import com.uriallab.haat.haat.UI.Fragments.HomeFragment;
 import com.uriallab.haat.haat.UI.Fragments.JourneyFragment;
 import com.uriallab.haat.haat.UI.Fragments.MoreFragment;
 import com.uriallab.haat.haat.UI.Fragments.NewJourneyFragment;
+import com.uriallab.haat.haat.UI.Fragments.NewOrdersFragment;
 import com.uriallab.haat.haat.UI.Fragments.NotificationFragment;
 import com.uriallab.haat.haat.UI.Fragments.OrdersFragment;
 
@@ -46,10 +47,13 @@ public abstract class GlobalVariables {
     public static final int MORE_FRAGMENT_ID = 5;
     public static final String MORE_FRAGMENT_TAG = MoreFragment.class.getSimpleName();
     public static final int ACTIVE_ORDERS_FRAGMENT_ID = 6;
+    public static final int NEW_ORDERS_FRAGMENT_ID = 33;
+    public static final String NEW_ORDERS_FRAGMENT_TAG = NewOrdersFragment.class.getSimpleName();
     public static final String ACTIVE_ORDERS_FRAGMENT_TAG = ActiveOrdersFragment.class.getSimpleName();
     public static final int FINISHED_ORDERS_FRAGMENT_ID = 7;
     public static final String FINISHED_ORDERS_FRAGMENT_TAG = FinishedOrdersFragment.class.getSimpleName();
     public static final int ACTIVE_JOURNEY_FRAGMENT_ID = 8;
+    public static final int Finished_JOURNEY_FRAGMENT_ID = 18;
     public static final String ACTIVE_JOURNEY_FRAGMENT_TAG = ActiveJourneyFragment.class.getSimpleName();
     public static final int NEW_JOURNEY_FRAGMENT_ID = 9;
     public static final String NEW_JOURNEY_FRAGMENT_TAG = NewJourneyFragment.class.getSimpleName();

@@ -65,7 +65,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
         }
 
         holder.binding.deleteFav.setImageResource(R.drawable.rubish);
-        holder.binding.deleteFav.setColorFilter(activity.getResources().getColor(R.color.colorMoov), PorterDuff.Mode.SRC_ATOP);
+        holder.binding.deleteFav.setColorFilter(activity.getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
 
         holder.binding.clickLin.setOnClickListener(view -> {
             try {

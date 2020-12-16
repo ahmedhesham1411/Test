@@ -4,14 +4,18 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -50,6 +54,7 @@ public class DeliveringTimeActivity extends AppCompatActivity implements OnMapRe
 
         binding.setDTimeVM(viewModel);
 
+
         setUpMapIfNeeded();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -57,6 +62,17 @@ public class DeliveringTimeActivity extends AppCompatActivity implements OnMapRe
         }
 
         setMapLocation();
+/*
+        Button button = findViewById(R.id.next_btn2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });*/
+     /*   Typeface face =  ResourcesCompat.getFont(getApplicationContext(), R.font.coconnextarabic_light);
+                binding.scrollChoice.setTypeface(face);*/
+
     }
 
     private void checkLocationPermission() {
@@ -147,6 +163,10 @@ public class DeliveringTimeActivity extends AppCompatActivity implements OnMapRe
         returnIntent.putExtra("time", binding.scrollChoice.getCurrentSelection());
         returnIntent.putExtra("timeId", String.valueOf(viewModel.timeListId.get(binding.scrollChoice.getCurrentItemPosition())));
         setResult(Activity.RESULT_OK, returnIntent);
+        finish();
+    }
+
+    public void no(){
         finish();
     }
 

@@ -55,7 +55,7 @@ public class NewJourneyViewModel {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
                 Log.e("response", responseString);
-
+                Dialogs.dismissLoading(loadingDialog);
                 Type dataType = new TypeToken<JourneyModel>() {
                 }.getType();
                 JourneyModel data = new Gson().fromJson(responseString, dataType);
@@ -75,7 +75,7 @@ public class NewJourneyViewModel {
             @Override
             public void onFinish() {
                 super.onFinish();
-                Dialogs.dismissLoading(loadingDialog);
+                //Dialogs.dismissLoading(loadingDialog);
             }
         });
     }

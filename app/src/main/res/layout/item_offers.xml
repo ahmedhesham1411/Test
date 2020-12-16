@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:id="@+id/driver_name"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="-5dp"
@@ -78,13 +79,15 @@
 
             </LinearLayout>
 
+            <!--copy-->
             <LinearLayout
                 android:layout_marginEnd="15dp"
                 android:gravity="center"
                 android:paddingStart="10dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <TextView
                     android:textSize="16sp"
@@ -96,7 +99,6 @@
 
                 <TextView
                     android:textColor="@color/colorMoov"
-                    android:id="@+id/order_number"
                     android:layout_marginTop="5dp"
                     android:textSize="14sp"
                     android:text=""
@@ -104,71 +106,147 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+            <!--endcopy-->
 
+            <LinearLayout
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cash"
+                    android:textSize="12sp"
+                    android:id="@+id/cash_txt"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/money"
+                    android:layout_marginStart="10dp"/>
+
+
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/order_state_lin"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
 
             <View
                 android:layout_width="0dp"
                 android:layout_weight=".5"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_marginEnd="15dp"
-                android:gravity="center"
                 android:paddingStart="10dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:textColor="@color/colorr"
+                    android:id="@+id/order_number"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    />
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorText"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorDarkGrey"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"/>
+
+            <LinearLayout
+                android:layout_marginEnd="15dp"
+                android:paddingStart="10dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/colorr"
+                    android:id="@+id/delivery_time_val"
+                    android:textSize="14sp"
+                    android:text="1 hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:textSize="14sp"
                     android:textColor="@color/colorText"
                     android:layout_marginTop="8dp"
                     android:text="@string/delivering_time"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/colorMoov"
-                    android:id="@+id/delivery_time_val"
-                    android:textSize="14sp"
-                    android:text="1 hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorDarkGrey"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"/>
 
             <View
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_marginEnd="15dp"
-                android:gravity="center"
                 android:paddingStart="10dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
+
 
                 <TextView
-                    android:visibility="gone"
-                    android:id="@+id/total_fee"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorText"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/delivery_fee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:visibility="gone"
                     android:id="@+id/price_after_discount"
                     android:textSize="14sp"
@@ -176,23 +254,42 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/price_after_discount"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/colorMoov"
+                    android:textColor="@color/colorr"
                     android:id="@+id/delivery_fee_val"
                     android:textSize="14sp"
                     android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:visibility="visible"
+                    android:id="@+id/total_fee"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorText"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/delivery_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+
+
             </LinearLayout>
 
             <View
                 android:layout_width="0dp"
                 android:layout_weight=".5"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -201,9 +298,12 @@
             android:paddingBottom="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/accept_offer"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -212,14 +312,15 @@
                 android:textColor="@color/colorWhite"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="15dp"
-                android:background="@drawable/shape_rounded_blue_corner_4"
+                android:background="@drawable/shape_rounded_green_corner_4"
                 android:layout_gravity="center_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="30dp" />
+                android:layout_width="200dp"
+                android:layout_height="@dimen/_30sdp"
+                />
 
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="5dp"
                 android:id="@+id/cancel_offer"
@@ -232,7 +333,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

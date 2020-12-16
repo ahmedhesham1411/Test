@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.databinding.ObservableInt;
 
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.uriallab.haat.haat.API.APIModel;
@@ -35,6 +38,7 @@ public class CodeViewModel {
 
     private String serverCode;
     private String phone;
+    public ObservableInt rotation = new ObservableInt(0);
 
     public CodeViewModel(final CodeActivity activity, String serverCode, String phone, boolean isRegistered) {
         this.activity = activity;
@@ -45,9 +49,20 @@ public class CodeViewModel {
         activity.binding.serverCodeTxt.setText(serverCode);
 
         restartTimer();
+
+
+    }
+
+    public void back() {
+        activity.finish();
     }
 
     public void checkCodeAndGo() {
+        if (phone.equals("00000000")){
+            Toast.makeText(activity, "hi", Toast.LENGTH_SHORT).show();
+        }
+
+
 
         String localCode = activity.binding.num1Edt.getText().toString() +
                 activity.binding.num2Edt.getText().toString() +

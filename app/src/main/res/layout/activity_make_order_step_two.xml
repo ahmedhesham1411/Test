@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBlue"
+        android:background="@color/colorDarkGrey"
         tools:context="com.uriallab.haat.haat.UI.Activities.makeOrder.MakeOrderStepTwoActivity">
 
         <LinearLayout
@@ -23,7 +23,6 @@
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -39,21 +38,21 @@
                     android:rotation="@{makeOrderVM.rotate}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/order_details"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -97,12 +96,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="20dp"
-                android:text="@string/delivering_point"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:src="@drawable/orderdetails"
+                    />
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:textSize="12sp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="@string/delivering_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_marginEnd="15dp"
@@ -120,6 +136,7 @@
                     android:layout_weight="1"
                     android:layout_height="40dp">
                     <TextView
+                        android:fontFamily="@font/cairo_regular"
                         android:hint="@string/delivering_location"
                         android:singleLine="true"
                         android:ellipsize="marquee"
@@ -129,7 +146,7 @@
                         android:scrollHorizontally="true"
                         android:textAlignment="viewStart"
                         android:id="@+id/location_txt"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:text="@{makeOrderVM.addressObservable}"
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
@@ -137,8 +154,22 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent"/>
 
-                    <TextView
-                        android:background="@drawable/shape_rounded_moov"
+                    <FrameLayout
+                        android:onClick="@{()->makeOrderVM.deliveringLocation(1)}"
+                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_baseline_location_on_24dsdsssad"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
+
+                    </FrameLayout>
+
+              <!--      <TextView
+                        android:background="@drawable/shape_rounded_green_corner_4"
                         android:onClick="@{()->makeOrderVM.deliveringLocation(1)}"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="5dp"
@@ -150,7 +181,7 @@
                         android:textColor="@color/colorWhite"
                         android:text="@string/change_location"
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"/>
+                        android:layout_height="30dp"/>-->
                 </LinearLayout>
 
                 <FrameLayout
@@ -161,7 +192,7 @@
 
                     <ImageView
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_star_orange"
+                        android:background="@drawable/ic_baseline_star_24"
                         android:layout_width="24dp"
                         android:layout_height="24dp"/>
 
@@ -169,14 +200,31 @@
 
             </LinearLayout>
 
-            <TextView
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp">
+
+
+            <ImageView
+                android:layout_gravity="center"
                 android:visibility="@{makeOrderVM.isService? View.VISIBLE : View.GONE}"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:src="@drawable/orderdetails"
+                />
+
+           <TextView
+               android:textSize="12sp"
+               android:visibility="@{makeOrderVM.isService? View.VISIBLE : View.GONE}"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:text="@string/receiving_point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+        </LinearLayout>
             <LinearLayout
                 android:visibility="@{makeOrderVM.isService? View.VISIBLE : View.GONE}"
                 android:layout_marginEnd="15dp"
@@ -211,8 +259,23 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent"/>
 
+                    <FrameLayout
+                        android:onClick="@{()->makeOrderVM.deliveringLocation(2)}"
+                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_baseline_location_on_24dsdsssad"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
+
+                    </FrameLayout>
+
                     <TextView
-                        android:background="@drawable/shape_rounded_moov"
+                        android:visibility="gone"
+                        android:background="@drawable/shape_rounded_green_corner_4"
                         android:onClick="@{()->makeOrderVM.deliveringLocation(2)}"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="5dp"
@@ -235,7 +298,7 @@
 
                     <ImageView
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_star_orange"
+                        android:background="@drawable/ic_baseline_star_24"
                         android:layout_width="24dp"
                         android:layout_height="24dp"/>
 
@@ -244,11 +307,104 @@
             </LinearLayout>
 
             <TextView
+                android:visibility="gone"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="20dp"
-                android:text="@string/delivering_time"
+                android:text="@string/receiving_point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+          <!--  <LinearLayout
+                android:visibility="gone"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:onClick="@{()->makeOrderVM.deliveringLocation(2)}"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:hint="@string/receiving_location"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:fadingEdge="horizontal"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:scrollHorizontally="true"
+                        android:textAlignment="viewStart"
+                        android:id="@+id/distenation_txt"
+                        android:textSize="14sp"
+                        android:text="@{makeOrderVM.distenationObservable}"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:background="@drawable/shape_rounded_green_corner_4"
+                        android:onClick="@{()->makeOrderVM.deliveringLocation(2)}"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:text="@string/change_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"/>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:onClick="@{()->makeOrderVM.favourites()}"
+                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:background="@drawable/starr"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
+
+                </FrameLayout>
+
+            </LinearLayout>-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:src="@drawable/clockk"
+                    android:layout_gravity="center"/>
+
+
+                <TextView
+                    android:fontFamily="@font/cairo_regular"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="@string/delivering_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:onClick="@{()->makeOrderVM.deliveringTime()}"
@@ -266,6 +422,8 @@
                     android:layout_weight="1"
                     android:layout_height="40dp">
                     <TextView
+                        android:fontFamily="@font/cairo_regular"
+                        android:textSize="12sp"
                         android:hint="@string/delivering_time"
                         android:text="@{makeOrderVM.timeObservable}"
                         android:gravity="center_vertical"
@@ -277,7 +435,7 @@
                     <ImageView
                         android:layout_marginEnd="10dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/time"
+                        android:background="@drawable/ic_baseline_keyboard_arrow_right_24aaa"
                         android:layout_width="24dp"
                         android:layout_height="24dp"/>
                 </LinearLayout>
@@ -287,6 +445,7 @@
         </LinearLayout>
 
         <Button
+            android:fontFamily="@font/cairo_regular"
             android:onClick="@{()->makeOrderVM.createOrder()}"
             android:layout_alignParentBottom="true"
             android:clickable="true"
@@ -296,7 +455,7 @@
             android:textAllCaps="false"
             android:text="@string/send_order"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorBlue"
+            android:background="@drawable/shape_rounded_green_corner_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"

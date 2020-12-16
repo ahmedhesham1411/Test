@@ -4,12 +4,15 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.UI.Adapters.ChatAdapter;
+import com.uriallab.haat.haat.UI.Adapters.ChatAdapter2;
 import com.uriallab.haat.haat.UI.Fragments.SendReportBottomSheet;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.RealPathUtil;
@@ -66,10 +69,17 @@ public class DriverNewOrderActivity extends AppCompatActivity {
     }
 
     public void initRecycler(List<String> chatList) {
-        ChatAdapter reviewsAdapter = new ChatAdapter(this, chatList, true);
-        binding.recyclerChat.setLayoutManager(new LinearLayoutManager(this));
-        binding.recyclerChat.setAdapter(reviewsAdapter);
-        binding.recyclerChat.scrollToPosition(chatList.size() - 1);
+        if (chatList.size()==2 || chatList.size()==1){
+            ChatAdapter reviewsAdapter = new ChatAdapter(this, chatList, true);
+            binding.recyclerChat.setLayoutManager(new LinearLayoutManager(this));
+            binding.recyclerChat.setAdapter(reviewsAdapter);
+            binding.recyclerChat.scrollToPosition(chatList.size() - 1);
+        }else{
+            ChatAdapter2 reviewsAdapter = new ChatAdapter2(this, chatList, true,binding.recyclerChat);
+            binding.recyclerChat.setLayoutManager(new LinearLayoutManager(this));
+            binding.recyclerChat.setAdapter(reviewsAdapter);
+            binding.recyclerChat.scrollToPosition(chatList.size() - 1);
+        }
     }
 
     public void sendReport() {

@@ -33,7 +33,7 @@ public class SettingActivity extends AppCompatActivity {
         binding.contactArrow.setImageResource(R.drawable.arrow_left);
         binding.langArrow.setImageResource(R.drawable.arrow_left);
         binding.addCoupon.setImageResource(R.drawable.coupon);
-        binding.addCoupon.setColorFilter(getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
+        binding.addCoupon.setColorFilter(getResources().getColor(R.color.colorr), PorterDuff.Mode.SRC_ATOP);
         binding.profileArrow.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
         binding.policyArrow.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);
         binding.privacyArrow.setColorFilter(getResources().getColor(R.color.colorTextHint), PorterDuff.Mode.SRC_ATOP);

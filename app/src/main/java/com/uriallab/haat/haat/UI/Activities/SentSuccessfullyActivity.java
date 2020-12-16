@@ -28,7 +28,7 @@ public class SentSuccessfullyActivity extends BaseActivity {
         Bundle bundle = getIntent().getBundleExtra("data");
 
         if (bundle.getInt("sentType") == 1) {
-            Glide.with(this).load(R.drawable.new_order_sent).into(binding.doneImg);
+            //Glide.with(this).load(R.drawable.new_order_sent).into(binding.doneImg);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -42,7 +42,7 @@ public class SentSuccessfullyActivity extends BaseActivity {
         } else{
             orderId = bundle.getString("orderId");
             clientId = bundle.getString("clientId");
-            Glide.with(this).load(R.drawable.logo).into(binding.doneImg);
+            //Glide.with(this).load(R.drawable.logo).into(binding.doneImg);
         }
 
         binding.setSentSuccessfullyVM(new SentSuccessfullyViewModel(this, bundle.getInt("sentType"), orderId, clientId));

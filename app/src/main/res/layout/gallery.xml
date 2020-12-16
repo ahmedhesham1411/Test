@@ -17,12 +17,15 @@
             android:id="@+id/gallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_weight="1"
-            android:background="@color/colorBlue"
+            android:background="@drawable/shape_rounded_green_corner_4"
             android:padding="10sp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -41,12 +44,16 @@
             android:id="@+id/Camera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:layout_weight="1"
-            android:background="@color/colorBlue"
+            android:background="@drawable/btn"
             android:padding="10sp">
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

@@ -277,7 +277,7 @@ public class MakeOrderStepTwoActivity extends AppCompatActivity implements OnMap
 
         title_lin.setVisibility(View.GONE);
         if (isHome)
-            icon_img.setImageResource(R.drawable.haat_home_2);
+            icon_img.setImageResource(R.drawable.homelocation);
         else
             icon_img.setImageResource(R.drawable.haat_store_2);
 

@@ -9,6 +9,7 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -17,7 +18,6 @@
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -33,21 +33,21 @@
                     android:rotation="@{createInvoiceVM.rotation}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/create_invoice"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -71,6 +71,7 @@
 
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/email_txt"
                 android:text="@string/amount"
                 android:textColor="@color/colorBlack"
@@ -81,6 +82,8 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:fontFamily="@font/cairo_regular"
+                android:textSize="@dimen/_10ssp"
                 app:addTextChangedListener="@{createInvoiceVM.getSearchText()}"
                 app:error="@{createInvoiceVM.amountError}"
                 android:id="@+id/email_edt"
@@ -92,14 +95,23 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/shape_rounded_dark_grey"
+                android:background="@drawable/btngrey"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
 
 
-            <LinearLayout
+            <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:text="@string/amount2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:paddingStart="20dp"
+                android:layout_marginStart="20dp"
+                />
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="20dp"
                 android:paddingEnd="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -107,9 +119,13 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="@string/delivering_amount"
+                    android:fontFamily="@font/cairo_regular"
+                    android:text="@string/amount3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextHint"
+                    android:textSize="@dimen/_10ssp"
+                    android:paddingStart="8dp" />
 
                 <View
                     android:layout_width="0dp"
@@ -117,10 +133,12 @@
                     android:layout_height="1dp"/>
 
                 <TextView
-                    android:textColor="@color/colorMoov"
+                    android:fontFamily="@font/cairo_regular"
+                    android:textColor="@color/colorTextHint"
                     android:text="@{createInvoiceVM.price}"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    />
 
             </LinearLayout>
 
@@ -134,6 +152,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:fontFamily="@font/cairo_regular"
                     android:text="@string/total_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -144,7 +163,8 @@
                     android:layout_height="1dp"/>
 
                 <TextView
-                    android:textColor="@color/colorBlue"
+                    android:fontFamily="@font/cairo_regular"
+                    android:textColor="@color/orange2"
                     android:text="@{createInvoiceVM.totalPrice}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -152,6 +172,7 @@
             </LinearLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:text="@string/invoice_img"
                 android:textColor="@color/colorBlack"
                 android:layout_marginTop="50dp"
@@ -169,19 +190,21 @@
                     android:onClick="@{()->createInvoiceVM.getPhoto()}"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="20dp"
-                    android:background="@drawable/shape_rounded_white_stroke"
+                    android:background="@drawable/shape_rounded_orange_troke"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="60dp"
                     android:layout_height="60dp">
 
                     <ImageView
+                        android:src="@drawable/ic_baseline_add_circle"
                         android:id="@+id/add_img"
                         android:layout_width="16dp"
                         android:layout_height="16dp"/>
 
                     <TextView
-                        android:textSize="10sp"
+                        android:fontFamily="@font/cairo_regular"
+                        android:textSize="@dimen/_6ssp"
                         android:text="@string/add_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -189,8 +212,8 @@
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_marginStart="15dp"
                     android:orientation="vertical">
 
@@ -222,7 +245,8 @@
         </LinearLayout>
 
         <Button
-            android:background="@color/colorBlue"
+            android:fontFamily="@font/cairo_regular"
+            android:background="@drawable/shape_rounded_green_corner_4"
             android:layout_alignParentBottom="true"
             android:onClick="@{()->createInvoiceVM.sendInvoice()}"
             android:textAllCaps="false"
@@ -233,7 +257,10 @@
             android:text="@string/send_invoice"
             android:textColor="@color/colorWhite"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="50dp"/>
     </RelativeLayout>
 
 </layout>

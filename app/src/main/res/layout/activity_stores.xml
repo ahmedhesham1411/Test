@@ -11,13 +11,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
 
         <LinearLayout
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -33,22 +33,22 @@
                     android:rotation="@{storesVM.rotation}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="20dp"
                 android:layout_height="wrap_content"
                 android:text="@{storesVM.categoryName}"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -65,11 +65,112 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorBlack"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/noun_sort"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:fontFamily="@font/cairo_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/sort_by"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/_5sdp"/>
+
+            <RelativeLayout
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/btngrey"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_gravity="center">
+
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_27sdp"
+                    android:background="@drawable/btngrey"
+                    android:layout_gravity="center"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_5sdp"/>
+
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/spinner_arrow"
+                    android:rotation="90"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/eft"
+                    android:layout_width="8dp"
+                    android:layout_height="16dp"
+                    />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/colorBlack" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="start">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/noun_menuactive"
+                    android:id="@+id/noun_menu"/>
+
+                <Space
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/menu"
+                    android:id="@+id/menu"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorBlack"/>
+
+
+        <LinearLayout
             android:id="@+id/lin1"
             android:layout_width="match_parent"
-            android:layout_marginTop="-20dp"
-            android:layout_height="70dp"
-            android:background="@color/colorBlue"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_height="wrap_content"
             android:elevation="5dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,27 +179,22 @@
 
             <LinearLayout
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/shape_rounded_grey"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:background="@drawable/btngrey"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="@dimen/_35sdp">
 
-                <ImageView
-                    android:id="@+id/search_icon"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/search"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp" />
+
 
                 <EditText
+                    android:fontFamily="@font/cairo_regular"
+                    android:background="@android:color/transparent"
                     android:id="@+id/edt_search"
                     android:imeOptions="actionSend"
                     android:singleLine="true"
                     android:textAlignment="viewStart"
-                    android:background="@drawable/shape_rounded_grey"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -108,9 +204,20 @@
                     android:textColor="@color/colorText"
                     android:textSize="15sp" />
 
+                <ImageView
+                    android:id="@+id/search_icon"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:background="@drawable/magnifyin_glass"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:scaleType="fitXY"/>
+
             </LinearLayout>
 
         </LinearLayout>
+
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll"
@@ -122,21 +229,25 @@
                 android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:descendantFocusability="blocksDescendants"
                     android:id="@+id/stores_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="8dp"/>
+                    android:paddingBottom="8dp"
+                    android:layout_gravity="center"
+                    />
+
                 <TextView
-                    android:visibility="gone"
+                    android:fontFamily="@font/cairo_regular"
+                    android:visibility="visible"
                     android:id="@+id/no_data"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:text="@string/no_data"
-                    android:textColor="@color/colorBlue"
+                    android:textColor="@color/colorGreen2"
                     android:textSize="18sp"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

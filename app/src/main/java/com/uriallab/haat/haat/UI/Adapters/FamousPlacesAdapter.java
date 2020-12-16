@@ -46,6 +46,8 @@ public class FamousPlacesAdapter extends RecyclerView.Adapter<FamousPlacesAdapte
     public void onBindViewHolder(final StoresViewHolder holder, final int position) {
 
         Picasso.get().load(incomingList.get(position).getIcon()).into(holder.binding.famousImage);
+        holder.binding.storyName.setText(incomingList.get(position).getName());
+
 
         holder.itemView.setOnClickListener(view -> {
             Bundle bundle = new Bundle();

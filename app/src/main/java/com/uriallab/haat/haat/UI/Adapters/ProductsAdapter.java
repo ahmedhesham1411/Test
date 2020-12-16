@@ -55,17 +55,19 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MenuVi
 
         holder.binding.productName.setText(incomingList.get(position).getProduct_name());
         holder.binding.productDesc.setText(incomingList.get(position).getProduct_description());
-        holder.binding.productPrice.setText((incomingList.get(position).getProduct_price()) + "");
+        holder.binding.productPrice.setText((Double.parseDouble(incomingList.get(position).getProduct_price())) + "");
 
-        holder.binding.deleteQuantity.setImageResource(R.drawable.rubish);
-        holder.binding.deleteQuantity.setColorFilter(activity.getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
+        //holder.binding.deleteQuantity.setImageResource(R.drawable.rubish);
+        //holder.binding.deleteQuantity.setColorFilter(activity.getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
 
         if (incomingList.get(position).isSelected()) {
             holder.binding.deleteFrame.setVisibility(View.VISIBLE);
-            holder.binding.quantity.setVisibility(View.VISIBLE);
+            holder.binding.lay.setBackgroundResource(R.drawable.btnorangeee);
+            holder.binding.quantity.setVisibility(View.GONE);
         } else {
+            holder.binding.lay.setBackgroundResource(R.color.colorDarkGrey);
             holder.binding.deleteFrame.setVisibility(View.INVISIBLE);
-            holder.binding.quantity.setVisibility(View.INVISIBLE);
+            holder.binding.quantity.setVisibility(View.GONE);
         }
 
         holder.binding.deleteFrame.setOnClickListener(v -> {
@@ -89,7 +91,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MenuVi
             }
 
             holder.binding.deleteFrame.setVisibility(View.INVISIBLE);
-            holder.binding.quantity.setVisibility(View.INVISIBLE);
+            holder.binding.quantity.setVisibility(View.GONE);
+            holder.binding.lay.setBackgroundResource(R.color.colorDarkGrey);
 
             double tPrice = 0;
             for (int i = 0; i < productMenuModelList.size(); i++) {
@@ -97,12 +100,13 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MenuVi
                 tPrice += itemPrice;
             }
             totalPrice.set(tPrice +" "+ activity.getString(R.string.currency));
-
+            Double aaa = Double.valueOf(incomingList.get(position).getProduct_price());
+            holder.binding.productPrice.setText(aaa.toString());
         });
 
         holder.itemView.setOnClickListener(v -> {
-            ProductBottomSheet productBottomSheet = new ProductBottomSheet(activity, incomingList.get(position),
-                    holder.binding.deleteFrame, holder.binding.quantity, holder.binding.productPrice, productMenuModelList, totalPrice);
+            ProductBottomSheet productBottomSheet = new ProductBottomSheet(activity, holder.binding.lay,incomingList.get(position),
+                    holder.binding.deleteFrame, holder.binding.quantity, holder.binding.productPrice, productMenuModelList, totalPrice,Double.parseDouble(incomingList.get(position).getProduct_price()),incomingList.get(position).getProduct_description());
             productBottomSheet.show(activity.getSupportFragmentManager(), "tag");
         });
     }

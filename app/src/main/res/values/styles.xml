@@ -66,4 +66,24 @@
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
     </style>
 
+    <style name="SheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <!--<item name="android:windowCloseOnTouchOutside">false</item>-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="ErrorDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:colorBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="CheckboxStyle" parent="AppTheme">
+        <item name="colorAccent">@color/orange</item>  // for checked
+        <item name="android:textColorSecondary">@color/orange</item>  // for unchecked
+    </style>
+
 </resources>

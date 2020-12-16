@@ -20,7 +20,6 @@
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -36,9 +35,9 @@
                     android:rotation="@{thirdStepVM.rotation}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
@@ -50,7 +49,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/register_as_captain"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -256,7 +255,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:textColor="@color/colorWhite"
-                        android:background="@drawable/shape_rounded_moov"
+                        android:background="@drawable/shape_rounded_green_corner_4"
                         android:layout_width="130dp"
                         android:layout_height="match_parent"/>
 
@@ -291,7 +290,7 @@
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         android:textColor="@color/colorWhite"
-                        android:background="@drawable/shape_rounded_moov"
+                        android:background="@drawable/shape_rounded_green_corner_4"
                         android:layout_width="130dp"
                         android:layout_height="match_parent"/>
 
@@ -327,7 +326,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:textColor="@color/colorWhite"
-                        android:background="@drawable/shape_rounded_moov"
+                        android:background="@drawable/shape_rounded_green_corner_4"
                         android:layout_width="130dp"
                         android:layout_height="match_parent"/>
 
@@ -357,8 +356,9 @@
             android:gravity="center"
             android:textAllCaps="false"
             android:text="@string/next_"
+
             android:textColor="@color/colorWhite"
-            android:background="@color/colorMoov"
+            android:background="@drawable/shape_rounded_green_corner_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"

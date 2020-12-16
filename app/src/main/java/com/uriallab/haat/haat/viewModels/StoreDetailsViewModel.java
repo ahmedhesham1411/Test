@@ -11,11 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +37,10 @@ import com.uriallab.haat.haat.UI.Activities.StoreUsersReviewsActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.MakeOrderFirstStepActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.OtherBranchesActivity;
 import com.uriallab.haat.haat.UI.Activities.makeOrder.StoreDetailsActivity;
+import com.uriallab.haat.haat.UI.Adapters.ImagesRecyclerAdapter;
+import com.uriallab.haat.haat.UI.Adapters.ImagesRecyclerAdapter2;
+import com.uriallab.haat.haat.UI.Adapters.TimeBottomSheet;
+import com.uriallab.haat.haat.UI.Fragments.RateBottomSheet;
 import com.uriallab.haat.haat.Utilities.Dialogs;
 import com.uriallab.haat.haat.Utilities.GlobalVariables;
 import com.uriallab.haat.haat.Utilities.IntentClass;
@@ -150,7 +157,7 @@ public class StoreDetailsViewModel {
 
                     Log.e("distance", distance + " ");
 
-                    activity.binding.distanceFromYou.setText(activity.getString(R.string.distance_from_you) + "  " + distance +
+                    activity.binding.distanceFromYou.setText(activity.getString(R.string.distance_from_you) + "  " + Double.parseDouble(distance) +" "+
                             activity.getString(R.string.km));
                 }
 
@@ -174,6 +181,16 @@ public class StoreDetailsViewModel {
                 otherBranchesList.setProductBeans(otherList);
 
                 Picasso.get().load(photoUrl).into(activity.binding.storeImg);
+
+
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false);
+                activity.binding.imgsRecycler.setLayoutManager(layoutManager);
+                activity.binding.imgsRecycler.setHasFixedSize(true);
+/*
+                ImagesRecyclerAdapter imagesRecyclerAdapter = new ImagesRecyclerAdapter(activity,imgs);
+*/
+                ImagesRecyclerAdapter imagesRecyclerAdapter = new ImagesRecyclerAdapter(activity,3);
+                activity.binding.imgsRecycler.setAdapter(imagesRecyclerAdapter);
 
                 try {
                     if (storeDetailsModel.getResult().getOpening_hours().isOpen_now()) {
@@ -212,6 +229,28 @@ public class StoreDetailsViewModel {
 //                    activity.binding.menuTxt.setVisibility(View.GONE);
 //                    e.printStackTrace();
 //                }
+
+                activity.binding.recyclerMenu.setVisibility(View.VISIBLE);
+                activity.binding.menuTxt.setVisibility(View.VISIBLE);
+                //activity.initRecyclerMenu(activity);
+                RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false);
+                ImagesRecyclerAdapter2 imagesRecyclerAdapter2 = new ImagesRecyclerAdapter2(activity,3);
+                activity.binding.recyclerMenu.setAdapter(imagesRecyclerAdapter2);
+                activity.binding.recyclerMenu.setLayoutManager(layoutManager2);
+                activity.binding.recyclerMenu.setHasFixedSize(true);
+                //Picasso.get().load(photoUrl).into(activity.binding.storeImg);
+
+/*                try {
+                   if (storeDetailsModel.getResult().getPhotos().isEmpty()) {
+                        activity.binding.recyclerMenu.setVisibility(View.GONE);
+                        activity.binding.menuTxt.setVisibility(View.GONE);
+                    } else
+                        activity.initRecyclerMenu(activity);
+                } catch (Exception e) {
+                    activity.binding.recyclerMenu.setVisibility(View.GONE);
+                    activity.binding.menuTxt.setVisibility(View.GONE);
+                    e.printStackTrace();
+                }*/
             }
 
             @Override
@@ -299,19 +338,62 @@ public class StoreDetailsViewModel {
 
                     Log.e("distance", distance + " ");
 
-                    activity.binding.distanceFromYou.setText(activity.getString(R.string.distance_from_you) + "  " + distance +
-                            activity.getString(R.string.km));
+                    try {
+                        activity.binding.distanceFromYou.setText(activity.getString(R.string.distance_from_you) + "  " + Double.parseDouble(distance) +" "+
+                                activity.getString(R.string.km));
+                    }catch (Exception e){}
+                    Log.e("distance", "location is required ");
                 }
 
 
                 try {
-                    photoUrl = storeDetailsModel.getResult().getPhotos().get(0).getPhoto_reference();
+                    //photoUrl = "https://e0.365dm.com/20/08/2048x1152/skysports-ronaldo-juve_5061431.jpg";
+                    List<StoreDetailsModel.ResultBean.PhotosBean> imgs = storeDetailsModel.getResult().getPhotos();
+                    String aa = storeDetailsModel.getResult().getPhotos().get(0).getPhoto_reference();
+/*
+                        = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+*/
+
+                 /*   RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false);
+                    activity.binding.imgsRecycler.setLayoutManager(layoutManager);
+                    activity.binding.imgsRecycler.setHasFixedSize(true);
+                    ImagesRecyclerAdapter imagesRecyclerAdapter = new ImagesRecyclerAdapter(activity,3);
+*//*
+                    ImagesRecyclerAdapter imagesRecyclerAdapter = new ImagesRecyclerAdapter(activity,imgs);
+*//*
+
+                    activity.binding.imgsRecycler.setAdapter(imagesRecyclerAdapter);*/
+                    //imagesRecyclerAdapter.notifyDataSetChanged();
+
+                    //photoUrl = storeDetailsModel.getResult().getPhotos().get(0).getPhoto_reference();
+
+
                 } catch (Exception e) {
                     photoUrl = storeDetailsModel.getResult().getIcon();
                     e.printStackTrace();
                 }
 
-                Picasso.get().load(photoUrl).into(activity.binding.storeImg);
+/*
+                        = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+*/
+                //Toast.makeText(activity, "asad", Toast.LENGTH_SHORT).show();
+
+                List<StoreDetailsModel.ResultBean.PhotosBean> imgs = storeDetailsModel.getResult().getPhotos();
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false);
+                activity.binding.imgsRecycler.setLayoutManager(layoutManager);
+                activity.binding.imgsRecycler.setHasFixedSize(true);
+/*
+                ImagesRecyclerAdapter imagesRecyclerAdapter = new ImagesRecyclerAdapter(activity,imgs);
+*/
+                ImagesRecyclerAdapter imagesRecyclerAdapter = new ImagesRecyclerAdapter(activity,3);
+                    activity.binding.imgsRecycler.setAdapter(imagesRecyclerAdapter);
+
+                RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false);
+                ImagesRecyclerAdapter2 imagesRecyclerAdapter2 = new ImagesRecyclerAdapter2(activity,3);
+                activity.binding.recyclerMenu.setAdapter(imagesRecyclerAdapter2);
+                activity.binding.recyclerMenu.setLayoutManager(layoutManager2);
+                activity.binding.recyclerMenu.setHasFixedSize(true);
+                //Picasso.get().load(photoUrl).into(activity.binding.storeImg);
 
                 try {
                     activity.binding.openFromTo.setText(storeDetailsModel.getResult().getOpening_hours().getPeriods().get(0).getOpen().getTime() + " - " +
@@ -382,26 +464,37 @@ public class StoreDetailsViewModel {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Log.e("response", responseString);
-                Type dataType = new TypeToken<ProductsModel>() {
-                }.getType();
-                ProductsModel data = new Gson().fromJson(responseString, dataType);
-
-                if (data.getResult().getProducts().size() > 0) {
+                try {
+                    Type dataType = new TypeToken<ProductsModel>() {
+                    }.getType();
+                    ProductsModel data = new Gson().fromJson(responseString, dataType);
                     activity.updateProductsRecycler(data.getResult().getProducts(), catId);
-                } else
-                    isFromServerObservable.set(false);
+
+                    RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false);
+                    ImagesRecyclerAdapter2 imagesRecyclerAdapter2 = new ImagesRecyclerAdapter2(activity,3);
+                    activity.binding.recyclerMenu.setAdapter(imagesRecyclerAdapter2);
+                    activity.binding.recyclerMenu.setLayoutManager(layoutManager2);
+                    activity.binding.recyclerMenu.setHasFixedSize(true);
+                    /*if (data.getResult().getProducts().size() > 0) {
+                        activity.updateProductsRecycler(data.getResult().getProducts(), catId);
+                    } else
+                        isFromServerObservable.set(false);*/
+                }catch (Exception e){
+                    Log.e("exahmed : ", e.toString());
+                }
+
             }
 
             @Override
             public void onStart() {
                 super.onStart();
-                Dialogs.showLoading(activity, loadingDialog);
+                //Dialogs.showLoading(activity, loadingDialog);
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                Dialogs.dismissLoading(loadingDialog);
+                //Dialogs.dismissLoading(loadingDialog);
             }
         });
     }
@@ -425,6 +518,10 @@ public class StoreDetailsViewModel {
                 Type dataType = new TypeToken<ProductMenuModel>() {
                 }.getType();
                 ProductMenuModel data = new Gson().fromJson(responseString, dataType);
+
+
+
+
 
                 if (data.getResult().getCategory().size() > 0) {
                     activity.initMenuRecycler(data.getResult().getCategory());
@@ -450,7 +547,11 @@ public class StoreDetailsViewModel {
     public void workingHours() {
         try {
             if (storeDetailsModel.getResult().getOpening_hours().getWeekday_text().size() > 0) {
-                final Dialog dialog = new Dialog(activity);
+
+                TimeBottomSheet timeBottomSheet = new TimeBottomSheet(activity,storeDetailsModel);
+                timeBottomSheet.show(activity.getSupportFragmentManager(), "tag");
+
+/*                final Dialog dialog = new Dialog(activity);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.custom_alert_working_hours);
                 dialog.setCanceledOnTouchOutside(true);
@@ -462,7 +563,7 @@ public class StoreDetailsViewModel {
                     weekdayHours.append(storeDetailsModel.getResult().getOpening_hours().getWeekday_text().get(i)).append("\n");
                 text_value.setText(weekdayHours.toString());
 
-                dialog.show();
+                dialog.show();*/
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -507,6 +608,7 @@ public class StoreDetailsViewModel {
             bundle.putString("shopImg", photoUrl);
             bundle.putDouble("lat", lat);
             bundle.putDouble("lng", lng);
+
             Gson gson = new Gson();
 
             storeProductsModel.setProductBeans(productMenuModelList);
@@ -514,6 +616,7 @@ public class StoreDetailsViewModel {
             String myJson = gson.toJson(storeProductsModel);
             bundle.putString("myjson", myJson);
             Log.e("list_size", myJson + "");
+//            bundle.putString("img",);
             IntentClass.goToActivity(activity, MakeOrderFirstStepActivity.class, bundle);
         } else
             Utilities.toastyError(activity, activity.getString(R.string.closed_now));
@@ -591,13 +694,13 @@ public class StoreDetailsViewModel {
             @Override
             public void onStart() {
                 super.onStart();
-                Dialogs.showLoading(activity, loadingDialog);
+                //Dialogs.showLoading(activity, loadingDialog);
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                Dialogs.dismissLoading(loadingDialog);
+                //Dialogs.dismissLoading(loadingDialog);
             }
         });
     }

@@ -1,8 +1,10 @@
 package com.uriallab.haat.haat.UI.Fragments;
 
 
+import android.animation.Animator;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.cleveroad.fanlayoutmanager.FanLayoutManager;
+import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.uriallab.haat.haat.DataModels.CategoryModel;
 import com.uriallab.haat.haat.DataModels.ServerStoresModel;
 import com.uriallab.haat.haat.Interfaces.CategoryClick;
@@ -35,6 +39,8 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment implements CategoryClick {
 
+    FanLayoutManager fanLayoutManager;
+
     public FragmentHomeBinding binding;
     private List<ServerStoresModel.ResultEntity> storesList = new ArrayList<>();
     private FamousPlacesAdapter famousPlacesAdapter;
@@ -51,13 +57,23 @@ public class HomeFragment extends Fragment implements CategoryClick {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 
         binding.searchIcon.setImageResource(R.drawable.search);
-        binding.searchIcon.setColorFilter(getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
+        //binding.searchIcon.setColorFilter(getResources().getColor(R.color.colorBlue), PorterDuff.Mode.SRC_ATOP);
 
         initRecycler();
 
-        final HomeViewModel viewModel = new HomeViewModel(this);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // yourMethod();
+                final HomeViewModel viewModel = new HomeViewModel(HomeFragment.this);
+                binding.setHomeVM(viewModel);
+            }
+        }, 200);
 
-        binding.setHomeVM(viewModel);
+
+
+        //final HomeViewModel viewModel = new HomeViewModel(this);
+
 
         binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
             boolean handled = false;
@@ -80,16 +96,39 @@ public class HomeFragment extends Fragment implements CategoryClick {
 
     public void initCategoryRecycler(List<CategoryModel.ResultBean.CategoryBean> list) {
         CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), list, this);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         binding.categoryRecycler.setLayoutManager(layoutManager);
         binding.categoryRecycler.setAdapter(categoryAdapter);
         Utilities.runAnimation(binding.categoryRecycler, 2);
+        binding.categoryRecycler.setHasFixedSize(true);
+    }
+
+    private void initRecycler2() {
+        famousPlacesAdapter = new FamousPlacesAdapter(getActivity(), storesList);
+        binding.storesRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.storesRecycler.setAdapter(famousPlacesAdapter);
     }
 
     private void initRecycler() {
         famousPlacesAdapter = new FamousPlacesAdapter(getActivity(), storesList);
+        fanLayoutManager = new FanLayoutManager(getContext());
+        binding.storesRecycler.setLayoutManager(fanLayoutManager);
+        com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings fanLayoutManagerSettings = FanLayoutManagerSettings
+                .newBuilder(getContext())
+                .withFanRadius(true)
+                .withAngleItemBounce(5)
+                .withViewHeightDp(160)
+                .withViewWidthDp(120)
+                .build();
+        fanLayoutManager = new FanLayoutManager(getContext(), fanLayoutManagerSettings);
+        binding.storesRecycler.setLayoutManager(fanLayoutManager);
+        binding.storesRecycler.scrollToPosition(famousPlacesAdapter.getItemCount()+2);
+/*
         binding.storesRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+*/
         binding.storesRecycler.setAdapter(famousPlacesAdapter);
+        //Utilities.runAnimation(binding.storesRecycler, 2);
+
     }
 
     public void updateRecycler(List<ServerStoresModel.ResultEntity> storesModel) {
@@ -107,5 +146,7 @@ public class HomeFragment extends Fragment implements CategoryClick {
         bundle.putBoolean("isSearch", false);
         IntentClass.goToActivity(getActivity(), StoresActivity.class, bundle);
     }
+
+
 
 }

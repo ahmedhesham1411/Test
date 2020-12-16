@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.uriallab.haat.haat.DataModels.NotificationsModel;
 import com.uriallab.haat.haat.R;
@@ -49,10 +50,11 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
         holder.binding.notificationText.setText(incomingList.get(position).getNotic_Mssge());
 
+
         String timeTxt = incomingList.get(position).getNotic_Date() + " " + incomingList.get(position).getNotic_Time();
 
         holder.binding.notificationTime.setText(Utilities.getTimeAgo(activity, timeTxt));
-
+        holder.binding.notificationTitle.setText(incomingList.get(position).getNotic_Title());
        // Log.e("time_notification", timeTxt+"\t"+Utilities.getTimeAgo(activity, timeTxt));
 
         holder.itemView.setOnClickListener(view -> {
@@ -109,4 +111,18 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             this.binding = binding;
         }
     }
+
+    public void addItem(String item) {
+        /*items.add(item);
+        notifyItemInserted(items.size());*/
+        Toast.makeText(activity, "add", Toast.LENGTH_SHORT).show();
+    }
+
+    public void removeItem(int position) {
+       /* items.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, items.size());*/
+        Toast.makeText(activity, "remove", Toast.LENGTH_SHORT).show();
+    }
+
 }

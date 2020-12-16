@@ -10,7 +10,7 @@
     </data>
 
     <LinearLayout
-        android:background="@color/colorWhite"
+        android:background="@color/colorDarkGrey"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,7 +20,6 @@
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -36,21 +35,21 @@
                     android:rotation="@{otherBranchesVM.rotate}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/other_branches"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -65,9 +64,108 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorTextHint"/>
+
+        <LinearLayout
             android:layout_marginBottom="15dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorWhite"
+            android:background="@color/colorDarkGrey"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/btn_ggggrey">
+
+                <EditText
+                    android:textCursorDrawable="@null"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/cairo_regular"
+                    android:hint="@string/searchaa"
+                    android:textSize="12sp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5sdp"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    app:srcCompat="@drawable/ic_baseline_search_24"
+                    android:layout_gravity="center_vertical"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:background="@color/colorTextHint"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:src="@{otherBranchesVM.isList? @drawable/noun_menuactive : @drawable/noun_menu}"
+                    android:onClick="@{()->otherBranchesVM.isListClick(true)}"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:scaleType="fitXY"
+                    android:visibility="visible"/>
+
+              <!--  <ImageView
+                    android:onClick="@{()->otherBranchesVM.isListClick(true)}"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/noun_menuactive"/>
+-->
+                <Space
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:onClick="@{()->otherBranchesVM.isListClick(false)}"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:scaleType="fitXY"
+                    android:src="@{otherBranchesVM.isList? @drawable/maplocation : @drawable/maplocatio}"
+                    />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/maplocatio"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorDarkGrey"
             android:paddingEnd="20dp"
             android:paddingStart="20dp"
             android:orientation="horizontal"
@@ -83,7 +181,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:text="@string/site"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:layout_marginEnd="15dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
@@ -94,7 +192,7 @@
                 android:onClick="@{()->otherBranchesVM.isListClick(false)}"
                 android:background="@{otherBranchesVM.isList? @drawable/shape_rounded_blue_corner_4 : @drawable/shape_rounded_moov}"
                 android:id="@+id/finished_orders"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textStyle="bold"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -108,40 +206,94 @@
                 android:layout_height="40dp" />
 
         </LinearLayout>
-
+        @{otherBranchesVM.isNoData? View.VISIBLE : View.GONE}
         <TextView
-            android:visibility="@{otherBranchesVM.isNoData? View.VISIBLE : View.GONE}"
+            android:fontFamily="@font/cairo_regular"
+            android:visibility="gone"
+            android:background="@color/colorDarkGrey"
             android:textSize="30sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:textColor="@color/colorBlue"
+            android:textColor="@color/colorGreen2"
             android:text="@string/no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <FrameLayout
-            android:visibility="@{otherBranchesVM.isNoData? View.GONE : View.VISIBLE}"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:visibility="@{otherBranchesVM.isList? View.VISIBLE : View.GONE}"
-                android:id="@+id/recyler_other"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+
 
             <FrameLayout
-                android:visibility="@{otherBranchesVM.isList? View.GONE : View.VISIBLE}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <fragment
-                    android:id="@+id/map"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:visibility="@{otherBranchesVM.isNoData? View.GONE : View.VISIBLE}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="@{otherBranchesVM.isList? View.VISIBLE : View.GONE}"
+                    android:id="@+id/recyler_other"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"/>
+
+
+
+                <RelativeLayout
+                    android:visibility="@{otherBranchesVM.isList? View.GONE : View.VISIBLE}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <fragment
+                            android:id="@+id/map"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+
+                    </FrameLayout>
+
+                    <Button
+                        android:id="@+id/go_to_next_map"
+                        android:visibility="@{otherBranchesVM.isList? View.GONE : View.VISIBLE}"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_marginStart="@dimen/_30sdp"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:background="@drawable/shape_rounded_green_corner_4"
+                        android:text="@string/next"
+                        android:fontFamily="@font/cairo_regular"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_14ssp"/>
+                </RelativeLayout>
+
+
             </FrameLayout>
 
-        </FrameLayout>
+
+            <Button
+
+                android:id="@+id/go_to_next"
+                android:visibility="@{otherBranchesVM.isList? View.VISIBLE : View.GONE}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/shape_rounded_green_corner_4"
+                android:text="@string/next"
+                android:fontFamily="@font/cairo_regular"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_14ssp"/>
+
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

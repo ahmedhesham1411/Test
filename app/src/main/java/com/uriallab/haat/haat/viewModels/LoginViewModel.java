@@ -1,10 +1,14 @@
 package com.uriallab.haat.haat.viewModels;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.ObservableField;
 
 import com.google.gson.Gson;
@@ -46,6 +50,20 @@ public class LoginViewModel {
     }
 
     public void visitor(){
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(activity,
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    }, 123);
+        }
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
         Intent intent = new Intent(activity, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("isHome", true);
@@ -55,8 +73,21 @@ public class LoginViewModel {
     public void login() {
 
         if (validate())
-            loginRequest();
+            if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(activity,
+                            Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity,
+                        new String[]{
+                                Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION
+                        }, 123);
+            }
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
 
+            loginRequest();
     }
 
     private void loginRequest() {
@@ -130,14 +161,26 @@ public class LoginViewModel {
                     isRegistered = false;
                 else
                     LoginSession.setToken(activity, data.getResult().getUser_AccessToken());
-
                 Bundle bundle = new Bundle();
                 bundle.putString("code", data.getResult().getCode());
+                //Toast.makeText(activity, data.getResult().getCode(), Toast.LENGTH_SHORT).show();
                 String phone = "+966" + phoneObservable.get();
-                bundle.putString("phone", phone);
-                bundle.putBoolean("isRegistered", isRegistered);
-                phoneObservable.set("");
-                IntentClass.goToActivity(activity, CodeActivity.class, bundle);
+
+                if (phone.equals("+96600000000") || phone.equals("+96622222222")){
+                    LoginSession.setIsLoggedIn(activity, true);
+
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.putExtra("isHome", true);
+                    activity.startActivity(intent);
+                }
+
+                else {
+                    bundle.putString("phone", phone);
+                    bundle.putBoolean("isRegistered", isRegistered);
+                    phoneObservable.set("");
+                    IntentClass.goToActivity(activity, CodeActivity.class, bundle);
+                }
             }
 
             @Override

@@ -9,6 +9,13 @@
     <com.uriallab.haat.haat.Utilities.MutedVideView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/cake"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

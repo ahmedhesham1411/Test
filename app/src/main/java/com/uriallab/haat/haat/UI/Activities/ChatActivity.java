@@ -15,8 +15,12 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -24,11 +28,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.DataModels.ChatModel;
+import com.uriallab.haat.haat.PayBottomSheet;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 import com.uriallab.haat.haat.UI.Adapters.ChatAdapter;
 import com.uriallab.haat.haat.UI.Fragments.SendReportBottomSheet;
+import com.uriallab.haat.haat.UI.MainActivity;
 import com.uriallab.haat.haat.Utilities.RealPathUtil;
 import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.Utilities.camera.Camera;
@@ -54,15 +61,16 @@ import static com.uriallab.haat.haat.Utilities.camera.Camera.GALLERY_REQUEST;
 import static com.uriallab.haat.haat.Utilities.camera.Camera.GALLERY_REQUEST2;
 import static com.uriallab.haat.haat.Utilities.camera.Camera.currentPhotoPath;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
 
     public ActivityChatBinding binding;
-
+    ChatModel.ResultEntity.MessagesEntity chat;
     private String orderId;
 
     private List<Bitmap> imageList = new ArrayList<>();
 
     private SendReportBottomSheet sendReportBottomSheet;
+    private PayBottomSheet payBottomSheet;
 
     private List<ChatModel.ResultEntity.MessagesEntity> chatList = new ArrayList<>();
     private ChatAdapter chatAdapter;
@@ -77,6 +85,7 @@ public class ChatActivity extends AppCompatActivity {
     private String filePathUri;
 
     public WebSocketClient webSocketClient;
+    ImageView menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +117,19 @@ public class ChatActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        menu = findViewById(R.id.menu);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(ChatActivity.this, v);
+                popup.setOnMenuItemClickListener(ChatActivity.this);
+                popup.inflate(R.menu.menu);
+                popup.show();
+            }
+        });
     }
+
 
     @Override
     protected void onResume() {
@@ -218,7 +239,7 @@ public class ChatActivity extends AppCompatActivity {
             if (key2.equals("item"))
                 viewModel.isRecieved.set(true);
 
-            ChatModel.ResultEntity.MessagesEntity chat = new ChatModel.ResultEntity.MessagesEntity();
+            chat = new ChatModel.ResultEntity.MessagesEntity();
             chat.setChatID(chatId);
             chat.setMessage(text);
             chat.setType(text_type);
@@ -279,6 +300,11 @@ public class ChatActivity extends AppCompatActivity {
     public void sendReport() {
         sendReportBottomSheet = new SendReportBottomSheet(ChatActivity.this, orderId, viewModel.userId);
         sendReportBottomSheet.show(getSupportFragmentManager(), "tag");
+    }
+
+    public void pay(Double price,String id,int type) {
+        payBottomSheet = new PayBottomSheet(ChatActivity.this,price,id,type);
+        payBottomSheet.show(getSupportFragmentManager(), "tag");
     }
 
     @Override
@@ -402,12 +428,13 @@ public class ChatActivity extends AppCompatActivity {
         URI uri;
         try {
             // Connect to local host
-            uri = new URI("ws://176.9.164.57:898/typing");
+            uri = new URI("ws://85.194.65.236:701/typing");
         } catch (URISyntaxException e) {
             Log.e("WebSockettyping", "URISyntaxException");
             e.printStackTrace();
             return;
         }
+        //webSocketClient.setReadTimeout(300000);
         webSocketClient = new WebSocketClient(uri) {
             @Override
             public void onOpen() {
@@ -440,8 +467,9 @@ public class ChatActivity extends AppCompatActivity {
 
                             if (isTyping)
                                 binding.typingTxt.setVisibility(View.VISIBLE);
-                            else
+                            else{
                                 binding.typingTxt.setVisibility(View.GONE);
+                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -475,8 +503,8 @@ public class ChatActivity extends AppCompatActivity {
                 Log.e("WebSockettyping", "onCloseReceived");
             }
         };
-        webSocketClient.setConnectTimeout(10000);
-        webSocketClient.setReadTimeout(90000);
+        //webSocketClient.setConnectTimeout(30000);
+        //webSocketClient.setReadTimeout(900000);
         webSocketClient.enableAutomaticReconnection(5000);
         webSocketClient.connect();
     }
@@ -499,5 +527,20 @@ public class ChatActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        //Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()) {
+            case R.id.search_item:
+                viewModel.sendReport();
+                return true;
+            case R.id.upload_item:
+                viewModel.recieve();
+                return true;
+            default:
+                return false;
+        }
     }
 }

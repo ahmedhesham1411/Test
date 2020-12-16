@@ -13,14 +13,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite">
+        android:background="@color/colorDarkGrey">
 
         <LinearLayout
             android:layout_alignParentTop="true"
             android:id="@+id/lin1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/colorBlue"
             android:elevation="5dp"
             android:orientation="horizontal">
 
@@ -36,21 +35,21 @@
                     android:rotation="@{firstStepVM.rotation}"
                     android:id="@+id/back_img"
                     android:layout_gravity="center"
-                    android:background="@drawable/arrow_left"
-                    android:layout_width="12dp"
-                    android:layout_height="18dp" />
+                    android:background="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 
             <TextView
+                android:fontFamily="@font/cairo_regular"
                 android:id="@+id/store_name"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/register_as_captain"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -86,16 +85,18 @@
                     android:layout_marginStart="20dp"
                     android:textAlignment="viewStart"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
                     android:orientation="horizontal"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/btn1"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp">
+                    android:layout_height="40dp"
+                    >
                     <EditText
                         app:fontFamily="@font/cairo_regular"
                         android:text="@={firstStepVM.userNameObservable}"
@@ -105,7 +106,7 @@
                         android:hint="@string/enter_full_name"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
-                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:background="@drawable/btn1"
                         android:layout_width="match_parent"
                         android:layout_height="36dp" />
 
@@ -127,17 +128,19 @@
                     android:layout_marginStart="20dp"
                     android:textAlignment="viewStart"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
                     android:orientation="horizontal"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/btn1"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <EditText
+                        android:fontFamily="@font/cairo_regular"
                         android:enabled="false"
                         android:text="@={firstStepVM.phoneObservable}"
                         bind:error="@{firstStepVM.phoneError}"
@@ -148,7 +151,7 @@
                         android:paddingEnd="8dp"
                         android:inputType="number"
                         android:digits="0123456789"
-                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:background="@drawable/btn1"
                         android:layout_width="match_parent"
                         android:layout_height="36dp" />
 
@@ -170,14 +173,15 @@
                     android:layout_marginStart="20dp"
                     android:textAlignment="viewStart"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
                     android:orientation="horizontal"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/btn1"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <EditText
@@ -190,7 +194,7 @@
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         android:inputType="textEmailAddress"
-                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:background="@drawable/btn1"
                         android:layout_width="match_parent"
                         android:layout_height="36dp" />
 
@@ -212,18 +216,20 @@
                     android:layout_marginStart="20dp"
                     android:textAlignment="viewStart"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
                     android:onClick="@{()->firstStepVM.getBirthday()}"
                     android:orientation="horizontal"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/btn1"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <TextView
+                        android:fontFamily="@font/cairo_regular"
                         android:text="@={firstStepVM.birthdayObservable}"
                         bind:error="@{firstStepVM.birthdayError}"
                         android:gravity="center_vertical"
@@ -232,7 +238,7 @@
                         android:hint="@string/enter_birthday"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
-                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:background="@drawable/btn1"
                         android:layout_width="match_parent"
                         android:layout_height="36dp" />
 
@@ -255,15 +261,16 @@
                     android:layout_marginStart="20dp"
                     android:textAlignment="viewStart"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
                     android:orientation="horizontal"
                     android:id="@+id/spinner_lin"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/shape_rounded_dark_grey"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/btn1"
                     app:layout_constraintTop_toBottomOf="@id/gender_txt"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -276,7 +283,7 @@
                         android:hint="@string/choose_gender"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
-                        android:background="@drawable/shape_rounded_dark_grey"
+                        android:background="@drawable/btn1"
                         android:layout_width="match_parent"
                         android:layout_height="36dp" />
 
@@ -298,6 +305,7 @@
         </ScrollView>
 
         <Button
+            android:fontFamily="@font/cairo_regular"
             android:onClick="@{()->firstStepVM.nextStep()}"
             android:layout_marginTop="20dp"
             android:layout_alignParentBottom="true"
@@ -307,11 +315,14 @@
             android:textAllCaps="false"
             android:text="@string/next_"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorMoov"
+            android:background="@drawable/shape_rounded_green_corner_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="60dp"/>
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"/>
 
     </RelativeLayout>
 </layout>

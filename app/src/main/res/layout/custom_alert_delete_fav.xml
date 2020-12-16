@@ -1,59 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical"
+<LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/shape_rounded_white"
     android:layout_width="match_parent"
     android:minWidth="300dp"
-    android:layout_margin="20dp"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:scaleType="fitXY"
+        android:src="@drawable/delet"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_5sdp"/>
+
     <TextView
+        android:fontFamily="@font/cairo_regular"
         android:layout_marginTop="10dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:textSize="18sp"
-        android:textAlignment="viewStart"
+        android:textSize="@dimen/_12ssp"
+        android:textAlignment="center"
         android:id="@+id/text_value"
         android:text="@string/delete_from_fav"
         android:layout_width="match_parent"
+        android:maxLines="2"
         android:layout_height="wrap_content"/>
 
     <LinearLayout
-        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorTextHint"
+        android:layout_marginTop="@dimen/_10sdp"/>
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="1dp"/>
-        <TextView
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:layout_marginTop="10dp"
-            android:textAlignment="viewStart"
-            android:id="@+id/cancel"
-            android:text="@string/no"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:layout_height="@dimen/_45sdp"
+        >
 
-        <TextView
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:textAlignment="viewStart"
-            android:id="@+id/acept"
-            android:text="@string/yes"
-            android:textStyle="bold"
-            android:textSize="18sp"
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <TextView
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:fontFamily="@font/cairo_regular"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_rounded_green_corner_4"
+                android:textAlignment="center"
+                android:id="@+id/acept"
+                android:text="@string/yes"
+                android:textStyle="bold"
+                android:textSize="@dimen/_10ssp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_25sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorTextHint"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/cairo_regular"
+                android:textColor="@color/colorBlack"
+                android:background="@drawable/btngrey"
+                android:textAlignment="center"
+                android:id="@+id/cancel"
+                android:text="@string/no"
+                android:textStyle="bold"
+                android:textSize="@dimen/_10ssp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_25sdp"/>
+
+        </LinearLayout>
+
 
 
     </LinearLayout>

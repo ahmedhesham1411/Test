@@ -24,7 +24,8 @@
             android:layout_height="100dp" />
 
         <TextView
-            android:background="@color/colorMoov"
+            android:fontFamily="@font/cairo_regular"
+            android:background="@drawable/shape_rounded_green_corner_4"
             android:gravity="center"
             android:id="@+id/card_name"
             android:textSize="15sp"
@@ -34,7 +35,8 @@
             android:layout_height="30dp" />
 
         <TextView
-            android:background="@drawable/shape_rounded_bottom_blue"
+
+            android:background="@drawable/btn"
             android:gravity="center"
             android:id="@+id/card_price"
             android:textSize="15sp"

@@ -3,6 +3,7 @@ package com.uriallab.haat.haat.UI.Adapters;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
@@ -12,10 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.budiyev.android.imageloader.ImageLoader;
+import com.budiyev.android.imageloader.LoadCallback;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 import com.uriallab.haat.haat.DataModels.GoogleStoresModel;
@@ -38,12 +43,13 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
 
     private Activity activity;
     private List<GoogleStoresModel.ResultsBean> incomingList;
-
+    String  layout_name;
     private String photoUrl;
 
-    public StoresAdapter(Activity activity, List<GoogleStoresModel.ResultsBean> incomingList) {
+    public StoresAdapter(Activity activity, List<GoogleStoresModel.ResultsBean> incomingList,String layout_name) {
         this.activity = activity;
         this.incomingList = incomingList;
+        this.layout_name = layout_name;
     }
 
     @Override
@@ -56,7 +62,16 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
     @Override
     public void onBindViewHolder(final StoresViewHolder holder, final int position) {
 
+
+        if (layout_name.equals("ver")){
+            holder.binding.layoutVertical.setVisibility(View.VISIBLE);
+            holder.binding.layoutHorizontal.setVisibility(View.GONE);
+        }else {
+            holder.binding.layoutVertical.setVisibility(View.GONE);
+            holder.binding.layoutHorizontal.setVisibility(View.VISIBLE);
+        }
         holder.binding.storeName.setText(incomingList.get(position).getName());
+        holder.binding.storeNameHori.setText(incomingList.get(position).getName());
 
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -67,22 +82,51 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
                     incomingList.get(position).getGeometry().getLocation().getLng());
 
             holder.binding.storeDistance.setText(Utilities.roundPrice(distance) + "");
+            holder.binding.storeDistanceHori.setText(Utilities.roundPrice(distance) + "");
+
         }
 
         getAddressFromLatLng(activity, holder.binding.storeLocation, new LatLng(
                 incomingList.get(position).getGeometry().getLocation().getLat(),
                 incomingList.get(position).getGeometry().getLocation().getLng()));
 
-        try {
+        getAddressFromLatLng(activity, holder.binding.storeLocationHori, new LatLng(
+                incomingList.get(position).getGeometry().getLocation().getLat(),
+                incomingList.get(position).getGeometry().getLocation().getLng()));
+
+
+     /*   try {
             photoUrl = "https://maps.googleapis.com/maps/api/place/photo?photoreference=" +
                     incomingList.get(position).getPhotos().get(0).getPhoto_reference()
                     + "&maxheight=400&maxwidth=400&key=AIzaSyAmD_A7N-SI2JbkhGh4xY_OFip7GtQRZfg";
+
+            Picasso.get().load(photoUrl).fit().centerCrop().into(holder.binding.storeImg);
         } catch (Exception e) {
             photoUrl = incomingList.get(position).getIcon();
             e.printStackTrace();
         }
 
-        Picasso.get().load(photoUrl).into(holder.binding.storeImg);
+        //Picasso.get().load(photoUrl).fit().centerCrop().into(holder.binding.storeImg);
+        Glide.with(activity)
+                .load(photoUrl)
+                .override(400, 400)
+                .into(holder.binding.storeImg);
+       Glide.with(activity)
+                .load(photoUrl)
+                .override(400, 400)
+                .into(holder.binding.storeImgHori);*/
+
+
+/*        ImageLoader.with(activity).from(photoUrl).onLoaded(new LoadCallback() {
+            @Override
+            public void onLoaded(@NonNull Bitmap image) {
+                // Do something with image here
+                //imageView.setImageBitmap(image);
+            }
+        }).load(holder.binding.storeImgHori)*/;
+
+
+        //Picasso.get().load(photoUrl).fit().into(holder.binding.storeImgHori);
 
         holder.itemView.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
@@ -91,6 +135,25 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
             IntentClass.goToActivity(activity, StoreDetailsActivity.class, bundle);
         });
 
+        holder.binding.layoutHorizontal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("placeId", incomingList.get(position).getPlace_id());
+                bundle.putBoolean("isFromServer", false);
+                IntentClass.goToActivity(activity, StoreDetailsActivity.class, bundle);
+            }
+        });
+
+        holder.binding.layoutVertical.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("placeId", incomingList.get(position).getPlace_id());
+                bundle.putBoolean("isFromServer", false);
+                IntentClass.goToActivity(activity, StoreDetailsActivity.class, bundle);
+            }
+        });
     }
 
     private void getAddressFromLatLng(final Activity activity, final TextView textView, final LatLng latLng) {
