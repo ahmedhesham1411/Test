@@ -182,7 +182,6 @@ public class StoresActivity extends AppCompatActivity {
         });
     }
 
-
     private void initRecycler() {
         storesAdapter = new StoresAdapter(this, storesList,"ver");
         StoresAdapterHorizontal = new StoresAdapter(this, storesList,"hor");
