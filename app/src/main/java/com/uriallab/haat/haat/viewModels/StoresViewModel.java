@@ -69,8 +69,8 @@ public class StoresViewModel extends ViewModel {
             getSearchResult(searchTxt);
         } else {
             categoryName.set(category);
-            //getStores(type);
-            GetStory(type);
+            getStores(type);
+            //GetStory(type);
         }
     }
 
@@ -114,24 +114,7 @@ public class StoresViewModel extends ViewModel {
                                     }.getType();
                                     data = new Gson().fromJson(responseString, dataType);
 
-                                    try {
-                                        activity.pageToken = data.getNext_page_token();
-                                    } catch (Exception e) {
-                                        activity.pageToken = "";
-                                        e.printStackTrace();
-                                    }
 
-                                    if (data.getResults().isEmpty()) {
-                                        Dialogs.dismissLoading(loadingDialog);
-                                        activity.binding.noData.setVisibility(View.VISIBLE);
-                                        activity.binding.storesRecycler.setVisibility(View.GONE);
-                                    } else {
-                                        Dialogs.dismissLoading(loadingDialog);
-                                        activity.binding.noData.setVisibility(View.GONE);
-                                        activity.binding.storesRecycler.setVisibility(View.VISIBLE);
-                                        activity.updateRecycler(data.getResults());
-                                        //Dialogs.dismissLoading(loadingDialog);
-                                    }
                                 }
 
                                 @Override
@@ -144,6 +127,34 @@ public class StoresViewModel extends ViewModel {
                                 public void onFinish() {
                                     super.onFinish();
                                     activity.isLoading = false;
+
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        public void run() {
+                                            try {
+                                                try {
+                                                    activity.pageToken = data.getNext_page_token();
+                                                } catch (Exception e) {
+                                                    activity.pageToken = "";
+                                                    e.printStackTrace();
+                                                }
+                                                Dialogs.dismissLoading(loadingDialog);
+                                                if (data.getResults().isEmpty()) {
+                                                    activity.binding.noData.setVisibility(View.VISIBLE);
+                                                    activity.binding.storesRecycler.setVisibility(View.GONE);
+
+                                                } else {
+                                                    activity.binding.noData.setVisibility(View.GONE);
+                                                    activity.binding.storesRecycler.setVisibility(View.VISIBLE);
+                                                    activity.updateRecycler(data.getResults());
+                                                }
+                                            }catch (Exception e){}
+                                        }
+                                    }, 1000);
+
+
+
+
                                 }
                             });
                         }
@@ -183,7 +194,6 @@ public class StoresViewModel extends ViewModel {
             activity.binding.noData.setVisibility(View.GONE);
             activity.binding.storesRecycler.setVisibility(View.VISIBLE);
             activity.updateRecycler(googleStoresModel.getResults());
-
             //Dialogs.dismissLoading(loadingDialog);
         }
         //Toast.makeText(activity, "dddd", Toast.LENGTH_SHORT).show();

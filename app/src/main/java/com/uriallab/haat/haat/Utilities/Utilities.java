@@ -26,6 +26,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -478,6 +479,18 @@ public class Utilities {
     }
 
     public static void runAnimation(RecyclerView recyclerView, int type) {
+        Context context = recyclerView.getContext();
+        LayoutAnimationController controller = null;
+        if (type == 1) {
+            controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_rise_up);
+        } else {
+            controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_slide_from_right);
+        }
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.scheduleLayoutAnimation();
+    }
+
+    public static void runAnimation2(LinearLayout recyclerView, int type) {
         Context context = recyclerView.getContext();
         LayoutAnimationController controller = null;
         if (type == 1) {

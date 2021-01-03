@@ -219,10 +219,7 @@
         </LinearLayout>
 
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -238,20 +235,21 @@
                     android:layout_gravity="center"
                     />
 
-                <TextView
-                    android:fontFamily="@font/cairo_regular"
-                    android:visibility="visible"
-                    android:id="@+id/no_data"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:text="@string/no_data"
-                    android:textColor="@color/colorGreen2"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
 
+            </LinearLayout>
+
+
+        <TextView
+            android:fontFamily="@font/cairo_regular"
+            android:visibility="gone"
+            android:id="@+id/no_data"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/no_data"
+            android:textColor="@color/colorGreen2"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 

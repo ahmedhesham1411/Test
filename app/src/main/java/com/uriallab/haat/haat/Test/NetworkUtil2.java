@@ -2,6 +2,7 @@ package com.uriallab.haat.haat.Test;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
 
 import java.io.IOException;
 
@@ -52,7 +53,7 @@ public class NetworkUtil2 {
     }
 
 
-    public static NetworkInterface getRetrofitByToken(String token) {
+    public static NetworkInterface getRetrofitByToken(String token,String lang) {
 
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -66,6 +67,7 @@ public class NetworkUtil2 {
                 Request original = chain.request();
                 Request.Builder builder = original.newBuilder()
                         .addHeader("Authorization", newToken)
+                        .addHeader("lang", lang)
                         .method(original.method(), original.body());
                 return chain.proceed(builder.build());
 

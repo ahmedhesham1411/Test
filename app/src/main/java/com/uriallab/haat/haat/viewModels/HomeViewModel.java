@@ -22,6 +22,8 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.DataModels.CategoryModel;
 import com.uriallab.haat.haat.DataModels.ServerStoresModel;
+import com.uriallab.haat.haat.SharedPreferences.ConfigurationFile;
+import com.uriallab.haat.haat.SharedPreferences.LoginSession;
 import com.uriallab.haat.haat.Test.NetworkUtil2;
 import com.uriallab.haat.haat.UI.Activities.Updates.HatOnlineStoreActivity;
 import com.uriallab.haat.haat.UI.Activities.Updates.StoresActivity;
@@ -59,19 +61,29 @@ public class HomeViewModel extends ViewModel {
     Boolean doneStores = false;
     Boolean doneCat = false;
     final LoadingDialog loadingDialog = new LoadingDialog();
+    ServerStoresModel data;
+    CategoryModel data1;
 
     public HomeViewModel(HomeFragment fragment) {
         activity = fragment.getActivity();
         this.fragment = fragment;
-
-        //final LoadingDialog loadingDialog = new LoadingDialog();
+        getStores();
+        getCategoryRequest();
+/*        //final LoadingDialog loadingDialog = new LoadingDialog();
 
         //Dialogs.showLoading(activity, loadingDialog);
-        showLoading(activity,loadingDialog);
-        GetStory();
-        GetCat();
-        //getStores();
-        //getCategoryRequest();
+        //showLoading(activity,loadingDialog);
+        //GetStory();
+        //GetCat();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                getStores();
+                //getCategoryRequest();
+                GetCat();
+            }
+        }, 200);*/
+
     }
 
     public void getStores() {
@@ -79,7 +91,7 @@ public class HomeViewModel extends ViewModel {
                 ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // final LoadingDialog loadingDialog = new LoadingDialog();
 
-            final LoadingDialog loadingDialog = new LoadingDialog();
+            //final LoadingDialog loadingDialog = new LoadingDialog();
 
             APIModel.getMethod(activity, "Data/GetStors?lat=" + GlobalVariables.LOCATION_LAT + "&lng=" + GlobalVariables.LOCATION_LNG, new TextHttpResponseHandler() {
                 @Override
@@ -100,34 +112,16 @@ public class HomeViewModel extends ViewModel {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, String responseString) {
                     Log.e("response", responseString);
+
                     Type dataType = new TypeToken<ServerStoresModel>() {
                     }.getType();
-                    ServerStoresModel data = new Gson().fromJson(responseString, dataType);
+                    data = new Gson().fromJson(responseString, dataType);
 
                     if (data.getResult().isEmpty()) {
-                        Dialogs.dismissLoading(loadingDialog);
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                // yourMethod();
-                                fragment.binding.storesRecycler.setVisibility(View.GONE);
-                                fragment.binding.famousPlaces.setVisibility(View.GONE);
-                            }
-                        }, 1000);
-                        //Dialogs.dismissLoading(loadingDialog);
-
+                        fragment.binding.storesRecycler.setVisibility(View.GONE);
+                        fragment.binding.famousPlaces.setVisibility(View.GONE);
                     } else {
                         fragment.binding.storesRecycler.setVisibility(View.VISIBLE);
-                        //fragment.binding.famousPlaces.setVisibility(View.VISIBLE);
-                        fragment.updateRecycler(data.getResult());
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                // yourMethod();
-                                Dialogs.dismissLoading(loadingDialog);
-                            }
-                        }, 1000);
-
                     }
                 }
 
@@ -140,7 +134,15 @@ public class HomeViewModel extends ViewModel {
                 @Override
                 public void onFinish() {
                     super.onFinish();
-                    //Dialogs.dismissLoading(loadingDialog);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            try {
+                                Dialogs.dismissLoading(loadingDialog);
+                                fragment.updateRecycler(data.getResult());
+                            }catch (Exception e){}
+                        }
+                    }, 1000);
                 }
             });
         }
@@ -205,36 +207,37 @@ public class HomeViewModel extends ViewModel {
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
-
                 Log.e("response", responseString);
-
                 Type dataType = new TypeToken<CategoryModel>() {
                 }.getType();
-                CategoryModel data = new Gson().fromJson(responseString, dataType);
+                data1 = new Gson().fromJson(responseString, dataType);
 
-                try {
-                    //Dialogs.dismissLoading(loadingDialog);
-                    listCategory.clear();
-                    listCategory.addAll(data.getResult().getCategory());
-                    listCategory.get(0).setSelected(true);
-                    fragment.initCategoryRecycler(listCategory);
-                    //Dialogs.dismissLoading(loadingDialog);
-                } catch (Exception e) {
-                    //Dialogs.dismissLoading(loadingDialog);
-                    e.printStackTrace();
-                }
+
             }
 
             @Override
             public void onStart() {
                 super.onStart();
-                //Dialogs.showLoading(activity, loadingDialog);
+                Dialogs.showLoading(activity, loadingDialog);
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                //Dialogs.dismissLoading(loadingDialog);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        Dialogs.dismissLoading(loadingDialog);
+                        try {
+                            listCategory.clear();
+                            listCategory.addAll(data1.getResult().getCategory());
+                            listCategory.get(0).setSelected(true);
+                            fragment.initCategoryRecycler(listCategory);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 1000);
             }
         });
     }
@@ -282,7 +285,7 @@ public class HomeViewModel extends ViewModel {
 
     public void GetCat() {
         //showLoading(activity,loadingDialog);
-        mSubscriptions.add(NetworkUtil2.getRetrofitNoHeader()
+        mSubscriptions.add(NetworkUtil2.getRetrofitByToken(LoginSession.getToken(activity), ConfigurationFile.getCurrentLanguage(activity))
                 .GetCategories()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -298,6 +301,8 @@ public class HomeViewModel extends ViewModel {
         if (doneCat == true && doneStores == true){
             dismissLoading(loadingDialog);
         }
+        //dismissLoading(loadingDialog);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {

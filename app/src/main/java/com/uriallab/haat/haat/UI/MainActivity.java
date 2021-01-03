@@ -161,9 +161,15 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         if (LoginSession.isLoggedIn(this)) {
-            profileData();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    profileData();
+                    updateFcmToken();
+                }
+            }, 10000);
 
-            updateFcmToken();
+
         }
 
         fragmentManager = getSupportFragmentManager();
@@ -464,23 +470,23 @@ public class MainActivity extends AppCompatActivity {
 //        binding.profileTxt.setVisibility(View.GONE);
 
         if (fragmentTag.equals(MAIN_FRAGMENT_TAG)) {
-            binding.main.startAnimation(rotateAnimation);
+            //binding.main.startAnimation(rotateAnimation);
             binding.mainTxt.setTextColor(getResources().getColor(R.color.colorGreen2));
             binding.main.setColorFilter(getResources().getColor(R.color.colorGreen2), PorterDuff.Mode.SRC_ATOP);
         } else if (fragmentTag.equals(ORDERS_FRAGMENT_TAG)) {
-            binding.ordersImg.startAnimation(rotateAnimation);
+            //binding.ordersImg.startAnimation(rotateAnimation);
             binding.ordersTxt.setTextColor(getResources().getColor(R.color.colorGreen2));
             binding.ordersImg.setColorFilter(getResources().getColor(R.color.colorGreen2), PorterDuff.Mode.SRC_ATOP);
         } else if (fragmentTag.equals(NOTIFICATIONS_FRAGMENT_TAG)) {
-            binding.notificationImg.startAnimation(rotateAnimation);
+            //binding.notificationImg.startAnimation(rotateAnimation);
             binding.notificationTxt.setTextColor(getResources().getColor(R.color.colorGreen2));
             binding.notificationImg.setColorFilter(getResources().getColor(R.color.colorGreen2), PorterDuff.Mode.SRC_ATOP);
         } else if (fragmentTag.equals(JOURNEY_FRAGMENT_TAG)) {
-            binding.journey.startAnimation(rotateAnimation);
+            //binding.journey.startAnimation(rotateAnimation);
             binding.journeyTxt.setTextColor(getResources().getColor(R.color.colorGreen2));
             binding.journey.setColorFilter(getResources().getColor(R.color.colorGreen2), PorterDuff.Mode.SRC_ATOP);
         } else if (fragmentTag.equals(MORE_FRAGMENT_TAG)) {
-            binding.profile.startAnimation(rotateAnimation);
+            //binding.profile.startAnimation(rotateAnimation);
             binding.profileTxt.setTextColor(getResources().getColor(R.color.colorGreen2));
             binding.profile.setColorFilter(getResources().getColor(R.color.colorGreen2), PorterDuff.Mode.SRC_ATOP);
         }
@@ -521,7 +527,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void profileData() {
-        final LoadingDialog loadingDialog = new LoadingDialog();
+        //final LoadingDialog loadingDialog = new LoadingDialog();
         APIModel.getMethod(this, "Authorization/GetProfile", new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {

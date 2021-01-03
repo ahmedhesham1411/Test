@@ -1,6 +1,7 @@
 package com.uriallab.haat.haat.viewModels;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -31,7 +32,7 @@ public class NotificationsViewModel extends ViewModel {
     public boolean isLoading = false;
 
     public int lastPage = 1;
-
+    NotificationsModel data;
     public NotificationsViewModel(NotificationFragment fragment) {
         activity = fragment.getActivity();
         this.fragment = fragment;
@@ -71,22 +72,18 @@ public class NotificationsViewModel extends ViewModel {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
                 Log.e("response", responseString);
-                Dialogs.dismissLoading(loadingDialog);
+
                 Type dataType = new TypeToken<NotificationsModel>() {
                 }.getType();
-                NotificationsModel data = new Gson().fromJson(responseString, dataType);
+                data = new Gson().fromJson(responseString, dataType);
 
-                lastPage = data.getResult().getEndPage();
+              /*  lastPage = data.getResult().getEndPage();
 
-                if (data.getResult().getNotfications().size() > 0){
-                    //Dialogs.dismissLoading(loadingDialog);
+                if (data.getResult().getNotfications().size() > 0)
                     fragment.updateRecycler(data.getResult().getNotfications());
-                }
-                else {
-                    //Dialogs.dismissLoading(loadingDialog);
-                    isNoData.set(true);
-                    }
-                }
+                else
+                    isNoData.set(true);*/
+            }
 
             @Override
             public void onStart() {
@@ -99,7 +96,21 @@ public class NotificationsViewModel extends ViewModel {
             public void onFinish() {
                 super.onFinish();
                 isLoading = false;
-                //Dialogs.dismissLoading(loadingDialog);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        try {
+                            Dialogs.dismissLoading(loadingDialog);
+                            lastPage = data.getResult().getEndPage();
+                            if (data.getResult().getNotfications().size() > 0){
+                                fragment.updateRecycler(data.getResult().getNotfications());
+                            }
+                            else
+                                isNoData.set(true);
+                        }catch (Exception e){}
+                    }
+                }, 1000);
+
             }
         });
     }

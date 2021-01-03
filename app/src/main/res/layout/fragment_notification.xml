@@ -40,13 +40,30 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:visibility="@{notificationVM.isNoData? View.GONE : View.VISIBLE}"
-            android:paddingTop="8dp"
-            android:id="@+id/notification_recycler"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="8dp"/>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/not_linear">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="@{notificationVM.isNoData? View.GONE : View.VISIBLE}"
+                android:paddingTop="8dp"
+                android:id="@+id/notification_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="8dp"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+
 
         <TextView
             android:visibility="@{notificationVM.isNoData? View.VISIBLE : View.GONE}"

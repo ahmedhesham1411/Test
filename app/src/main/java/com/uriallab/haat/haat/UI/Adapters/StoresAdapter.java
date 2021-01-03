@@ -63,7 +63,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
     public void onBindViewHolder(final StoresViewHolder holder, final int position) {
 
 
-        if (layout_name.equals("ver")){
+       /* if (layout_name.equals("ver")){
             holder.binding.layoutVertical.setVisibility(View.VISIBLE);
             holder.binding.layoutHorizontal.setVisibility(View.GONE);
         }else {
@@ -95,7 +95,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
                 incomingList.get(position).getGeometry().getLocation().getLng()));
 
 
-     /*   try {
+        try {
             photoUrl = "https://maps.googleapis.com/maps/api/place/photo?photoreference=" +
                     incomingList.get(position).getPhotos().get(0).getPhoto_reference()
                     + "&maxheight=400&maxwidth=400&key=AIzaSyAmD_A7N-SI2JbkhGh4xY_OFip7GtQRZfg";
@@ -111,19 +111,21 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
                 .load(photoUrl)
                 .override(400, 400)
                 .into(holder.binding.storeImg);
-       Glide.with(activity)
+
+
+*//*       Glide.with(activity)
                 .load(photoUrl)
                 .override(400, 400)
-                .into(holder.binding.storeImgHori);*/
+                .into(holder.binding.storeImgHori);*//*
 
 
-/*        ImageLoader.with(activity).from(photoUrl).onLoaded(new LoadCallback() {
+*//*        ImageLoader.with(activity).from(photoUrl).onLoaded(new LoadCallback() {
             @Override
             public void onLoaded(@NonNull Bitmap image) {
                 // Do something with image here
                 //imageView.setImageBitmap(image);
             }
-        }).load(holder.binding.storeImgHori)*/;
+        }).load(holder.binding.storeImgHori)*//*;
 
 
         //Picasso.get().load(photoUrl).fit().into(holder.binding.storeImgHori);
@@ -153,7 +155,7 @@ public class StoresAdapter extends RecyclerView.Adapter<StoresAdapter.StoresView
                 bundle.putBoolean("isFromServer", false);
                 IntentClass.goToActivity(activity, StoreDetailsActivity.class, bundle);
             }
-        });
+        });*/
     }
 
     private void getAddressFromLatLng(final Activity activity, final TextView textView, final LatLng latLng) {

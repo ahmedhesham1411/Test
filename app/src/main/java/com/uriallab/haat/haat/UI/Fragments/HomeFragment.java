@@ -61,21 +61,22 @@ public class HomeFragment extends Fragment implements CategoryClick {
 
         initRecycler();
 
-        Handler handler = new Handler();
+/*        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 // yourMethod();
                 final HomeViewModel viewModel = new HomeViewModel(HomeFragment.this);
                 binding.setHomeVM(viewModel);
             }
-        }, 200);
+        }, 250);*/
 
 
 
-        //final HomeViewModel viewModel = new HomeViewModel(this);
+        final HomeViewModel viewModel = new HomeViewModel(this);
+        binding.setHomeVM(viewModel);
 
 
-        binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
+/*        binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
             boolean handled = false;
             if (actionId == EditorInfo.IME_ACTION_SEND) {
                 Utilities.hideKeyboard(getActivity());
@@ -89,7 +90,7 @@ public class HomeFragment extends Fragment implements CategoryClick {
                 binding.edtSearch.setText("");
             }
             return handled;
-        });
+        });*/
 
         return binding.getRoot();
     }

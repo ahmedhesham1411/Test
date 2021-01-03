@@ -48,7 +48,7 @@ public class StoresActivity extends AppCompatActivity {
 
     private StoresAdapter storesAdapter,StoresAdapterHorizontal;
     //private StoresAdapter storesAdapterHorizontal;
-
+    GridLayoutManager gridLayoutManager;
     public boolean isLoading = false;
 
     private LinearLayoutManager layoutManager;
@@ -77,11 +77,8 @@ public class StoresActivity extends AppCompatActivity {
                         Collections.reverse(storesList);
                         storesAdapter = new StoresAdapter(StoresActivity.this, storesList,"ver");
                         StoresAdapterHorizontal = new StoresAdapter(StoresActivity.this, storesList,"hor");
-                        //storesAdapterHorizontal = new StoresAdapter(this,storesList,R.layout.item_store_horizontal);
                         layoutManager = new LinearLayoutManager(StoresActivity.this);
                         LinearLayoutManager linearLayoutManager1 = (new GridLayoutManager(StoresActivity.this,2));
-                        //binding.storesRecycler.setLayoutManager(layoutManager);
-                        //LinearLayoutManager linearLayoutManager1 = (new GridLayoutManager(this,2));
                         if (isVertical == true){
                             binding.storesRecycler.setLayoutManager(layoutManager);
                             binding.storesRecycler.setAdapter(storesAdapter);
@@ -93,26 +90,7 @@ public class StoresActivity extends AppCompatActivity {
                             binding.storesRecycler.setAdapter(StoresAdapterHorizontal);
                             binding.nounMenu.setImageResource(R.drawable.noun_menu);
                             binding.menu.setImageResource(R.drawable.menuactive);
-                            binding.storesRecycler.setHasFixedSize(true);
-                           /* StoresAdapterHorizontal.notifyDataSetChanged();
-                            binding.storesRecycler.notify();*/
-                         /*   new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            binding.storesRecycler.setLayoutManager(linearLayoutManager1);
-                                            binding.storesRecycler.setAdapter(StoresAdapterHorizontal);
-                                            binding.nounMenu.setImageResource(R.drawable.noun_menu);
-                                            binding.menu.setImageResource(R.drawable.menuactive);
-
-                                            binding.storesRecycler.setHasFixedSize(true);
-                                        }
-                                    });
-                                }
-                            }).start();*/
+//                            binding.storesRecycler.setHasFixedSize(true);
                         }
                     }
 
@@ -147,7 +125,6 @@ public class StoresActivity extends AppCompatActivity {
                     }else if (isForest.get() == true){}
 
                 }
-                //textView.setText(parent.getItemAtPosition(position).toString());
             }
 
             @Override
@@ -185,11 +162,11 @@ public class StoresActivity extends AppCompatActivity {
     private void initRecycler() {
         storesAdapter = new StoresAdapter(this, storesList,"ver");
         StoresAdapterHorizontal = new StoresAdapter(this, storesList,"hor");
-        //storesAdapterHorizontal = new StoresAdapter(this,storesList,R.layout.item_store_horizontal);
         layoutManager = new LinearLayoutManager(this);
-        LinearLayoutManager linearLayoutManager1 = (new GridLayoutManager(this,2));
-        //binding.storesRecycler.setLayoutManager(layoutManager);
-        //LinearLayoutManager linearLayoutManager1 = (new GridLayoutManager(this,2));
+        gridLayoutManager = new GridLayoutManager(this,2);
+
+        binding.storesRecycler.setHasFixedSize(true);
+        binding.storesRecycler.setNestedScrollingEnabled(true);
         binding.storesRecycler.setLayoutManager(layoutManager);
         binding.storesRecycler.setAdapter(storesAdapter);
         binding.nounMenu.setImageResource(R.drawable.noun_menuactive);
@@ -202,6 +179,7 @@ public class StoresActivity extends AppCompatActivity {
                 if (isVertical){
                 }else {
                     binding.storesRecycler.setLayoutManager(layoutManager);
+                    binding.storesRecycler.setHasFixedSize(true);
                     binding.storesRecycler.setAdapter(storesAdapter);
                     binding.nounMenu.setImageResource(R.drawable.noun_menuactive);
                     binding.menu.setImageResource(R.drawable.menu);
@@ -214,7 +192,8 @@ public class StoresActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isVertical) {
-                    binding.storesRecycler.setLayoutManager(linearLayoutManager1);
+                    binding.storesRecycler.setLayoutManager(gridLayoutManager);
+                    binding.storesRecycler.setHasFixedSize(true);
                     binding.storesRecycler.setAdapter(StoresAdapterHorizontal);
                     binding.nounMenu.setImageResource(R.drawable.noun_menu);
                     binding.menu.setImageResource(R.drawable.menuactive);
@@ -224,7 +203,7 @@ public class StoresActivity extends AppCompatActivity {
         });
 
 
-        binding.nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+/*        binding.nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 if (v.getChildAt(v.getChildCount() - 1) != null) {
@@ -232,14 +211,14 @@ public class StoresActivity extends AppCompatActivity {
                             scrollY > oldScrollY) {
                         //code to fetch more data for endless scrolling
                         try {
-                            viewModel.GetStoryPaginate(catType, pageToken);
+                            viewModel.getStoresPaginate(catType, pageToken);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 }
             }
-        });
+        });*/
     }
 
     public void updateRecycler(List<GoogleStoresModel.ResultsBean> storesModel) {

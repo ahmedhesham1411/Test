@@ -44,7 +44,7 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
     public void onBindViewHolder(final JourneyViewHolder holder, final int position) {
 
         if (!incomingList.get(position).isOrd_Is_Show()) {
-            holder.binding.mainLin.setBackgroundResource(R.drawable.shape_rounded_moov);
+            holder.binding.mainLin.setBackgroundResource(R.drawable.shape_green2);
 
             holder.binding.storeNameTxt.setTextColor(activity.getResources().getColor(R.color.colorWhite));
             holder.binding.orderDetails.setTextColor(activity.getResources().getColor(R.color.colorWhite));

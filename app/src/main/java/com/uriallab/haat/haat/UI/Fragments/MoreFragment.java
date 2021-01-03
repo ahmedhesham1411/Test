@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import com.uriallab.haat.haat.API.APIModel;
 import com.uriallab.haat.haat.R;
 import com.uriallab.haat.haat.SharedPreferences.LoginSession;
+import com.uriallab.haat.haat.Utilities.Utilities;
 import com.uriallab.haat.haat.databinding.FragmentMoreBinding;
 import com.uriallab.haat.haat.viewModels.MoreViewModel;
 
@@ -35,7 +36,7 @@ public class MoreFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_more, container, false);
 
         arrowColors();
-
+        Utilities.runAnimation2(binding.linear,1);
         return binding.getRoot();
     }
 

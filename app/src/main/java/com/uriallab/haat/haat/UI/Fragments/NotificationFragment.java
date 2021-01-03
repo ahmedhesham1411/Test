@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.uriallab.haat.haat.DataModels.NotificationsModel;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -42,7 +44,7 @@ public class NotificationFragment extends Fragment {
     private FragmentNotificationBinding binding;
     public List<NotificationsModel.ResultBean.NotficationsBean> notificationsList = new ArrayList<>();
     private NotificationsAdapter notificationsAdapter;
-
+    public LinearLayout linearLayout;
     private NotificationsViewModel viewModel;
 
     public int nextPage = 1;
@@ -59,19 +61,8 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_notification, container, false);
-
+        linearLayout=binding.notLinear;
         initRecycler();
-
-/*
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // yourMethod();
-                viewModel = new NotificationsViewModel(NotificationFragment.this);
-                binding.setNotificationVM(viewModel);
-            }
-        }, 300);
-*/
 
         viewModel = new NotificationsViewModel(NotificationFragment.this);
         binding.setNotificationVM(viewModel);
@@ -88,23 +79,53 @@ public class NotificationFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
         binding.notificationRecycler.setLayoutManager(mLayoutManager);
 
-        binding.notificationRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+/*
+        binding.nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                nextPage++;
-                if (nextPage <= viewModel.lastPage && !viewModel.isLoading) {
-                    viewModel.getNotificationsRequest(nextPage);
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (v.getChildAt(v.getChildCount() - 1) != null){
+                    if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight()))&&scrollY>oldScrollY){
+                        try {
+                            nextPage++;
+                            if (nextPage <= viewModel.lastPage && !viewModel.isLoading) {
+                                viewModel.getNotificationsRequest(nextPage);
+                            }
+                        }catch (Exception e){}
+                    }
                 }
             }
         });
-        Utilities.runAnimation(binding.notificationRecycler, 1);
+*/
+
+
+        binding.nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (v.getChildAt(v.getChildCount() - 1) != null) {
+                    if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) &&
+                            scrollY > oldScrollY) {
+                        //code to fetch more data for endless scrolling
+                        try {
+                            nextPage++;
+                            if (nextPage <= viewModel.lastPage && !viewModel.isLoading) {
+                                viewModel.getNotificationsRequest(nextPage);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            }
+        });
+
 
         if (ConfigurationFile.getCurrentLanguage(getContext()).equals("ar")){
             initSwipe2("ar");
         }else if (ConfigurationFile.getCurrentLanguage(getContext()).equals("en")){
             initSwipe2("en");
         }
+
 
     }
 
@@ -116,6 +137,13 @@ public class NotificationFragment extends Fragment {
     }
 
 
+    public void updateRecycler1(List<NotificationsModel.ResultBean.NotficationsBean> notificationsModel) {
+        if (viewModel.lastPage == 1)
+            notificationsList.clear();
+        notificationsList.addAll(notificationsModel);
+        notificationsAdapter.notifyDataSetChanged();
+        //Utilities.runAnimation(binding.notificationRecycler, 1);
+    }
     private void initSwipe() {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START | ItemTouchHelper.END) {
 
